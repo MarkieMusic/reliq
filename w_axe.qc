@@ -106,9 +106,7 @@ void() W_FireAxe =
 				sound (self, CHAN_WEAPON, "zombie/z_hit.wav", 1, ATTN_IDLE);
 			}
 			
-			// do knockback with a quad
-			if (has_quad(self))
-			{
+			// do knockback
 				if ((trace_ent.movetype == MOVETYPE_STEP || trace_ent.movetype == MOVETYPE_WALK) && 
 					// don't swat bosses or other non-standard-sized enemies around
 					trace_ent.maxs_x <= 32 && trace_ent.health > 0 && trace_ent.type != "boss")
@@ -125,7 +123,6 @@ void() W_FireAxe =
 					trace_ent.velocity = toss;
 					trace_ent.flags = not(trace_ent.flags, FL_ONGROUND);
 				}
-			}
 		}
 		else
 		{	// hit wall
