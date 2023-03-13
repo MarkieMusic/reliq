@@ -95,7 +95,7 @@ void() W_FireRocket =
 	makevectors (self.v_angle);
 	loc = self.origin + v_forward * 8 + '0 0 16';
 	
-		missile = launch_rocket( loc, v_forward * 1000 );
+		missile = launch_rocket( loc, v_forward * 1200 );
 		self.attack_finished = time + 0.8;
 }
 
