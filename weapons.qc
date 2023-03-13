@@ -262,10 +262,24 @@ void() W_Attack =
 		player_shot1 ();
 		W_FireShotgun ();
 	}
+	
 	else if (self.weapon == IT_SUPER_SHOTGUN)
 	{
-		player_shot1 ();
-		W_FireSuperShotgun ();
+		if (self.currentammo < 3)
+		{
+			{	
+				if (self.items & IT_SHOTGUN)
+					self.weapon = IT_SHOTGUN;
+			}
+		W_ResetWeaponState();
+		W_Attack();
+		return;
+		}
+		else
+		{
+			player_runic_shotgun();
+			W_FireSuperShotgun();
+		}
 	}
 	else if (self.weapon == IT_NAILGUN || self.weapon == IT_SUPER_NAILGUN)
 	{
@@ -319,7 +333,7 @@ void() W_ChangeWeapon =
 	else if (self.impulse == 3)
 	{
 		fl = IT_SUPER_SHOTGUN;
-		if (self.ammo_shells < 2)
+		if (self.ammo_shells < 3)
 			am = 1;
 	}		
 	else if (self.impulse == 4)

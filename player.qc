@@ -216,6 +216,35 @@ void() player_nail =
 
 //============================================================================
 
+/*
+=============
+Quad shotgun
+=============
+*/
+void() player_runic_shotgun = 
+{
+	self.attack_finished = time + 1.2;
+	self.weaponframe = 0;
+	player_runic_shotgun_loop();
+};
+
+void() player_runic_shotgun_loop = 
+{
+	self.weaponframe = self.weaponframe + 1;
+
+	if ( self.weaponframe == 22 )
+	{
+		self.weaponframe = 0;
+		player_run();
+		return;
+	}
+	
+	self.think = player_runic_shotgun_loop;
+	self.nextthink = time + 0.05;
+};
+
+//============================================================================
+
 void() player_light1   =[$light1, player_light2  ] 
 {
 	if (!self.button0 || (self.customflags & (CFL_PLUNGE|CFL_LIMBO)))
