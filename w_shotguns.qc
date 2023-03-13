@@ -124,6 +124,30 @@ void(float shotcount, vector dir, vector spread) FireBullets =
 
 /*
 ================
+FirePistol
+
+Used by reliq pistol.
+================
+*/
+
+void(float dmg, vector dir) FirePistol =
+{
+	vector src, direction;
+
+	makevectors(self.v_angle);
+	src = self.origin + v_forward*10;
+	src_z = self.absmin_z + self.size_z * 0.7;
+
+	direction = dir;
+
+	traceline (src, src + direction*2048, FALSE, self);
+	if (trace_fraction != 1.0)
+	BulletImpact (24, direction);
+
+}
+
+/*
+================
 W_FireShotgun
 ================
 */
@@ -147,7 +171,7 @@ void() W_FireShotgun =
 	dir = aim (self, AUTOAIM_DIST);
 
 	ClearMultiDamage ();
-	FireBullets (6, dir, '0.04 0.04 0');
+	FirePistol (6, dir);
 	self.attack_finished = time + 0.4;
 	
 	ApplyMultiDamage ();
@@ -162,21 +186,7 @@ W_FireSuperShotgun
 void() W_FireSuperShotgun =
 {
 	local vector dir;
-	
-	// for ai_nav:
-	/*if (nav_w_nodeLinkSpecial())
-	{
-		self.attack_finished = time + 0.5;
-		return;
-	}*/
 
-	if (self.currentammo <= 2)
-	{
-		if (self.items & IT_SHOTGUN)
-			W_FireShotgun ();
-		return;
-	}
-		
 	sound (self ,CHAN_WEAPON, "weapons/shotgn2.wav", 1, ATTN_NORM);	
 
 	self.punchangle_x = -4;
@@ -185,10 +195,6 @@ void() W_FireSuperShotgun =
 	dir = aim (self, AUTOAIM_DIST);
 
 	ClearMultiDamage ();
-
 	FireBullets (33, dir, '0.16 0.10 0');
-	self.attack_finished = time + 1.2;
-	
 	ApplyMultiDamage ();
-
 }
