@@ -148,7 +148,7 @@ void() W_FireShotgun =
 
 	ClearMultiDamage ();
 	FireBullets (6, dir, '0.04 0.04 0');
-	self.attack_finished = time + 0.5;
+	self.attack_finished = time + 0.4;
 	
 	ApplyMultiDamage ();
 }
@@ -170,7 +170,7 @@ void() W_FireSuperShotgun =
 		return;
 	}*/
 
-	if (self.currentammo == 1)
+	if (self.currentammo <= 2)
 	{
 		if (self.items & IT_SHOTGUN)
 			W_FireShotgun ();
@@ -181,13 +181,13 @@ void() W_FireSuperShotgun =
 
 	self.punchangle_x = -4;
 	
-	self.currentammo = self.ammo_shells = self.ammo_shells - 2;
+	self.currentammo = self.ammo_shells = self.ammo_shells - 3;
 	dir = aim (self, AUTOAIM_DIST);
 
 	ClearMultiDamage ();
 
-	FireBullets (14, dir, '0.14 0.08 0');
-	self.attack_finished = time + 0.7;
+	FireBullets (33, dir, '0.16 0.10 0');
+	self.attack_finished = time + 1.2;
 	
 	ApplyMultiDamage ();
 
