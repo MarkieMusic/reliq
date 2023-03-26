@@ -207,7 +207,7 @@ void() weapon_nailgun =
 }
 
 /*QUAKED weapon_supernailgun (0 0 1) (-16 -16 0) (16 16 56) ? ? SUSPENDED
-Perforator (Super Nailgun).
+Penetrator (Super Nailgun Replacement).
 
 Keys:
 "target/2/3/4/k" - entity to trigger when picked up
@@ -216,7 +216,7 @@ Keys:
 "count" - limit number of times to respawn
 */
 /*FGD
-@PointClass base(Weapon) model({ "path": ":progs/g_nail2.mdl" }) = weapon_supernailgun : "Perforator (Super Nailgun).
+@PointClass base(Weapon) model({ "path": ":progs/g_nail2.mdl" }) = weapon_supernailgun : "Penetrator (Super Nailgun Replacement).
 30 nails." []
 */
 void() weapon_supernailgun =
@@ -224,7 +224,7 @@ void() weapon_supernailgun =
 	if (!SUB_ShouldSpawn()) return;
 	precache_model_safe ("progs/g_nail2.mdl");
 	setmodel (self, "progs/g_nail2.mdl");
-	self.items = IT_SUPER_NAILGUN;
+	self.items = IT_IMPALER;
 	self.ammo_nails = 30;
 	self.netname = "Perforator";
 	StartWeapon();

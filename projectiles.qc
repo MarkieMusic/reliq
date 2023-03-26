@@ -528,4 +528,25 @@ entity(vector org, vector vel) launch_grenade =
 	return grenade;
 }
 
+/*
+========
+launch_impaler
+barge spike that pierces monsters. used by the penetrator
+========
+*/
+entity(vector org, vector vel) launch_impaler =
+{
+	entity impaler;
+	gunshot(org);
+	impaler = toss_projectile(org, vel, "impaler");
+	impaler.lifetime_finished = time + 2.5;
+
+	SUB_ChangeModel (impaler, "progs/proj_impalespike.mdl");
+
+//	if (cvar("developer"))
+//		SUB_ChangeModel (impaler, "progs/proj_dildo.mdl");
+
+	return impaler;
+}
+
 

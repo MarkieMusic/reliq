@@ -1811,9 +1811,9 @@ void() ClientObituary =
 				deathstring = " was nailed by ";
 				deathstring2 = "\n";
 			}
-			if (rnum == IT_SUPER_NAILGUN)
+			if (rnum == IT_IMPALER)
 			{
-				deathstring = " was punctured by ";
+				deathstring = " was penetrated by ";
 				deathstring2 = "\n";
 			}
 			if (rnum == IT_GRENADE_LAUNCHER)

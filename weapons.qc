@@ -21,6 +21,11 @@ void() W_Precache =
 	precache_sound ("weapons/ric3.wav");		// ricochet (used in c code)
 	precache_sound ("weapons/spike2.wav");		// super spikes
 	precache_sound ("weapons/tink1.wav");		// spikes tink (used in c code)
+	precache_sound ("weapons/pierce1.wav");		// impaler mob hit 1
+	precache_sound ("weapons/pierce2.wav");		// impaler mob hit 2
+	precache_sound ("weapons/pierce3.wav");		// impaler mob hit 3
+	precache_sound ("weapons/penfire.wav");		// impaler atk
+	precache_sound ("weapons/stick1.wav");		// impaler wall hit 
 	precache_sound ("weapons/grenade.wav");		// grenade launcher
 	precache_sound ("weapons/bounce.wav");		// grenade bounce
 	precache_sound ("weapons/shotgn2.wav");		// ssg
@@ -84,7 +89,7 @@ void() W_SetCurrentAmmo =
 		self.currentammo = self.ammo_shells;
 		self.items = self.items | IT_SHELLS;
 	}
-	else if (self.weapon == IT_NAILGUN || self.weapon == IT_SUPER_NAILGUN)
+	else if (self.weapon == IT_NAILGUN || self.weapon == IT_IMPALER)
 	{
 		self.currentammo = self.ammo_nails;
 		self.items = self.items | IT_NAILS;
@@ -121,7 +126,7 @@ void() W_ResetWeaponState =
 		self.weaponmodel = "progs/v_shot2.mdl";
 	else if (self.weapon == IT_NAILGUN)
 		self.weaponmodel = "progs/v_nail.mdl";
-	else if (self.weapon == IT_SUPER_NAILGUN)
+	else if (self.weapon == IT_IMPALER)
 		self.weaponmodel = "progs/v_nail2.mdl";
 	else if (self.weapon == IT_GRENADE_LAUNCHER)
 		self.weaponmodel = "progs/v_rock.mdl";
@@ -141,7 +146,7 @@ float(float w) W_RankForWeapon =
 		return 1;
 	if (w == IT_ROCKET_LAUNCHER)
 		return 2;
-	if (w == IT_SUPER_NAILGUN)
+	if (w == IT_IMPALER)
 		return 3;
 	if (w == IT_GRENADE_LAUNCHER)
 		return 4;
@@ -185,7 +190,7 @@ float(float weap) W_HasAmmo =
 	if (weap == IT_SUPER_SHOTGUN)	return (self.ammo_shells >= 2);
 	if (weap == IT_SHOTGUN)			return (self.ammo_shells >= 1);
 	if (weap == IT_NAILGUN)			return (self.ammo_nails >= 1);
-	if (weap == IT_SUPER_NAILGUN)	return (self.ammo_nails >= 2);
+	if (weap == IT_IMPALER)	return (self.ammo_nails >= 10);
 	if (weap == IT_LIGHTNING)		return (self.ammo_cells >= 1);
 	
 	if (weap == IT_GRENADE_LAUNCHER || weap == IT_ROCKET_LAUNCHER)
@@ -198,8 +203,8 @@ float() W_BestWeapon =
 {
 	self.lip = 0;	// reset nailgun barrel cycle
 	
-	if(W_HasAmmo(IT_SUPER_NAILGUN))
-		return IT_SUPER_NAILGUN;
+	if(W_HasAmmo(IT_IMPALER))
+		return IT_IMPALER;
 	if(W_HasAmmo (IT_SUPER_SHOTGUN))
 		return IT_SUPER_SHOTGUN;
 	if (self.waterlevel <= 1 && W_HasAmmo(IT_LIGHTNING))
@@ -281,10 +286,15 @@ void() W_Attack =
 			W_FireSuperShotgun();
 		}
 	}
-	else if (self.weapon == IT_NAILGUN || self.weapon == IT_SUPER_NAILGUN)
+	else if (self.weapon == IT_NAILGUN)
 	{
 		player_nail();
-		W_FireSpikes ();
+		W_FireSpikes();
+	}
+	else if (self.weapon == IT_IMPALER)
+	{
+		player_impale1 ();
+		W_FireImpaler();
 	}
 	else if (self.weapon == IT_GRENADE_LAUNCHER)
 	{
@@ -344,8 +354,8 @@ void() W_ChangeWeapon =
 	}
 	else if (self.impulse == 5)
 	{
-		fl = IT_SUPER_NAILGUN;
-		if (self.ammo_nails < 2)
+		fl = IT_IMPALER;
+		if (self.ammo_nails < 10)
 			am = 1;
 	}
 	else if (self.impulse == 6)

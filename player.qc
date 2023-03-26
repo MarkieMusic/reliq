@@ -214,6 +214,14 @@ void() player_nail =
 	self.weaponframe = self.cnt + 1;
 }
 
+void()	player_impale1 =	[$shotatt1, player_shot2	] {self.weaponframe=1;
+	self.effects = self.effects | EF_MUZZLEFLASH;}
+	void()	player_impale2 =	[$shotatt2, player_shot3	] {self.weaponframe=2;}
+	void()	player_impale3 =	[$shotatt3, player_shot4	] {self.weaponframe=3;}
+	void()	player_impale4 =	[$shotatt4, player_shot5	] {self.weaponframe=4;}
+	void()	player_impale5 =	[$shotatt5, player_shot6	] {self.weaponframe=5;}
+	void()	player_impale6 =	[$shotatt6, player_run	] {self.weaponframe=6;}
+
 //============================================================================
 
 /*

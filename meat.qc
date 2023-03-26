@@ -87,6 +87,13 @@ void(string headmdl, float dm) GibSpray =
 	ThrowHead (headmdl, dm);
 }
 
+void(float dm) GibSprayHeadless =
+{
+	ThrowGib ("progs/gib1.mdl", dm);
+	ThrowGib ("progs/gib1.mdl", dm);
+}
+
+
 void(string headmdl, float dm) Gib =
 {
 		sound (self, CHAN_VOICE, "player/udeath.wav", 1, ATTN_NORM);
