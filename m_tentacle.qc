@@ -22,7 +22,16 @@ Ten Tactical Tenties
 //      -Tentacle falls asleep like tarbaby after a period of inactivity
 //      -When inactive, tentacle should be buried in ground invisible to player with no hitbox
 
-float TENT_BALL_TURN_RATE	= 256;
+//ded
+//      - has two head gibs, one for the tip and one for the base
+//      - spits a big cluster of attacks that eventually home @ u
+
+//melee
+//      - when you get close, immediately (1-2frames) hits you and burrows away
+//      - has knockback too
+//      - decently heavy hit
+
+float TENT_BALL_TURN_RATE	= 320;
 float TENT_BALL_THINK_RATE	= 0.1;
 float TENT_BALL_VEL			= 1000;
 
@@ -214,7 +223,7 @@ void(float offset_side, float offset_up) TentMissile =
 	missile.nextthink = time + 0.1;
 	missile.think = TentHome;
 	missile.enemy = self.enemy;
-    missile.attack_finished = time + 1;
+    missile.attack_finished = time + 1.5;
     missile.dmg = 9;
 	missile.touch = spike_touch;
 }
@@ -303,7 +312,7 @@ void() monster_tentacle_spawn =
 	
 	setmodel (self, "progs/mon_tentacle.mdl");
 	setsize (self, VEC_HULL2_MIN, VEC_HULL2_MAX);
-	self.health = 80;
+	self.health = 99;
 
 	self.th_stand = tent_stand;
 	self.th_walk = tent_walk1;
@@ -370,7 +379,7 @@ void() monster_tentacle =
 	precache_sound2 ("shalrath/pain.wav");
 	precache_sound2 ("shalrath/sight.wav");
 	
-	self.health = 80;
+	self.health = 99;
 	setsize (self, VEC_HULL_MIN, VEC_HULL_MAX);
 	if ( monster_spawnsetup( monster_tentacle_spawner ) ) return;
 	
