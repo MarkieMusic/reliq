@@ -159,7 +159,7 @@ void() weapon_shotgun =
 
 
 /*QUAKED weapon_supershotgun (0 0 1) (-16 -16 0) (16 16 56) ? ? SUSPENDED
-Double-barreled shotgun.
+Runiced shotgun.
 
 Keys:
 "target/2/3/4/k" - entity to trigger when picked up
@@ -168,7 +168,7 @@ Keys:
 "count" - limit number of times to respawn
 */
 /*FGD
-@PointClass base(Weapon) model({ "path": ":progs/g_shot.mdl" }) = weapon_supershotgun : "Double-barreled shotgun.
+@PointClass base(Weapon) model({ "path": ":progs/g_shot.mdl" }) = weapon_supershotgun : "Runiced shotgun.
 10 shells." []
 */
 void() weapon_supershotgun =
@@ -178,7 +178,7 @@ void() weapon_supershotgun =
 	setmodel (self, "progs/g_shot.mdl");
 	self.items = IT_SUPER_SHOTGUN;
 	self.ammo_shells = 10;
-	self.netname = "Double-barreled Shotgun";
+	self.netname = "Runiced Shotgun";
 	StartWeapon();
 }
 
