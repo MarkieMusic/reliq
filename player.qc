@@ -231,7 +231,8 @@ Quad shotgun
 */
 void() player_runic_shotgun = 
 {
-	self.attack_finished = time + 1.2;
+	self.attack_finished = time + 0.8;
+	self.runic_canshoot = time + 1.2;
 	self.weaponframe = 0;
 	player_runic_shotgun_loop();
 };
@@ -239,6 +240,11 @@ void() player_runic_shotgun =
 void() player_runic_shotgun_loop = 
 {
 	self.weaponframe = self.weaponframe + 1;
+
+	if ( self.weaponframe == 1)
+	{
+		self.effects = self.effects | EF_MUZZLEFLASH;
+	}
 
 	if ( self.weaponframe == 22 )
 	{

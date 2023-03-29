@@ -380,6 +380,12 @@ string	keyType;
 .vector		oldvelocity;	// necessary for getting projectiles to pass through .notrace entities
 .entity		trueowner;		// now this is getting dumb
 
+// for handling weapon quickswitching
+.float		runic_canshoot;
+
+//overflowed og items list, made another for reliq stuff
+.float items_reliq;
+
 // OVERLOADS:
 .float rand = healamount;	// for trigger_timer
 .float svflags = jump_flag;	// for target_give and item_sigil

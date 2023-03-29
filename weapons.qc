@@ -282,6 +282,7 @@ void() W_Attack =
 		}
 		else
 		{
+			if (self.runic_canshoot > time ) return;
 			player_runic_shotgun();
 			W_FireSuperShotgun();
 		}
