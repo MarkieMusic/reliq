@@ -140,7 +140,7 @@ void(float dmg, vector dir) FirePistol =
 
 	direction = dir;
 
-	traceline (src, src + direction*2048, FALSE, self);
+	traceline2 (src, src + direction*2048, self, TRACE_WATER);
 	if (trace_fraction != 1.0)
 	BulletImpact (24, direction);
 
