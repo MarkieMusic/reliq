@@ -141,7 +141,7 @@ void() Cheat_Vamp =
 		return;
 	stuffcmd(self, "bf\n");
 	self.items_reliq = self.items_reliq | IT_VAMP;
-	powerup_vampirism(self, 15);
+	powerup_vampirism(self, 30);
 }
 
 // --------------------------------

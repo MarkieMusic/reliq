@@ -288,7 +288,7 @@ void()	wiz_death8	=[	$death8,		SUB_Null	] {}// deathvoidcheck(); }
 void() wiz_die =
 {
 // check for gib
-	CheckVampGlobe();
+	CheckVampGlobe(self.enemy);
 	if (self.health < -40)
 	{
 		Gib ("progs/h_wizard.mdl", self.health);

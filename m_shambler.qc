@@ -404,7 +404,7 @@ void() sham_death11     =[      $death11,      SUB_Null    ] {}
 
 void() sham_die =
 {
-	CheckVampGlobe();
+	CheckVampGlobe(self.enemy);
 // check for gib
 	if (self.health < -60)
 	{

@@ -100,7 +100,7 @@ void() powerup_touch =
 		powerup_super_damage(other, 30);
 
 	if (self.classname == "item_artifact_vampirism")
-		powerup_vampirism(other, 15);
+		powerup_vampirism(other, 30);
 
 	ItemTouched();
 }

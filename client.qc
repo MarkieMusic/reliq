@@ -1543,6 +1543,22 @@ void() PlayerPreThink =
 	{
 		self.flags = self.flags | FL_JUMPRELEASED;
 	}
+
+	if (self.vamp_finished > time)
+	{
+		entity head;
+		head = findradiusplus(self.origin, 192, classname, "VampGlobe");
+		while (head)
+		{
+			if ((head.think != VampGlobeHome) && (head.flags & FL_ONGROUND))
+			{
+				head.nextthink = time + 0.05;
+				head.buddy = self;
+				head.think = VampGlobeHome;
+			}
+			head = head.chain;
+		}
+	}
 	
 // teleporters can force a non-moving pause time	
 	if (time < self.pausetime)
