@@ -195,12 +195,12 @@ void() W_FireImpaler =
 	
 	self.currentammo = self.ammo_nails = self.ammo_nails - 10;
 	sound (self, CHAN_WEAPON, "weapons/penfire.wav", 1, ATTN_NORM);
-	self.punchangle_x = -1;
+	self.punchangle_x = -2;
 
 	makevectors (self.v_angle);
-	base = 1200;
+	base = 1400;
 	
-	mvel = (v_forward * base) + (v_up * 200) + (v_right * 10) + (v_up * 10);
+	mvel = (v_forward * base) + (v_up * 150) + (v_right * 10) + (v_up * 10);
 
 	m = launch_impaler(self.origin, mvel);
 	m.gravity = .75;
@@ -223,8 +223,12 @@ void() ImpalerInwallThink =
 void() ImpalerThink =
 {
 	self.angles = vectoangles(self.velocity);
-	self.nextthink = time + .02;
+	self.flags = not(self.flags, FL_ONGROUND);
+	self.oldvelocity = self.velocity;
+	self.nextthink = time + 0.05;
 }
+
+
 
 void() ImpalerTouch =
 {
@@ -232,7 +236,10 @@ void() ImpalerTouch =
 	if (CheckProjectilePassthru()) return;
 	if (other.takedamage == DAMAGE_AIM)
 	{
-			T_Damage(other,self.buddy,self.buddy,100);
+			if (other.classname == "monster_zombie")
+				T_Damage(other,self.buddy,self.buddy,59);
+			else
+				T_Damage(other,self.buddy,self.buddy,100);
 
 			GibSprayHeadless(20);
 			particle (self.origin, self.velocity*0.1, 73, 40);
@@ -246,7 +253,6 @@ void() ImpalerTouch =
 			else
 			sound (self, CHAN_WEAPON, "weapons/pierce3.wav", 1, ATTN_NORM);
 
-			self.velocity = '0 0 0'; //zero out velocity so that our passthru code doesn't + onto old
 			projectile_passthru();
 
 			return;
@@ -254,7 +260,7 @@ void() ImpalerTouch =
 
 	if (!other.takedamage)
 	{
-		sound (self, CHAN_WEAPON, "weapons/stick1.wav", 1, ATTN_NORM);
+		sound (self, CHAN_WEAPON, "weapons/stick1.wav", 0.5, ATTN_NORM);
 		gunshot(self.origin);
 
 		//stick in the wall if we hit worldspawn as we know that won't move
