@@ -226,7 +226,7 @@ void() weapon_supernailgun =
 	setmodel (self, "progs/g_nail2.mdl");
 	self.items = IT_IMPALER;
 	self.ammo_nails = 30;
-	self.netname = "Perforator";
+	self.netname = "Penetrator";
 	StartWeapon();
 }
 
@@ -421,7 +421,7 @@ void() item_shells =
 }
 
 /*QUAKED item_spikes (0 .5 .5) (0 0 0) (32 32 32) BIG ? SUSPENDED
-25 ammo points (spikes) for Perforator and Super Perforator.
+25 ammo points (spikes) for Nailgun and Penetrator.
 
 Flags:
 "big" gives 50 instead of 25
@@ -439,7 +439,7 @@ Keys:
             spawnflags & 1 ->   ":maps/b_nail1.bsp",
                                 ":maps/b_nail0.bsp"
         }}
-    ) = item_spikes : "Nailgun/Perforator ammo, 25/50" []
+    ) = item_spikes : "Nailgun/Penetrator ammo, 25/50" []
 */
 void() item_spikes =
 {
