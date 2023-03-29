@@ -321,3 +321,99 @@ void() DropBackpack =
 	item.nextthink = time + 116;	// remove after 2 minutes
 	item.think = ItemDespawnBlink;	// blink 4 times
 }
+
+
+
+/*
+===============
+VampGlobe Stuff
+they're basically backpacks, really.
+===============
+*/
+void() CheckVampGlobe =
+{
+	//if they player doesn't have vampiric blood, don't bother
+	if (self.enemy.vamp_finished < time)
+	return;
+
+//	dprint(self.classname);
+//	dprint("\n");
+
+	//check what tier the monster is, so we know how many globes to drop
+	if ((self.classname == "monster_dog") ||
+		(self.classname ==  "monster_zombie") ||
+		(self.classname == "monster_army"))
+	{
+		DropVampGlobe();
+	}
+	else
+	if ((self.classname == "monster_wizard") || 
+		(self.classname == "monster_enforcer") || 
+		(self.classname == "monster_knight") ||
+		(self.classname == "monster_tentacle"))
+	{
+		DropVampGlobe(); DropVampGlobe();
+	}
+	else
+	if ((self.classname == "monster_hell_knight") ||
+		(self.classname == "monster_shield_knight") ||
+		(self.classname == "monster_ogre"))
+	{
+		DropVampGlobe(); DropVampGlobe(); DropVampGlobe();
+	}
+	else
+	if ((self.classname == "monster_shambler") ||
+		(self.classname == "monster_shalrath") ||
+		(self.classname == "monster_demon1") ||
+		(self.classname == "monster_amalgam"))
+	{
+		DropVampGlobe(); DropVampGlobe(); DropVampGlobe(); DropVampGlobe();
+	}
+	else
+	dprint("Fell off CheckVampGlobe\n");
+	return;
+}
+
+/*
+===============
+DropVampGlobe
+===============
+*/
+void() DropVampGlobe =
+{
+	entity item;
+
+	item = spawn();
+	item.origin = self.origin - '0 0 24';
+
+	item.velocity_z = 300 * random();
+	item.velocity_x = -300 + (random() * 600);
+	item.velocity_y = -300 + (random() * 600);
+	
+	item.flags = FL_ITEM;
+	item.solid = SOLID_TRIGGER;
+	item.movetype = MOVETYPE_TOSS;
+	setmodel (item, "progs/item_vampglobe.mdl");
+	setsize (item, '-16 -16 0', '16 16 56');
+	item.touch = VampGlobeTouch;
+	
+	item.nextthink = time + 11;	// remove after 15 seconds
+	item.think = ItemDespawnBlink;	// blink 4 times
+	return;
+}
+
+void() VampGlobeTouch =
+{
+	if (!CheckValidTouch()) return;
+	other.globehealth_cou += 3;
+	
+	if (random() > 0.33)
+		sound(other, CHAN_ITEM, "items/vamppickup1.wav", 1, ATTN_NORM);
+	else if (random() > 0.5)
+		sound(other, CHAN_ITEM, "items/vamppickup2.wav", 1, ATTN_NORM);
+	else
+		sound(other, CHAN_ITEM, "items/vamppickup3.wav", 1, ATTN_NORM);
+
+	T_Heal(other,3,1);
+	SUB_Remove();
+}

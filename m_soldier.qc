@@ -274,6 +274,7 @@ void()	army_cdie11	=[	$deathc11,	SUB_Null	] {}
 
 void() army_die =
 {
+	CheckVampGlobe();
 // check for gib
 	if (self.health < -35)
 	{

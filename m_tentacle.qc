@@ -123,6 +123,7 @@ void( entity attacker, float damage ) tentacle_pain =
 void() tentacle_die =
 {
 // check for gib
+	CheckVampGlobe();
 	if (self.health < 1)
 	{
 		Gib ("progs/h_shal.mdl", self.health);

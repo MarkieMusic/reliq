@@ -104,6 +104,7 @@ void( entity attacker, float damage ) shalrath_pain =
 
 void() shalrath_die =
 {
+	CheckVampGlobe();
 // check for gib
 	if (self.health < -90)
 	{

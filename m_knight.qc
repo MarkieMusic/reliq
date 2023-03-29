@@ -219,6 +219,7 @@ void()	knight_dieb11 = [	$deathb11,	SUB_Null		] {}
 
 void() knight_die =
 {
+	CheckVampGlobe();
 	// check for gib
 	if (self.health < -40)
 	{

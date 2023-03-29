@@ -252,6 +252,7 @@ self.takedamage = DAMAGE_NO;
 void()	tbaby_die2	=[	$exp,		tbaby_run1	] 
 {
 	T_RadiusDamage (self, self, 120, world);
+	CheckVampGlobe();
 	sound (self, CHAN_VOICE, "blob/death1.wav", 1, ATTN_NORM);
 	BecomeTarExplosion ();
 }

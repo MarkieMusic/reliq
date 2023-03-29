@@ -505,10 +505,12 @@ void() PlayerDie =
 	self.invisible_finished = 0;	// don't die as eyes
 	self.invincible_finished = 0;
 	self.super_damage_finished = 0;
+	self.vamp_finished = 0;
 	self.radsuit_finished = 0;
 	self.modelindex = modelindex_player;	// don't use eyes
 
 	self.items = not(self.items, IT_INVISIBILITY | IT_INVULNERABILITY | IT_SUIT | IT_QUAD);
+	self.items_reliq = not(self.items_reliq, IT_VAMP);
 	self.effects = 0;
 
 	clientsAlive -= 1;

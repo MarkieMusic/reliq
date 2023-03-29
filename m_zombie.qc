@@ -535,6 +535,7 @@ void(entity attacker, float take) zombie_pain =
 
 void() zombie_die =
 {
+	CheckVampGlobe();
 	sound (self, CHAN_VOICE, "zombie/z_gib.wav", 1, ATTN_NORM);
 	GibSpray ("progs/h_zombie.mdl", self.health);
 }

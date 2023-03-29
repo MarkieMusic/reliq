@@ -341,6 +341,8 @@ void() worldspawn =
 
 	precache_model ("progs/backpack.mdl");
 
+	precache_model ("progs/item_vampglobe.mdl");
+
 	precache_model ("progs/zom_gib.mdl");
 	
 }

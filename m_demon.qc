@@ -145,6 +145,7 @@ void()	demon1_die9		=[	$death9,		SUB_Null ] {}
 
 void() demon_die =
 {
+	CheckVampGlobe();
 	if (self.health < -80)
 	{
 		Gib ("progs/h_demon.mdl", self.health);

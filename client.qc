@@ -26,6 +26,7 @@ void() SetChangeParms =
 		IT_KEY1 | IT_KEY2 | 
 		IT_INVISIBILITY | IT_INVULNERABILITY | IT_SUIT | IT_QUAD
 		) );
+	self.items_reliq = self.items_reliq - (self.items_reliq & (IT_VAMP));
 	
 	// gung-ho players can run forward and grab weapons before other clients have
 	// finished connecting, causing them to miss out on the global distribution
@@ -63,6 +64,7 @@ void() SetChangeParms =
 	parm7 = self.ammo_cells;
 	parm8 = self.weapon;
 	parm9 = self.armortype;
+	parm10 = self.items_reliq;
 
 }
 
@@ -124,6 +126,7 @@ void() DecodeLevelParms =
 	self.ammo_cells = parm7;
 	self.weapon = parm8;
 	self.armortype = parm9;
+	self.items_reliq = parm10;
 	
 	armor_set_type(self);
 }
@@ -559,6 +562,7 @@ void() PutClientInServer =
 	self.dmg = 0;   		// initial water damage
 	self.super_damage_finished = 0;
 	self.radsuit_finished = 0;
+	self.vamp_finished = 0;
 	self.invisible_finished = 0;
 	self.notrace = 0;	// fix for dying with the ring
 	self.invincible_finished = 0;
@@ -1371,6 +1375,60 @@ void() CheckPowerups =
 		else
 			self.effects = self.effects - (self.effects & EF_DIMLIGHT);
 	}	
+
+
+
+//-------------------------------------
+
+
+
+
+// vampirism (reliq)
+	if (self.vamp_finished)
+	{
+
+	// sound and screen flash when items starts to run out
+
+		if (self.vamp_finished < time + 3)
+		{
+			if (self.vamp_time == 1)
+			{
+				sprint (self, "You feel sated ...\n");
+				stuffcmd (self, "bf\n");
+				sound (self, CHAN_POWERUP, "items/vampfade.wav", 1, ATTN_NORM);
+				self.vamp_time = time + 1;
+			}	  
+			
+			if (self.vamp_time < time)
+			{
+				self.vamp_time = time + 1;
+				stuffcmd (self, "bf\n");
+			}
+		}
+
+		if (self.vamp_finished < time)
+		{	// just stopped
+			self.items_reliq = not(self.items_reliq, IT_VAMP);
+
+			dprint("\bVampirism Total Heal:\b ");
+			dprint(ftos(self.globehealth_cou));
+			dprint("\n");
+			self.globehealth_cou = 0;
+			
+			self.vamp_finished = 0;
+			self.vamp_time = 0;
+		}
+		if (self.vamp_finished > time)
+			self.effects = self.effects | EF_DIMLIGHT;
+		else
+			self.effects = self.effects - (self.effects & EF_DIMLIGHT);
+}
+
+
+
+
+//-------------------------------------
+
 
 // suit	
 	if (self.radsuit_finished)

@@ -307,6 +307,7 @@ void()	enf_fdie11	=[	$fdeath11,	SUB_Null	] {}
 
 void() enf_die =
 {
+	CheckVampGlobe();
 // check for gib
 	if (self.health < -35)
 	{

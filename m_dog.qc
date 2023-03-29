@@ -255,6 +255,7 @@ void() dog_dieb9	=[	$deathb9,	SUB_Null	] {}
 
 void() dog_die =
 {
+	CheckVampGlobe();
 // check for gib
 	if (self.health < -35)
 	{

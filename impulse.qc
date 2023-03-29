@@ -133,6 +133,18 @@ void() Cheat_Pent =
 }
 
 // --------------------------------
+// Cheat_Vamp
+// --------------------------------
+void() Cheat_Vamp =
+{
+	if(deathmatch || coop)
+		return;
+	stuffcmd(self, "bf\n");
+	self.items_reliq = self.items_reliq | IT_VAMP;
+	powerup_vampirism(self, 15);
+}
+
+// --------------------------------
 // Cheat_Ring
 // --------------------------------
 void() Cheat_Ring =
@@ -282,6 +294,9 @@ void() ImpulseCommands =
 		break;
 	case 225: 
 		Cheat_Suit();
+		break;
+	case 222:
+		Cheat_Vamp();
 		break;
 	case 235:
 		Cheat_Pent();	

@@ -62,6 +62,20 @@ void(entity h, float t) powerup_super_damage =
 
 /*
 ===============
+powerup_vampirism
+===============
+*/
+void(entity h, float t) powerup_vampirism =
+{
+	sprint (h, "Bloodshed leaves a parting gift ...\n");
+	precache_vamp();
+	h.items_reliq |= IT_VAMP;
+	h.vamp_finished = time + t;
+	h.vamp_time = 1;
+}
+
+/*
+===============
 powerup_touch
 ===============
 */
@@ -84,6 +98,9 @@ void() powerup_touch =
 
 	if (self.classname == "item_artifact_super_damage")
 		powerup_super_damage(other, 30);
+
+	if (self.classname == "item_artifact_vampirism")
+		powerup_vampirism(other, 15);
 
 	ItemTouched();
 }
@@ -268,6 +285,60 @@ void() item_artifact_super_damage =
 
 
 
+/*
+===============================================================================
 
+QUAD
 
+===============================================================================
+*/
+void() precache_vamp =
+{
+	precache_model_safe ("progs/item_vamp.mdl");
+	precache_sound_safe ("items/vampstart.wav");
+	precache_sound_safe ("items/vampfade.wav");
+	precache_sound_safe ("items/vamppickup1.wav");
+	precache_sound_safe ("items/vamppickup2.wav");
+	precache_sound_safe ("items/vamppickup3.wav");
+}
 
+/*QUAKED item_artifact_vampirism (0 .5 .5) (-16 -16 -24) (16 16 32) ? ? SUSPENDED
+Vampiric Blood. Causes monsters to drop health orbs on death when killed by the player.
+Health orbs heal 3 per drop, and monsters drop more orbs based on their tier.
+
+1 Globe - Zombie, Grunt, Dog
+2 Globes - Scrag, Enforcer, Knight, Tentacle
+3 Globes - Death Knight, Shield Knight, Ogre
+4 Globes - Shambler, Vore, Fiend, Amalgam
+
+Keys:
+"target/2/3/4/k" - entity to trigger when picked up
+"targetname" - will not spawn until triggered
+"wait" - will respawn after 'wait' seconds. fires targets every time.
+"count" - limit number of times to respawn
+*/
+/*FGD
+@PointClass size(-16 -16 -24, 16 16 32) color(255 0 0) base(Item) model({ "path": ":progs/quaddama.mdl" }) = item_artifact_vampirism : 
+	"Vampiric Blood. Causes monsters to drop health orbs on death when killed by the player.
+Health orbs heal 3 per drop, and monsters drop more orbs based on their tier.
+
+1 Globe - Zombie, Grunt, Dog
+2 Globes - Scrag, Enforcer, Knight, Tentacle
+3 Globes - Death Knight, Shield Knight, Ogre
+4 Globes - Shambler, Vore, Fiend, Amalgam"[]
+*/
+void() item_artifact_vampirism =
+{
+	if (!SUB_ShouldSpawn()) return;
+	self.touch = powerup_touch;
+
+	precache_vamp();
+	setmodel (self, "progs/item_vamp.mdl");
+	self.netname = "Vampiric Blood";
+	self.noise = "items/vampstart.wav";
+	self.items_reliq = IT_VAMP;
+	setsize (self, '-16 -16 -24', '16 16 32');
+	if (deathmatch)
+		self.wait = 60;
+	StartItem ();
+}
