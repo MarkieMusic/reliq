@@ -282,6 +282,12 @@ void() worldspawn =
 	precache_sound3("items/pack.wav");	// backpacks can play either of these
 	precache_sound3("items/patch.wav");
 
+	precache_sound ("items/vampstart.wav");
+	precache_sound ("items/vampfade.wav");
+	precache_sound ("items/vamppickup1.wav");
+	precache_sound ("items/vamppickup2.wav");
+	precache_sound ("items/vamppickup3.wav");
+
 	// player gib sounds
 	precache_sound ("player/gib.wav");			// player gib sound
 	precache_sound ("player/udeath.wav");		// player gib sound
