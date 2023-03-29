@@ -153,13 +153,13 @@ void() weapon_shotgun =
 	setmodel (self, "progs/g_shotgn.mdl");
 	self.items = IT_SHOTGUN;
 	self.ammo_shells = 5;
-	self.netname = "Shotgun";
+	self.netname = "Lament, Emmisary of the Horrid Crown";
 	StartWeapon();
 }
 
 
 /*QUAKED weapon_supershotgun (0 0 1) (-16 -16 0) (16 16 56) ? ? SUSPENDED
-Runiced shotgun.
+Runic shotgun.
 
 Keys:
 "target/2/3/4/k" - entity to trigger when picked up
@@ -168,7 +168,7 @@ Keys:
 "count" - limit number of times to respawn
 */
 /*FGD
-@PointClass base(Weapon) model({ "path": ":progs/g_shot.mdl" }) = weapon_supershotgun : "Runiced shotgun.
+@PointClass base(Weapon) model({ "path": ":progs/g_shot.mdl" }) = weapon_supershotgun : "Runic shotgun.
 10 shells." []
 */
 void() weapon_supershotgun =
@@ -178,7 +178,7 @@ void() weapon_supershotgun =
 	setmodel (self, "progs/g_shot.mdl");
 	self.items = IT_SUPER_SHOTGUN;
 	self.ammo_shells = 10;
-	self.netname = "Runiced Shotgun";
+	self.netname = "Runic Shotgun";							
 	StartWeapon();
 }
 

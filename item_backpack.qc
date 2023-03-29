@@ -266,9 +266,9 @@ void() DropBackpack =
 		if (item.items == IT_AXE)
 			item.netname = string_null;
 		else if (item.items == IT_SHOTGUN)
-			item.netname = "Shotgun";
+			item.netname = "Lament, Emissary of the Horrid Crown";
 		else if (item.items == IT_SUPER_SHOTGUN)
-			item.netname = "Runiced Shotgun";
+			item.netname = "Runic Shotgun";
 		else if (item.items == IT_NAILGUN)
 			item.netname = "Nailgun";
 		else if (item.items == IT_IMPALER)

@@ -452,7 +452,7 @@ float SPAWN_TGTITEMS_MIN = 16;
 	]
 	items(flags) =
 	[
-		1 : "Shotgun" : 0
+		1 : "Lament, Emmisary of the Horrid Crown" : 0
 		2 : "Super Shotgun" : 0
 		4 : "Nailgun" : 0
 		8 : "Penetrator" : 0
@@ -914,7 +914,7 @@ Spawnflag Usage:
 	weapon(choices) : "Force Select Weapon" = 
 	[
 		0 : "Don't"
-		1 : "Shotgun"
+		1 : "Lament, Emmisary of the Horrid Crown"
 		2 : "Super Shotgun"
 		4 : "Nailgun"
 		8 : "Penetrator"
