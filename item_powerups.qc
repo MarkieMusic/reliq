@@ -67,6 +67,9 @@ powerup_vampirism
 */
 void(entity h, float t) powerup_vampirism =
 {
+	if (random() < 0.002)	
+	sprint (h, "It's Orbin' time ...\n");
+	else
 	sprint (h, "Bloodshed leaves a parting gift ...\n");
 	precache_vamp();
 	h.items_reliq |= IT_VAMP;

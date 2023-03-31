@@ -84,6 +84,8 @@ void() SetNewParms =
 	parm7 = 0;
 	parm9 = 0;
 //	parm10 = 0;
+
+	armor_set_type(self);
 }
 
 
@@ -127,8 +129,6 @@ void() DecodeLevelParms =
 	self.weapon = parm8;
 	self.armortype = parm9;
 	self.items_reliq = parm10;
-	
-	armor_set_type(self);
 }
 
 // should this use localcmd()?
@@ -551,7 +551,8 @@ void() PutClientInServer =
 	else
 		self.max_health = 100;
 	self.health = self.max_health;
-	
+
+	self.max_armor = 100;
 	self.takedamage = DAMAGE_AIM;
 	self.solid = SOLID_SLIDEBOX;
 	self.movetype = MOVETYPE_WALK;
@@ -789,8 +790,39 @@ void() PlayerHealthTick =
 			self.healthtime = time + 0.5;
 		}	
 	}
+}	
+
+// the player's armor will always rot off to the soft max
+void() PlayerArmorTick =
+{
+	if ( time < self.armortime )
+		return;
+	if ( self.armorvalue <= 0 )
+		return;
 	
+	float armax = self.max_armor;
 	
+	if (self.armorvalue > armax)
+	{
+		if (self.waterlevel < WL_EYES)
+			self.dmg = 0;	// clear drown damage when overhealed
+		self.armorvalue -= 1;
+		self.armortime = time + 1;
+	}
+	else
+	{
+		if (self.dmg > 0 && (self.waterlevel < WL_EYES || has_biosuit(self) ) )
+		{
+			// recover damage taken from drowning
+			//T_Heal(self, self.dmg, 0);
+			if (skill > 2)
+				self.armorvalue = min(armax, self.health + ceil(self.dmg/4));
+			else
+				self.armorvalue = min(armax, self.health + ceil(self.dmg/2));
+			self.dmg = max(0, self.dmg - 1);
+			self.armortime = time + 0.5;
+		}	
+	}
 }	
 
 
@@ -1418,10 +1450,6 @@ void() CheckPowerups =
 			self.vamp_finished = 0;
 			self.vamp_time = 0;
 		}
-		if (self.vamp_finished > time)
-			self.effects = self.effects | EF_DIMLIGHT;
-		else
-			self.effects = self.effects - (self.effects & EF_DIMLIGHT);
 }
 
 
@@ -1547,7 +1575,7 @@ void() PlayerPreThink =
 	if (self.vamp_finished > time)
 	{
 		entity head;
-		head = findradiusplus(self.origin, 192, classname, "VampGlobe");
+		head = findradiusplus(self.origin, 160, classname, "VampGlobe");
 		while (head)
 		{
 			if ((head.think != VampGlobeHome) && (head.flags & FL_ONGROUND))
@@ -1608,7 +1636,7 @@ void() PlayerPostThink =
 	W_WeaponFrame ();
 	// do health stuff
 	PlayerHealthTick();
-
+	PlayerArmorTick();
 	// check to see if player landed and play landing sound	
 	if ((self.jump_flag < -300) && (self.flags & FL_ONGROUND) && (self.health > 0))
 	{

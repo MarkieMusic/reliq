@@ -278,6 +278,10 @@ void() worldspawn =
 	precache_sound ("weapons/lock4.wav");		// ammo pick up
 	precache_sound ("weapons/pkup.wav");		// weapon up
 	precache_sound ("items/armor1.wav");		// armor up
+	
+	precache_sound ("items/armor_shard.wav");
+	precache_sound ("items/armor_light.wav");
+	precache_sound ("items/armor_heavy.wav");
 
 	precache_sound3("items/pack.wav");	// backpacks can play either of these
 	precache_sound3("items/patch.wav");

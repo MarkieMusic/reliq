@@ -165,6 +165,7 @@ void		end_sys_globals;		// flag for structure dumping
 
 .float		max_health;
 
+
 .float		teleport_time;	// don't back up
 
 .float		armortype;		// save this fraction of incoming damage
@@ -235,6 +236,8 @@ nosave float	clientsAlive;
 
 float	skill;
 float	coop_time;
+
+.float		max_armor;
 
 // for balancing: total monster HP/ammo -HP/zombies/grenades in the level
 float	monster_health;	
@@ -318,6 +321,7 @@ string	keyType;
 .float		air_finished;	// when time > air_finished, start drowning
 .float		bubble_count;	// keeps track of the number of bubbles
 .float		healthtime;
+.float		armortime;
 .string		deathtype;		// keeps track of how the player died
 
 // fog

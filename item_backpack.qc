@@ -55,7 +55,7 @@ void() BackpackTouch =
 	other.ammo_rockets = other.ammo_rockets + self.ammo_rockets;
 	other.ammo_cells = other.ammo_cells + self.ammo_cells;
 	bound_ammo(other);
-	armor_give(other, self.armorvalue, 0, FALSE);	
+	T_GiveArmor(other, self.armorvalue);	
 	
 	sprint (other, "You got ");
 
@@ -414,7 +414,7 @@ void() VampGlobeTouch =
 	//for summary on health healed during powerup duration
 	other.globehealth_cou += 3;
 	
-	if (random() > 0.33)
+	if (random() < 0.33)
 		sound(other, CHAN_ITEM, "items/vamppickup1.wav", 1, ATTN_NORM);
 	else if (random() > 0.5)
 		sound(other, CHAN_ITEM, "items/vamppickup2.wav", 1, ATTN_NORM);
@@ -434,7 +434,7 @@ void() VampGlobeHome =
 
 	if (!self.distance)
 	{
-		self.distance = 25;
+		self.distance = 35;
 	}
 
 	if (self.count == 0)
@@ -469,7 +469,7 @@ void() VampGlobeHome =
 	}
 	
 	//small randomization on left/right vectors for flavour
-	self.velocity += Vector(random(),random(),0) * 16;
+	self.velocity += Vector(random(),random(), 0) * 4;
 	
 	self.think = VampGlobeHome;
 	self.oldvelocity = self.velocity;
