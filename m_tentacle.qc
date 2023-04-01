@@ -64,7 +64,7 @@ void() tent_walk10    =[      $idle1,       tent_walk11  ] {ai_stand();}
 void() tent_walk11    =[      $idle1,       tent_walk12  ] {ai_stand();}
 void() tent_walk12    =[      $idle1,      tent_walk1    ] {ai_stand();}
 
-void() tent_run1     =[      $idle1,      tent_run2    ] {ai_run(0);}
+void() tent_run1     =[      $idle1,      tent_run2    ] {ai_run(0); tentacle_teleport();}
 void() tent_run2     =[      $idle1,      tent_run3    ] {ai_run(0);}
 void() tent_run3     =[      $idle1,      tent_run4    ] {ai_run(0);}
 void() tent_run4     =[      $idle1,      tent_run5    ] {ai_run(0);}
@@ -107,6 +107,33 @@ void() tent_death4      =[      $idle1,        tent_death5     ] {}
 void() tent_death5      =[      $idle1,        tent_death6     ] {}
 void() tent_death6      =[      $idle1,        tent_death7     ] {}
 void() tent_death7      =[      $idle1,        SUB_Null    ] {}
+
+void() tentacle_teleport =
+{
+	entity teletar = tentacle_findteleports();
+	if (teletar != world)
+		teleport(self,teletar,0,0);
+}
+
+entity() tentacle_findteleports =
+{
+	entity head = findradiusplus(BoundsCenter(self), 1024, classname, "info_tentacle_destination");
+	while(head)
+	{ 
+	if ((head.classname == "info_tentacle_destination")
+	&& (self.include == head.targetname)
+	&& !BoundsTouching(self.absmin, self.absmax, head.absmin, head.absmax, 2))
+	{
+		if (!findradiusplus(head.origin, 64, classname, "player"))
+			return head;
+		else
+			head = head.chain;
+	}
+	else
+	head = head.chain;
+	} 
+	return world;
+}
 
 
 void( entity attacker, float damage ) tentacle_pain =

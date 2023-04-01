@@ -488,6 +488,33 @@ void() info_teleport_destination =
 	fog_fixKeys();
 }
 
+// ================================================================
+
+
+/*QUAKED info_tentacle_destination (.8 0 .9) (-16 -16 0) (16 16 48)
+This is the destination marker for a teleporter.
+
+Keys:
+"angle" new view angle after teleporting
+"targetname" value used by teleporter
+"fog_color"/"fog_density" set the fog for anyone teleporting here
+*/
+/*FGD
+@PointClass size(-16 -16 0, 16 16 48) color(240 0 255) base(Appearflags, Angle, Targetname, Fog) model({ "path": ":progs/player.mdl" }) = info_tentacle_destination : "Teleporter destination" []
+*/
+void() info_tentacle_destination =
+{
+	if (!SUB_ShouldSpawn()) return;
+
+	dprint("hi im here, my tentacledestination\n");
+
+	self.mangle = self.angles;
+	self.angles = '0 0 0';
+	self.model = string_null;
+	self.origin = self.origin + '0 0 27';
+	setsize(self,VEC_HULL_MIN,VEC_HULL_MAX);
+}
+
 // --------------------------------
 // info_teleport_target
 //
