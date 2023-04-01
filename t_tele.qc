@@ -397,7 +397,7 @@ entity(vector org, entity death_owner) spawn_tdeath =
 	entity death;
 
 	// dumb hack so the world isn't flooded with a tdeath for every monster at map start
-	if (time < 2) return world;	
+	if (time < 2) return world;
 	
 	death = spawn();
 	death.classname = "teledeath";
@@ -505,8 +505,7 @@ Keys:
 void() info_tentacle_destination =
 {
 	if (!SUB_ShouldSpawn()) return;
-
-	dprint("hi im here, my tentacledestination\n");
+	if (!self.targetname) objerror ("no targetname");
 
 	self.mangle = self.angles;
 	self.angles = '0 0 0';
@@ -514,6 +513,38 @@ void() info_tentacle_destination =
 	self.origin = self.origin + '0 0 27';
 	setsize(self,VEC_HULL_MIN,VEC_HULL_MAX);
 }
+
+
+//failed test to check if a monster is touching at trigger
+//monsters don't touch triggers every frame they're active
+//void() tent_isvalid = //omg bestie so trueeee validdd
+//{
+//	self.classname = "info_tentacle_destination";
+//}
+//
+//void() tentdest_testvalid =
+//{
+//	//check if there's any entity that we'd tfrag within bounds
+//	if (other.flags & FL_MONSTER)
+//	return;
+//	else
+//	{
+//		dprint("\bTentacleDest Classname: \b");
+//		dprint(self.classname);
+//		dprint("\n");
+//
+//		dprint("\bTentacleDest Other Classname: \b");
+//		dprint(other.classname);
+//		dprint("\n");
+//
+//		dprint("\bNexthinktime: \b");
+//		dprint(ftos(self.nextthink));
+//		dprint("\n");
+//
+//		self.classname = "info_tentacle_destination_invalid";
+//		self.nextthink = time + 0.3;
+//	}
+//}
 
 // --------------------------------
 // info_teleport_target

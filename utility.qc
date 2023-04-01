@@ -1,4 +1,4 @@
-
+	
 void(string s, string ss) bprint2 = 
 	{ bprint(s); bprint(ss); }
 void(string s, string ss, string sss) bprint3 = 

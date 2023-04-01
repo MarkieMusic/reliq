@@ -52,19 +52,30 @@ void() tent_walk1     =[      $idle1,       tent_walk2    ] {
 if (random() < 0.2)
 	sound (self, CHAN_VOICE, "shalrath/idle.wav", 1, ATTN_IDLE);
 ai_walk(6);}
-void() tent_walk2     =[      $idle1,      tent_walk3    ] {ai_stand();}
-void() tent_walk3     =[      $idle1,      tent_walk4    ] {ai_stand();}
-void() tent_walk4     =[      $idle1,      tent_walk5    ] {ai_stand();}
-void() tent_walk5     =[      $idle1,      tent_walk6    ] {ai_stand();}
-void() tent_walk6     =[      $idle1,      tent_walk7    ] {ai_stand();}
-void() tent_walk7     =[      $idle1,      tent_walk8    ] {ai_stand();}
-void() tent_walk8     =[      $idle1,      tent_walk9    ] {ai_stand();}
-void() tent_walk9     =[      $idle1,       tent_walk10  ] {ai_stand();}
-void() tent_walk10    =[      $idle1,       tent_walk11  ] {ai_stand();}
-void() tent_walk11    =[      $idle1,       tent_walk12  ] {ai_stand();}
-void() tent_walk12    =[      $idle1,      tent_walk1    ] {ai_stand();}
+void() tent_walk2     =[      $idle1,      tent_walk3	] {ai_stand();}
+void() tent_walk3     =[      $idle1,      tent_walk4	] {ai_stand();}
+void() tent_walk4     =[      $idle1,      tent_walk5	] {ai_stand();}
+void() tent_walk5     =[      $idle1,      tent_walk6	] {ai_stand();}
+void() tent_walk6     =[      $idle1,      tent_walk7	] {ai_stand();}
+void() tent_walk7     =[      $idle1,      tent_walk8	] {ai_stand();}
+void() tent_walk8     =[      $idle1,      tent_walk9	] {ai_stand();}
+void() tent_walk9     =[      $idle1,      tent_walk10	] {ai_stand();}
+void() tent_walk10    =[      $idle1,      tent_walk11	] {ai_stand();}
+void() tent_walk11    =[      $idle1,      tent_walk12	] {ai_stand();}
+void() tent_walk12    =[      $idle1,      tent_walk1	] {ai_stand();}
 
-void() tent_run1     =[      $idle1,      tent_run2    ] {ai_run(0); tentacle_teleport();}
+void() tent_burrowdwn1	=[      $burrow_dwn1,      tent_burrowdwn2	] {ai_stand();}
+void() tent_burrowdwn2	=[      $burrow_dwn2,      tent_burrowdwn3	] {ai_stand();}
+void() tent_burrowdwn3	=[      $burrow_dwn3,      tent_burrowdwn4	] {ai_stand();}
+void() tent_burrowdwn4	=[      $burrow_dwn4,      tent_burrowdwn5	] {ai_stand();}
+void() tent_burrowdwn5	=[      $burrow_dwn4,      tent_burrowdwn4	] {ai_stand(); tentacle_teleport();}
+
+void() tent_burrowup1	=[      $burrow_up1,      tent_burrowup2	] {ai_stand();}
+void() tent_burrowup2	=[      $burrow_up2,      tent_burrowup3	] {ai_stand();}
+void() tent_burrowup3	=[      $burrow_up3,      tent_burrowup4	] {ai_stand();}
+void() tent_burrowup4	=[      $burrow_up4,      tent_run1			] {ai_stand();}
+
+void() tent_run1     =[      $idle1,      tent_run2    ] {ai_run(0);}
 void() tent_run2     =[      $idle1,      tent_run3    ] {ai_run(0);}
 void() tent_run3     =[      $idle1,      tent_run4    ] {ai_run(0);}
 void() tent_run4     =[      $idle1,      tent_run5    ] {ai_run(0);}
@@ -92,7 +103,7 @@ void() tent_attack6     =[      $idle1,      tent_attack7    ] {ai_face();}
 void() tent_attack7     =[      $idle1,      tent_attack8    ] {ai_face();}
 void() tent_attack8     =[      $idle1,      tent_attack9    ] {TentMissile(0, 0);}
 void() tent_attack9     =[      $idle1,      tent_attack10   ] {TentMissile(0, 0);}
-void() tent_attack10    =[      $idle1,      tent_run1       ] {TentMissile(0, 0);}
+void() tent_attack10    =[      $idle1,      tent_run1       ] {TentMissile(0, 0); tentacle_tele_count();}
 
 void() tent_pain1       =[      $idle1, tent_pain2      ] {}
 void() tent_pain2       =[      $idle1, tent_pain3      ] {}
@@ -108,33 +119,65 @@ void() tent_death5      =[      $idle1,        tent_death6     ] {}
 void() tent_death6      =[      $idle1,        tent_death7     ] {}
 void() tent_death7      =[      $idle1,        SUB_Null    ] {}
 
+void() tentacle_tele_count =
+{
+	self.cnt += 1;
+	if (self.cnt > 2)
+	{
+		self.cnt = 0;
+		tent_burrowdwn1();
+	}
+	else
+	return;
+}
+
 void() tentacle_teleport =
 {
 	entity teletar = tentacle_findteleports();
-	if (teletar != world)
-		teleport(self,teletar,0,0);
+	if ((teletar.classname != "worldspawn") && (teletar.classname != "badtentdest"))
+	{
+		self.buddy = teletar;
+		self.oldorigin = self.origin;
+		self.origin = teletar.origin;
+		if (walkmove_jitter(0,0))
+		{
+			setorigin(self, teletar.origin);
+
+			dprint("Teletar.origin: ");
+			dprint(vtos(teletar.origin));
+			dprint(" SUCCESSFUL \n");
+
+			tent_burrowup1();
+		}
+		else
+		{
+			self.origin = self.oldorigin;
+
+			dprint("Teletar.origin: ");
+			dprint(vtos(teletar.origin));
+			dprint(" FAILED \n");
+
+			tent_burrowdwn4();
+		}
+	tentacle_findteleports();
+	}
 }
 
 entity() tentacle_findteleports =
 {
 	entity head = findradiusplus(BoundsCenter(self), 1024, classname, "info_tentacle_destination");
 	while(head)
-	{ 
-	if ((head.classname == "info_tentacle_destination")
-	&& (self.include == head.targetname)
-	&& !BoundsTouching(self.absmin, self.absmax, head.absmin, head.absmax, 2))
 	{
-		if (!findradiusplus(head.origin, 64, classname, "player"))
-			return head;
-		else
-			head = head.chain;
-	}
+	if ((head.classname != "badtentdest")
+	&& (self.include == head.targetname)
+	&& (self.buddy != head)
+	&& !BoundsTouching(self.absmin, self.absmax, head.absmin, head.absmax, 2))
+		return head;
 	else
-	head = head.chain;
+		head = head.chain;
 	} 
 	return world;
 }
-
 
 void( entity attacker, float damage ) tentacle_pain =
 {
@@ -339,7 +382,7 @@ void() monster_tentacle_spawn =
 	//self.movetype = MOVETYPE_STEP;
 	
 	setmodel (self, "progs/mon_tentacle.mdl");
-	setsize (self, VEC_HULL2_MIN, VEC_HULL2_MAX);
+	setsize (self, VEC_HULL_MIN, VEC_HULL_MAX);
 	self.health = 99;
 
 	self.th_stand = tent_stand;
@@ -412,6 +455,14 @@ void() monster_tentacle =
 	if ( monster_spawnsetup( monster_tentacle_spawner ) ) return;
 	
 	addmonster(1);
+
+	if (!self.include)
+	{
+		dprint("monster_tentacle at ");
+		dprint(vtos(self.origin));
+		dprint(" has no 'include' key, and thus will never teleport!\n");
+	}
+	
 	monster_tentacle_spawn();
 }
 
