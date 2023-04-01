@@ -486,11 +486,6 @@ void(entity targ, entity inflictor, entity attacker, float damage) T_DamageApply
 		targ.dmg_inflictor = inflictor;
 	}
 
-
-
-	dprint(ftos(damage));
-	dprint("\n");
-
 	// do the damage
 	
 	//bprint3("doing ", ftos(take), " damage\n");
