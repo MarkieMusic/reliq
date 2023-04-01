@@ -22,7 +22,7 @@ void(entity targ, entity attacker) Killed =
 	local entity oself;
 
 	activator = attacker;	// catches a lot of misc cases like a shootable door firing a trigger_secret
-	
+
 	oself = self;
 	self = targ;
 	
@@ -74,6 +74,8 @@ void(entity targ, entity attacker) Killed =
 	}
 	else
 		self.th_die ();
+
+	CheckVampGlobe(attacker);
 	
 	self = oself;
 }

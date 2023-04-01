@@ -195,7 +195,7 @@ void()	hknight_dieb9	=[	$deathb9,	SUB_Null	] {}
 
 void() hknight_die =
 {
-	CheckVampGlobe(self.enemy);
+	 
 // check for gib
 	if (self.health < -40)
 	{

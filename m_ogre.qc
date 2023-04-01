@@ -444,7 +444,7 @@ void()	ogre_bdie10	=[	$bdeath10,	SUB_Null	] {}
 
 void() ogre_die =
 {
-	CheckVampGlobe(self.enemy);
+	 
 // check for gib
 	if (self.health < -80)
 	{
