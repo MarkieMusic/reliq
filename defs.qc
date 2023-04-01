@@ -361,6 +361,8 @@ string	keyType;
 .float		cnt;		// used on grunts, enforcers, dguards, and ogres for attack refire
 						// reused on players for nailgun barrel cycling
 
+.float		shieldup;
+
 // sounds
 .float		distance;
 .float		volume;

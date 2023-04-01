@@ -408,7 +408,14 @@ void(entity targ, entity inflictor, entity attacker, float damage) T_DamageApply
 			damage -= 3;
 	}
 	
-	
+		if (targ.shieldup == 1)
+	{
+		damage = damage * 0.5;
+		dprint("my shield is up!!!! :)\n");
+	}
+	else if (targ.classname == "monster_shield_knight")
+	dprint("my shield is down!!!! :(\n");
+
 	if (attacker.classname == targ.classname)
 	{
 		if (attacker.classname != "player" && attacker.classname != "monster_grunt")
@@ -479,6 +486,11 @@ void(entity targ, entity inflictor, entity attacker, float damage) T_DamageApply
 		targ.dmg_inflictor = inflictor;
 	}
 
+
+
+	dprint(ftos(damage));
+	dprint("\n");
+
 	// do the damage
 	
 	//bprint3("doing ", ftos(take), " damage\n");
@@ -489,6 +501,8 @@ void(entity targ, entity inflictor, entity attacker, float damage) T_DamageApply
 		Killed (targ, attacker);
 		return;
 	}
+
+
 
 	// react to the damage
 	oldself = self;
