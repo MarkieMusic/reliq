@@ -64,7 +64,7 @@ void() tent_walk10    =[      $idle1,      tent_walk11	] {ai_stand();}
 void() tent_walk11    =[      $idle1,      tent_walk12	] {ai_stand();}
 void() tent_walk12    =[      $idle1,      tent_walk1	] {ai_stand();}
 
-void() tent_burrowdwn1	=[      $burrow_dwn1,      tent_burrowdwn2	] {ai_stand();}
+void() tent_burrowdwn1	=[      $burrow_dwn1,      tent_burrowdwn2	] {ai_stand(); self.takedamage = DAMAGE_NO; self.cnt = 0;}
 void() tent_burrowdwn2	=[      $burrow_dwn2,      tent_burrowdwn3	] {ai_stand();}
 void() tent_burrowdwn3	=[      $burrow_dwn3,      tent_burrowdwn4	] {ai_stand();}
 void() tent_burrowdwn4	=[      $burrow_dwn4,      tent_burrowdwn5	] {ai_stand();}
@@ -73,7 +73,7 @@ void() tent_burrowdwn5	=[      $burrow_dwn4,      tent_burrowdwn4	] {ai_stand();
 void() tent_burrowup1	=[      $burrow_up1,      tent_burrowup2	] {ai_stand();}
 void() tent_burrowup2	=[      $burrow_up2,      tent_burrowup3	] {ai_stand();}
 void() tent_burrowup3	=[      $burrow_up3,      tent_burrowup4	] {ai_stand();}
-void() tent_burrowup4	=[      $burrow_up4,      tent_run1			] {ai_stand();}
+void() tent_burrowup4	=[      $burrow_up4,      tent_run1			] {ai_stand(); self.takedamage = DAMAGE_AIM;}
 
 void() tent_run1     =[      $idle1,      tent_run2    ] {ai_run(0);}
 void() tent_run2     =[      $idle1,      tent_run3    ] {ai_run(0);}
@@ -181,13 +181,16 @@ entity() tentacle_findteleports =
 
 void( entity attacker, float damage ) tentacle_pain =
 {
+	if (attacker.classname != "player") return;
 	if (self.health <= 0) return;
 	if (self.pain_finished > time) return;
 
 	sound (self, CHAN_VOICE, "shalrath/pain.wav", 1, ATTN_NORM);
 	tent_pain1();
+
+	tent_burrowdwn1();
 	
-	PainFinished(3);
+	PainFinished(1);
 }
 
 void() tentacle_die =
@@ -421,13 +424,16 @@ Flags:
 "Instawake" spawn angry at activator
 
 Keys:
+"include" set to a info_tentacle_teleport to make him teleport to a point after being hurt
 "target" entity to trigger when killed
 "targetname" entity name
 "movedir" set to a velocity to make the monster jump on awakening
-"include" set to a info_tentacle_teleport to make him teleport to a point after being hurt
 */
 /*FGD
-@PointClass base(Monster) size(-32 -32 -24, 32 32 64) model({ "path": ":progs/mon_tentacle.mdl" }) = monster_tentacle : "Tentacle" []
+@PointClass base(Monster) size(-32 -32 -24, 32 32 64) model({ "path": ":progs/mon_tentacle.mdl" }) = monster_tentacle : "
+Shub Tentacle, 200 health points.
+Requires the 'include' key to function correctly. Otherwise will not burrow correctly.
+" []
 */
 void() monster_tentacle =
 {
