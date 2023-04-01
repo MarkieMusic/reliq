@@ -321,7 +321,7 @@ Keys:
 "count" - limit number of times to respawn
 */
 /*FGD
-@PointClass size(-16 -16 -24, 16 16 32) color(255 0 0) base(Item) model({ "path": ":progs/quaddama.mdl" }) = item_artifact_vampirism : 
+@PointClass size(-16 -16 -24, 16 16 32) color(255 0 0) base(Item) model({ "path": ":progs/item_vamp.mdl" }) = item_artifact_vampirism : 
 	"Vampiric Blood. Causes monsters to drop health orbs on death when killed by the player.
 Health orbs heal 3 per drop, and monsters drop more orbs based on their tier.
 
