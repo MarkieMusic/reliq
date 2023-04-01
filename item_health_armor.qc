@@ -171,8 +171,6 @@ void(entity e) armor_set_type =
 {
 	if (e.classname != "player")
 		return;
-
-	if ( !CheckValidTouch() ) return;
 	
 	e.items = not(e.items, (IT_ARMOR1 | IT_ARMOR2 | IT_ARMOR3));
 	if (!e.armorvalue)
@@ -190,6 +188,8 @@ void() armor_touch =
 {
 	if (other.classname != "player")
 		return;
+
+	if ( !CheckValidTouch() ) return;
 
 	T_GiveArmor(other, self.armorvalue);
 
