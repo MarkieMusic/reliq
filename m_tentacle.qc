@@ -171,7 +171,8 @@ entity() tentacle_findteleports =
 	if ((head.classname != "badtentdest")
 	&& (self.include == head.targetname)
 	&& (self.buddy != head)
-	&& !BoundsTouching(self.absmin, self.absmax, head.absmin, head.absmax, 2))
+	&& !BoundsTouching(self.absmin, self.absmax, head.absmin, head.absmax, 2)
+	&& (random() > .5))
 		return head;
 	else
 		head = head.chain;
