@@ -31,9 +31,9 @@ Ten Tactical Tenties
 //      - has knockback too
 //      - decently heavy hit
 
-float TENT_BALL_TURN_RATE	= 320;
+float TENT_BALL_TURN_RATE	= 192;
 float TENT_BALL_THINK_RATE	= 0.1;
-float TENT_BALL_VEL			= 1000;
+float TENT_BALL_VEL			= 900;
 
 float DEDTENT_BALL_TURN_RATE	= 512;
 float DEDTENT_BALL_THINK_RATE	= 0.1;
@@ -70,7 +70,10 @@ void() tent_burrowdwn3	=[      $burrow_dwn3,      tent_burrowdwn4	] {ai_stand();
 void() tent_burrowdwn4	=[      $burrow_dwn4,      tent_burrowdwn5	] {ai_stand();}
 void() tent_burrowdwn5	=[      $burrow_dwn4,      tent_burrowdwn4	] {ai_stand(); tentacle_teleport();}
 
-void() tent_burrowup1	=[      $burrow_up1,      tent_burrowup2	] {ai_stand();}
+void() tent_burrowup1	=[      $burrow_up1,      tent_burrowup2	] {
+	ai_stand(); 
+	sound (self, CHAN_VOICE, "hknight/grunt.wav", 1, 1);
+}
 void() tent_burrowup2	=[      $burrow_up2,      tent_burrowup3	] {ai_stand();}
 void() tent_burrowup3	=[      $burrow_up3,      tent_burrowup4	] {ai_stand();}
 void() tent_burrowup4	=[      $burrow_up4,      tent_run1			] {ai_stand(); self.takedamage = DAMAGE_AIM;}
@@ -299,7 +302,7 @@ void(float offset_side, float offset_up) TentMissile =
 	missile.think = TentHome;
 	missile.enemy = self.enemy;
     missile.attack_finished = time + 1.5;
-    missile.dmg = 9;
+    missile.dmg = 5;
 	missile.touch = spike_touch;
 }
 
@@ -454,6 +457,7 @@ void() monster_tentacle =
 	precache_sound2 ("shalrath/attack2.wav");
 	precache_sound2 ("shalrath/death.wav");
 	precache_sound2 ("shalrath/idle.wav");
+	precache_sound2 ("hknight/grunt.wav");
 	precache_sound2 ("shalrath/pain.wav");
 	precache_sound2 ("shalrath/sight.wav");
 	
