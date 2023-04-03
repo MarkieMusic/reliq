@@ -412,6 +412,14 @@ void(entity targ, entity inflictor, entity attacker, float damage) T_DamageApply
 	{
 		damage = damage * 0.5;
 		dprint("my shield is up!!!! :)\n");
+
+		if (random() < 0.3)
+		sound(self, CHAN_VOICE, ("weapons/ric1.wav"), 1, ATTN_NORM);
+		else if (random() < 0.5)
+		sound(self, CHAN_VOICE, ("weapons/ric2.wav"), 1, ATTN_NORM);
+		else
+		sound(self, CHAN_VOICE, ("weapons/ric3.wav"), 1, ATTN_NORM);
+
 	}
 	else if (targ.classname == "monster_shield_knight")
 	dprint("my shield is down!!!! :(\n");
