@@ -344,9 +344,9 @@ string	keyType;
 .float		wait;			// time from firing to restarting
 .float		delay;			// time from activation to firing
 .float		length, width, height;
-.float t_length = length;	// preserve old func_door_secret maphacks
-.float t_width = width;
-.float globehealth_cou;		//debug for counting health healed after vampirism rampamge
+.float 	t_length = length;	// preserve old func_door_secret maphacks
+.float 	t_width = width;
+.float 	globehealth_cou;		//debug for counting health healed after vampirism rampamge
 
 
 .float		touch_time;
@@ -362,6 +362,7 @@ string	keyType;
 						// reused on players for nailgun barrel cycling
 
 .float		shieldup;
+.float		laststep;
 
 // sounds
 .float		distance;
