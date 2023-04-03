@@ -111,7 +111,7 @@ void()	player_run =[	$rockrun1,	player_run	]
 void()	play_footstep =
 {
 	float rand = random();
-	float stepvol = .7;
+	float stepvol = .2;
 	dprint(ftos(rand));
 
 	if (!self.laststep)
@@ -129,7 +129,7 @@ void()	play_footstep =
 		if ((rand < 0.22) && (self.laststep != 2))
 		{
 			sound (self, CHAN_VOICE, "player/footstep2.wav",  stepvol, ATTN_NORM);
-			self.laststep = 1;
+			self.laststep = 2;
 			return;
 		}
 
