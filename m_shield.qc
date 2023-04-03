@@ -111,7 +111,7 @@ void()	shieldk_stand9	=[	$stand9,	shieldk_stand1	] {ai_stand();}
 //===========================================================================
 
 void()	shieldk_walk1	=[	$walk1,		shieldk_walk2	] {
-hk_idle_sound();
+sk_idle_sound();
 ai_walk(2); self.shieldup = 0;}
 void()	shieldk_walk2	=[	$walk2,		shieldk_walk3	] {ai_walk(5);}
 void()	shieldk_walk3	=[	$walk3,		shieldk_walk4	] {ai_walk(5);}
@@ -136,7 +136,7 @@ void()	shieldk_walk20	=[	$walk20,	shieldk_walk1	] {ai_walk(2);}
 //===========================================================================
 
 void()	shieldk_run1	=[	$run1,		shieldk_run2	] {
-hk_idle_sound();
+sk_idle_sound();
 ai_run (10); skCheckCharge (); self.shieldup = 1; }
 void()	shieldk_run2	=[	$run2,		shieldk_run3	] {ai_run(17);}
 void()	shieldk_run3	=[	$run3,		shieldk_run4	] {ai_run(10);}
@@ -148,7 +148,7 @@ void()	shieldk_run8	=[	$run8,		shieldk_run1	] {ai_run(3);}
 
 //============================================================================
 
-void()	shieldk_pain1	=[	$pain1,		shieldk_pain2	] { sound (self, CHAN_VOICE, "hknight/pain1.wav", 1, ATTN_NORM); self.shieldup = 0;}
+void()	shieldk_pain1	=[	$pain1,		shieldk_pain2	] { sound (self, CHAN_VOICE, "sknight/pain1.wav", 1, ATTN_NORM); self.shieldup = 0;}
 void()	shieldk_pain2	=[	$pain2,		shieldk_pain3	] {}
 void()	shieldk_pain3	=[	$pain3,		shieldk_pain4	] {}
 void()	shieldk_pain4	=[	$pain4,		shieldk_pain5	] {}
@@ -193,7 +193,7 @@ void() shieldk_die =
 	}
 
 // regular death
-	sound (self, CHAN_VOICE, "hknight/death1.wav", 1, ATTN_NORM);
+	sound (self, CHAN_VOICE, "sknight/death1.wav", 1, ATTN_NORM);
 	if (random() > 0.5)
 		shieldk_die1 ();
 	else
@@ -202,22 +202,25 @@ void() shieldk_die =
 
 //===========================================================================
 
-void()	shieldk_char_a1	=[	$char_a1,	shieldk_char_a2	] {ai_rush(30); self.shieldup = 1;}
-void()	shieldk_char_a2	=[	$char_a2,	shieldk_char_a3	] {ai_rush(32);}
-void()	shieldk_char_a3	=[	$char_a3,	shieldk_char_a4	] {ai_rush(30);}
+void()	shieldk_char_a1	=[	$char_a1,	shieldk_char_a2	] {ai_rush(30);
+	self.shieldup = 1;
+	sound (self, CHAN_WEAPON, "sknight/shieldcharge.wav", 1, ATTN_NORM);
+	}
+void()	shieldk_char_a2	=[	$char_a2,	shieldk_char_a3	] {ai_rush(32); shieldk_ai_melee();}
+void()	shieldk_char_a3	=[	$char_a3,	shieldk_char_a4	] {ai_rush(30); shieldk_ai_melee();}
 void()	shieldk_char_a4	=[	$char_a4,	shieldk_char_a5	] {ai_rush(30); shieldk_ai_melee(); }
 void()	shieldk_char_a5	=[	$char_a5,	shieldk_char_a6	] {ai_rush(30); shieldk_ai_melee(); }
 void()	shieldk_char_a6	=[	$char_a6,	shieldk_char_a7	] {ai_rush(30); shieldk_ai_melee(); }
-void()	shieldk_char_a7	=[	$char_a7,	shieldk_char_a8	] {ai_rush(30);}
-void()	shieldk_char_a8	=[	$char_a8,	shieldk_char_a9	] {ai_rush(30);}
-void()	shieldk_char_a9	=[	$char_a9,	shieldk_char_a10	] {ai_rush(27);}
+void()	shieldk_char_a7	=[	$char_a7,	shieldk_char_a8	] {ai_rush(30); shieldk_ai_melee();}
+void()	shieldk_char_a8	=[	$char_a8,	shieldk_char_a9	] {ai_rush(30); shieldk_ai_melee();}
+void()	shieldk_char_a9	=[	$char_a9,	shieldk_char_a10	] {ai_rush(27); shieldk_ai_melee();}
 void()	shieldk_char_a10=[	$char_a10,	shieldk_char_a11	] {ai_rush(27); shieldk_ai_melee();}
 void()	shieldk_char_a11=[	$char_a11,	shieldk_char_a12	] {ai_rush(30); shieldk_ai_melee();}
 void()	shieldk_char_a12=[	$char_a12,	shieldk_char_a13	] {ai_rush(30); shieldk_ai_melee();}
 void()	shieldk_char_a13=[	$char_a13,	shieldk_char_a14	] {ai_rush(30); shieldk_ai_melee();}
-void()	shieldk_char_a14=[	$char_a14,	shieldk_char_a15	] {ai_rush(32); }
-void()	shieldk_char_a15=[	$char_a15,	shieldk_char_a16	] {ai_rush(28);}
-void()	shieldk_char_a16=[	$char_a16,	shieldk_run1	] {ai_rush(30);}
+void()	shieldk_char_a14=[	$char_a14,	shieldk_char_a15	] {ai_rush(32); shieldk_ai_melee();}
+void()	shieldk_char_a15=[	$char_a15,	shieldk_char_a16	] {ai_rush(28); shieldk_ai_melee();}
+void()	shieldk_char_a16=[	$char_a16,	shieldk_run1	] {ai_rush(30); shieldk_ai_melee();}
 
 //===========================================================================
 
@@ -258,15 +261,15 @@ void()	shieldk_smash11	=[	$smash11,	shieldk_run1	] {ai_charge(0);}
 
 //============================================================================
 
-void()	shieldk_watk1	=[	$w_attack1,	shieldk_watk2	] {ai_charge(2); self.shieldup = 0;}
-void()	shieldk_watk2	=[	$w_attack2,	shieldk_watk3	] {ai_charge(0); }
-void()	shieldk_watk3	=[	$w_attack3,	shieldk_watk4	] {ai_charge(0);}
-void()	shieldk_watk4	=[	$w_attack4,	shieldk_watk5	] {ai_charge(0);}
-void()	shieldk_watk5	=[	$w_attack5,	shieldk_watk6	] {ai_charge(0);}
-void()	shieldk_watk6	=[	$w_attack6,	shieldk_watk7	] {ai_charge(0); }
-void()	shieldk_watk7	=[	$w_attack7,	shieldk_watk8	] {ai_charge(1); ai_melee();}
-void()	shieldk_watk8	=[	$w_attack8,	shieldk_watk9	] {ai_charge(4); ai_melee();}
-void()	shieldk_watk9	=[	$w_attack9,	shieldk_watk10	] {ai_charge(5); ai_melee(); }
+void()	shieldk_watk1	=[	$w_attack1,		shieldk_watk2	] {ai_charge(2); self.shieldup = 0;}
+void()	shieldk_watk2	=[	$w_attack2,		shieldk_watk3	] {ai_charge(0); }
+void()	shieldk_watk3	=[	$w_attack3,		shieldk_watk4	] {ai_charge(0);}
+void()	shieldk_watk4	=[	$w_attack4,		shieldk_watk5	] {ai_charge(0);}
+void()	shieldk_watk5	=[	$w_attack5,		shieldk_watk6	] {ai_charge(0);}
+void()	shieldk_watk6	=[	$w_attack6,		shieldk_watk7	] {ai_charge(0); }
+void()	shieldk_watk7	=[	$w_attack7,		shieldk_watk8	] {ai_charge(1); ai_melee();}
+void()	shieldk_watk8	=[	$w_attack8,		shieldk_watk9	] {ai_charge(4); ai_melee();}
+void()	shieldk_watk9	=[	$w_attack9,		shieldk_watk10	] {ai_charge(5); ai_melee(); }
 void()	shieldk_watk10	=[	$w_attack10,	shieldk_watk11	] {ai_charge(3); ai_melee();}
 void()	shieldk_watk11	=[	$w_attack11,	shieldk_watk12	] {ai_charge(2); ai_melee();}
 void()	shieldk_watk12	=[	$w_attack12,	shieldk_watk13	] {ai_charge(2); ai_melee();}
@@ -286,7 +289,7 @@ void()	shieldk_watk22	=[	$w_attack22,	shieldk_run1	] {ai_charge(3);}
 void() sk_idle_sound =
 {
 	if (random() < 0.2 && time > self.show_hostile)
-		sound (self, CHAN_VOICE, "hknight/idle.wav", 1, ATTN_NORM);
+		sound (self, CHAN_VOICE, "sknight/idle.wav", 1, ATTN_NORM);
 }
 
 void() shieldk_pain_go =
@@ -306,6 +309,8 @@ void() shieldk_ai_melee =
 
 	if (vlensqr(delta) > 60*60)
 		return;
+
+	sound (self, CHAN_VOICE, "sknight/shieldslam.wav", 1, ATTN_NORM);
 
 	//get the player off the ground so it launches them :D
 	if ((self.enemy.classname == "player"))
@@ -348,7 +353,7 @@ void() shieldk_melee =
 	if (time < self.attack_finished)
 	return;
 
-	sound (self, CHAN_WEAPON, "hknight/slash1.wav", 1, ATTN_NORM);
+	sound (self, CHAN_WEAPON, "sknight/slash1.wav", 1, ATTN_NORM);
 	if (shieldk_type == 1)
 		shieldk_slice1 ();
 	else if (shieldk_type == 2)
@@ -424,13 +429,15 @@ void() monster_shield_knight =
 
 	
 	precache_sound2 ("hknight/attack1.wav");
-	precache_sound2 ("hknight/death1.wav");
-	precache_sound2 ("hknight/pain1.wav");
-	precache_sound2 ("hknight/sight1.wav");
+	precache_sound2 ("sknight/death1.wav");
+	precache_sound2 ("sknight/pain1.wav");
+	precache_sound2 ("sknight/sight1.wav");
 	precache_sound ("hknight/hit.wav");		// used by C code, so don't sound2
-	precache_sound2 ("hknight/slash1.wav");
-	precache_sound2 ("hknight/idle.wav");
-	precache_sound2 ("hknight/grunt.wav");
+	precache_sound2 ("sknight/slash1.wav");
+	precache_sound2 ("sknight/idle.wav");
+
+	precache_sound2 ("sknight/shieldcharge.wav");
+	precache_sound2 ("sknight/shieldslam.wav");
 
 	precache_sound ("knight/sword1.wav");
 	precache_sound ("knight/sword2.wav");

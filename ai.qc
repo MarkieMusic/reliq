@@ -535,6 +535,8 @@ void() SightSound =
 		sound (self, CHAN_VOICE, "ogre/ogwake.wav", 1, ATTN_NORM);
 	else if (self.classname == "monster_knight" || self.classname == "monster_axegrunt")
 		sound (self, CHAN_VOICE, "knight/ksight.wav", 1, ATTN_NORM);
+	else if (self.classname == "monster_shield_knight")
+		sound (self, CHAN_VOICE, "sknight/sight1.wav", 1, ATTN_NORM);
 	else if (self.classname == "monster_shambler")
 		sound (self, CHAN_VOICE, "shambler/ssight.wav", 1, ATTN_NORM);
 	else if (self.classname == "monster_demon1")
