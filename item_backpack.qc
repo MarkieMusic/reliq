@@ -451,9 +451,9 @@ void() VampGlobeHome =
 		remove(self);
 	}
 	
-	self.nextthink = time + 0.05;
-	rate = 256;
-	self.distance += 25;
+	self.nextthink = time + 0.04;
+	rate = 280;
+	self.distance += 55;
 
 	dot = normalize(self.velocity) * normalize(self.buddy.origin - self.origin);
 
