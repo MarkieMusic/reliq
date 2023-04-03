@@ -568,6 +568,8 @@ void() SightSound =
 		sound (self, CHAN_VOICE, "soldier/sight1.wav", 1, ATTN_NORM);
 	else if (self.classname == "monster_shalrath")
 		sound (self, CHAN_VOICE, "shalrath/sight.wav", 1, ATTN_NORM);
+	else if (self.classname == "monster_tentacle")
+		sound (self, CHAN_VOICE, "tent/sight.wav", 1, ATTN_NORM);
 }
 
 void() FoundTarget =

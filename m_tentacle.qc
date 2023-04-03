@@ -50,7 +50,7 @@ void() tent_stand     =[      $burrow_dwn4,       tent_stand    ] {ai_stand();}
 
 void() tent_walk1     =[      $idle1,       tent_walk2    ] {
 if (random() < 0.2)
-	sound (self, CHAN_VOICE, "shalrath/idle.wav", 1, ATTN_IDLE);
+	sound (self, CHAN_VOICE, "tent/idle.wav", 1, ATTN_IDLE);
 ai_walk(6);}
 void() tent_walk2     =[      $idle1,      tent_walk3	] {ai_stand();}
 void() tent_walk3     =[      $idle1,      tent_walk4	] {ai_stand();}
@@ -64,7 +64,8 @@ void() tent_walk10    =[      $idle1,      tent_walk11	] {ai_stand();}
 void() tent_walk11    =[      $idle1,      tent_walk12	] {ai_stand();}
 void() tent_walk12    =[      $idle1,      tent_walk1	] {ai_stand();}
 
-void() tent_burrowdwn1	=[      $burrow_dwn1,      tent_burrowdwn2	] {ai_stand(); self.takedamage = DAMAGE_NO; self.cnt = 0;}
+void() tent_burrowdwn1	=[      $burrow_dwn1,      tent_burrowdwn2	] {ai_stand(); self.takedamage = DAMAGE_NO; self.cnt = 0;
+	sound (self, CHAN_VOICE, "tent/burrowdwn.wav", 1, 1);}
 void() tent_burrowdwn2	=[      $burrow_dwn2,      tent_burrowdwn3	] {ai_stand();}
 void() tent_burrowdwn3	=[      $burrow_dwn3,      tent_burrowdwn4	] {ai_stand();}
 void() tent_burrowdwn4	=[      $burrow_dwn4,      tent_burrowdwn5	] {ai_stand();}
@@ -72,7 +73,7 @@ void() tent_burrowdwn5	=[      $burrow_dwn4,      tent_burrowdwn4	] {ai_stand();
 
 void() tent_burrowup1	=[      $burrow_up1,      tent_burrowup2	] {
 	ai_stand(); 
-	sound (self, CHAN_VOICE, "hknight/grunt.wav", 1, 1);
+	sound (self, CHAN_VOICE, "tent/burrowup.wav", 1, 1);
 }
 void() tent_burrowup2	=[      $burrow_up2,      tent_burrowup3	] {ai_stand();}
 void() tent_burrowup3	=[      $burrow_up3,      tent_burrowup4	] {ai_stand();}
@@ -91,11 +92,10 @@ void() tent_run10    =[      $idle1,       tent_run11  ] {ai_run(0);}
 void() tent_run11    =[      $idle1,       tent_run12  ] {ai_run(0);}
 void() tent_run12    =[      $idle1,      tent_run1    ] {ai_run(0);
 if (random() < 0.2)
-	sound (self, CHAN_VOICE, "shalrath/idle.wav", 1, ATTN_IDLE);
+	sound (self, CHAN_VOICE, "tent/idle.wav", 1, ATTN_IDLE);
 }
 
 void() tent_attack1     =[      $idle1,       tent_attack2    ] {
-sound (self, CHAN_WEAPON, "wizard/wattack.wav", 1, ATTN_NORM);
 ai_face();
 }
 void() tent_attack2     =[      $idle1,      tent_attack3    ] {ai_face();}
@@ -189,7 +189,7 @@ void( entity attacker, float damage ) tentacle_pain =
 	if (self.health <= 0) return;
 	if (self.pain_finished > time) return;
 
-	sound (self, CHAN_VOICE, "shalrath/pain.wav", 1, ATTN_NORM);
+	sound (self, CHAN_VOICE, "tent/pain.wav", 1, ATTN_NORM);
 	tent_pain1();
 
 	tent_burrowdwn1();
@@ -212,7 +212,7 @@ void() tentacle_die =
 		return;
 	}
 
-	sound (self, CHAN_VOICE, "shalrath/death.wav", 1, ATTN_NORM);
+	sound (self, CHAN_VOICE, "tent/death.wav", 1, ATTN_NORM);
 	tent_death1();
 }
 
@@ -277,7 +277,7 @@ void(float offset_side, float offset_up) TentMissile =
 	vector	dir;
 
 	self.effects = self.effects | EF_MUZZLEFLASH;
-	sound (self, CHAN_WEAPON, "shalrath/attack2.wav", 1, ATTN_NORM);
+	sound (self, CHAN_WEAPON, "tent/attack.wav", 1, ATTN_NORM);
 	makevectors(self.angles);
 	
 	dir = (enemy_vispos() + '0 0 10') - self.origin + enemy_aim_vertical();
@@ -312,7 +312,7 @@ void(float offset_side, float offset_up) TentMissileDed =
 	vector	dir;
 
 	self.effects = self.effects | EF_MUZZLEFLASH;
-	sound (self, CHAN_WEAPON, "shalrath/attack2.wav", 1, ATTN_NORM);
+	sound (self, CHAN_WEAPON, "tent/attack.wav", 1, ATTN_NORM);
 	makevectors(self.angles);
 	
 	dir = (enemy_vispos() + '0 0 10') - self.origin + enemy_aim_vertical();
@@ -448,18 +448,18 @@ void() monster_tentacle =
 		remove(self);
 		return;
 	}
-    self.yaw_speed = 40;
+    self.yaw_speed = 100;
 	precache_model2 ("progs/mon_tentacle.mdl");
 	precache_model2 ("progs/h_shal.mdl");
 	precache_model2 ("progs/w_spike.mdl");
 	
-	precache_sound2 ("wizard/wattack.wav");
-	precache_sound2 ("shalrath/attack2.wav");
-	precache_sound2 ("shalrath/death.wav");
-	precache_sound2 ("shalrath/idle.wav");
-	precache_sound2 ("hknight/grunt.wav");
-	precache_sound2 ("shalrath/pain.wav");
-	precache_sound2 ("shalrath/sight.wav");
+	precache_sound2 ("tent/attack.wav");
+	precache_sound2 ("tent/death.wav");
+	precache_sound2 ("tent/idle.wav");
+	precache_sound2 ("tent/burrowdwn.wav");
+	precache_sound2 ("tent/burrowup.wav");
+	precache_sound2 ("tent/pain.wav");
+	precache_sound2 ("tent/sight.wav");
 	
 	self.health = 99;
 	setsize (self, VEC_HULL_MIN, VEC_HULL_MAX);
