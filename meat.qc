@@ -89,8 +89,8 @@ void(string headmdl, float dm) GibSpray =
 
 void(float dm) GibSprayHeadless =
 {
-	ThrowGib ("progs/gib1.mdl", dm);
-	ThrowGib ("progs/gib1.mdl", dm);
+	ThrowGib ("progs/zom_gib.mdl", dm);
+	ThrowGib ("progs/zom_gib.mdl", dm);
 }
 
 

@@ -97,7 +97,7 @@ void() enforcer_fire =
 	vector org, vec;
 
 	self.effects = self.effects | EF_MUZZLEFLASH;
-	sound (self, CHAN_WEAPON, "enforcer/enfire.wav", 1, ATTN_NORM);
+	sound (self, CHAN_WEAPON, "weapons/rocket1i.wav", 1, ATTN_NORM);
 
 	org = enforcer_muzzle_org();
 	vec = normalize(enemy_vispos() - org + enemy_aim_vertical());
@@ -273,8 +273,8 @@ void()	enf_die1	=[	$death1,	enf_die2	] {}
 void()	enf_die2	=[	$death2,	enf_die3	] {}
 void()	enf_die3	=[	$death3,	enf_die4	] {
 	self.solid = SOLID_NOT;
-	//self.ammo_cells = 5;
-	//DropBackpack();
+	self.ammo_nails = 5;
+	DropBackpack();
 }
 void()	enf_die4	=[	$death4,	enf_die5	] {ai_forward(14);}
 void()	enf_die5	=[	$death5,	enf_die6	] {ai_forward(2);}
@@ -292,8 +292,8 @@ void()	enf_fdie1	=[	$fdeath1,	enf_fdie2	] {}
 void()	enf_fdie2	=[	$fdeath2,	enf_fdie3	] {}
 void()	enf_fdie3	=[	$fdeath3,	enf_fdie4	] {
 	self.solid = SOLID_NOT;
-	//self.ammo_cells = 5;
-	//DropBackpack();
+	self.ammo_nails = 5;
+	DropBackpack();
 }
 void()	enf_fdie4	=[	$fdeath4,	enf_fdie5	] {}
 void()	enf_fdie5	=[	$fdeath5,	enf_fdie6	] {}
