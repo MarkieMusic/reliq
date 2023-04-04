@@ -1449,6 +1449,7 @@ void() CheckPowerups =
 			
 			self.vamp_finished = 0;
 			self.vamp_time = 0;
+			self.fw_screenshift = 1;
 		}
 }
 
@@ -1535,6 +1536,8 @@ void() PlayerPreThink =
 		{
 			TintScreen(self, 255);
 		}
+
+		self.fw_screenshift = 1;
 	}
 
 	if (intermission_running || self.deadflag == DEAD_SPECTATING )
@@ -1604,6 +1607,8 @@ void() PlayerPreThink =
 	{
 		self.flags = self.flags | FL_FLY;
 	}
+
+
 	
 	// ai_nav
 	//nav_editorThink();
@@ -1677,6 +1682,16 @@ void() PlayerPostThink =
 		self.customflags = not(self.customflags, CFL_WASONGROUND);
 	}
 	*/
+
+	if (self.fw_screenshift == 1)
+	{
+		if (self.vamp_finished > time) //set screenshift
+			stuffcmd(self,"\nv_cshift 255 0 0 20\n");
+		else
+			stuffcmd(self,"\nv_cshift 0 0 0 0\n");
+	}
+
+	self.fw_screenshift = 0;
 }
 
 /*

@@ -142,6 +142,7 @@ void() Cheat_Vamp =
 	stuffcmd(self, "bf\n");
 	self.items_reliq = self.items_reliq | IT_VAMP;
 	powerup_vampirism(self, 30);
+	self.fw_screenshift = 1;
 }
 
 // --------------------------------
