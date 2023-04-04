@@ -121,14 +121,18 @@ void() tent_death7      =[      $idle1,        SUB_Null    ] {}
 
 void() tentacle_tele_count =
 {
-	self.cnt += 1;
-	if (self.cnt > 2)
+	if (self.include)
 	{
-		self.cnt = 0;
-		tent_burrowdwn1();
+		self.cnt += 1;
+		if (self.cnt > 2)
+		{
+			self.cnt = 0;
+			tent_burrowdwn1();
+		}
+		else
+		tent_run1();
 	}
-	else
-	tent_run1();
+	else return;
 }
 
 void() tentacle_teleport =
@@ -159,13 +163,14 @@ void() tentacle_teleport =
 
 			tent_burrowdwn4();
 		}
-	tentacle_findteleports();
+	tent_burrowup1();
+	//tentacle_findteleports();
 	}
 }
 
 entity() tentacle_findteleports =
 {
-	entity head = findradiusplus(BoundsCenter(self), 1024, classname, "info_tentacle_destination");
+	entity head = findradiusplus(BoundsCenter(self), self.distance, classname, "info_tentacle_destination");
 	while(head)
 	{
 	if ((head.classname != "badtentdest")
@@ -189,7 +194,8 @@ void( entity attacker, float damage ) tentacle_pain =
 	sound (self, CHAN_BODY, "tent/pain.wav", 1, ATTN_NORM);
 	tent_pain1();
 
-	tent_burrowdwn1();
+	if (self.include)
+		tent_burrowdwn1();
 	
 	PainFinished(1);
 }
@@ -464,6 +470,9 @@ void() monster_tentacle =
 	if ( monster_spawnsetup( monster_tentacle_spawner ) ) return;
 	
 	addmonster(1);
+
+	if (!self.distance)
+		self.distance = 1024;
 
 	if (!self.include)
 	{

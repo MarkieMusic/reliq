@@ -250,6 +250,7 @@ entity( void() spawnthink ) mon_spawner_use =
 	mon.state = self.state;
 	mon.alpha = self.alpha;
 	mon.include = self.include;
+	mon.distance = self.distance;
 	mon.skin = self.skin;
 	mon.effects = self.effects;
 	mon.armortype = self.armortype;
