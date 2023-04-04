@@ -315,6 +315,9 @@ void() worldspawn =
 	precache_sound ("items/vamppickup3.wav");
 
 	precache_sound ("sknight/sight1.wav");
+	precache_sound ("sknight/deflect1.wav");
+	precache_sound ("sknight/deflect2.wav");
+	precache_sound ("sknight/deflect3.wav");
 
 	// player gib sounds
 	precache_sound ("player/gib.wav");			// player gib sound

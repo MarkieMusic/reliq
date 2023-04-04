@@ -301,6 +301,7 @@ string	keyType;
 .float()	th_checkattack;
 .entity		oldenemy;		// mad at this player before taking damage
 .float 		attack_finished;
+.float 		shield_cd;
 .float		pain_finished;
 .float		search_time;
 .float		attack_state;

@@ -411,18 +411,19 @@ void(entity targ, entity inflictor, entity attacker, float damage) T_DamageApply
 		if (targ.shieldup == 1)
 	{
 		damage = damage * 0.5;
-		dprint("my shield is up!!!! :)\n");
 
-		if (random() < 0.3)
-		sound(self, CHAN_VOICE, ("weapons/ric1.wav"), 1, ATTN_NORM);
-		else if (random() < 0.5)
-		sound(self, CHAN_VOICE, ("weapons/ric2.wav"), 1, ATTN_NORM);
-		else
-		sound(self, CHAN_VOICE, ("weapons/ric3.wav"), 1, ATTN_NORM);
+		if ((random() < 0.4) && (targ.shield_cd < time)) //don't spam the deflect sound
+		{
+			targ.shield_cd = time + .5;
 
+			if (random() < 0.3)
+			sound(targ, CHAN_VOICE, ("sknight/deflect1.wav"), 1, ATTN_NORM);
+			else if (random() < 0.5)
+			sound(targ, CHAN_VOICE, ("sknight/deflect2.wav"), 1, ATTN_NORM);
+			else
+			sound(targ, CHAN_VOICE, ("sknight/deflect3.wav"), 1, ATTN_NORM);
+		}
 	}
-	else if (targ.classname == "monster_shield_knight")
-	dprint("my shield is down!!!! :(\n");
 
 	if (attacker.classname == targ.classname)
 	{

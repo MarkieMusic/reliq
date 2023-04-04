@@ -204,7 +204,7 @@ void() shieldk_die =
 
 void()	shieldk_char_a1	=[	$char_a1,	shieldk_char_a2	] {ai_rush(30);
 	self.shieldup = 1;
-	sound (self, CHAN_WEAPON, "sknight/shieldcharge.wav", 1, ATTN_NORM);
+	sk_chargesound();
 	}
 void()	shieldk_char_a2	=[	$char_a2,	shieldk_char_a3	] {ai_rush(32); shieldk_ai_melee();}
 void()	shieldk_char_a3	=[	$char_a3,	shieldk_char_a4	] {ai_rush(30); shieldk_ai_melee();}
@@ -285,6 +285,16 @@ void()	shieldk_watk21	=[	$w_attack21,	shieldk_watk22	] {ai_charge(7);}
 void()	shieldk_watk22	=[	$w_attack22,	shieldk_run1	] {ai_charge(3);}
 
 //============================================================================
+
+void() sk_chargesound =
+{
+	if (random() < 0.3)
+	sound (self, CHAN_WEAPON, "sknight/shieldcharge1.wav", 1, ATTN_NORM);
+	else if (random() < 0.5)
+	sound (self, CHAN_WEAPON, "sknight/shieldcharge2.wav", 1, ATTN_NORM);
+	else
+	sound (self, CHAN_WEAPON, "sknight/shieldcharge3.wav", 1, ATTN_NORM);
+}
 
 void() sk_idle_sound =
 {
@@ -436,7 +446,9 @@ void() monster_shield_knight =
 	precache_sound2 ("sknight/slash1.wav");
 	precache_sound2 ("sknight/idle.wav");
 
-	precache_sound2 ("sknight/shieldcharge.wav");
+	precache_sound2 ("sknight/shieldcharge1.wav");
+	precache_sound2 ("sknight/shieldcharge2.wav");
+	precache_sound2 ("sknight/shieldcharge3.wav");
 	precache_sound2 ("sknight/shieldslam.wav");
 
 	precache_sound ("knight/sword1.wav");
