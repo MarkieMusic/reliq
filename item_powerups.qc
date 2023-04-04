@@ -74,6 +74,7 @@ void(entity h, float t) powerup_vampirism =
 	precache_vamp();
 	h.items_reliq |= IT_VAMP;
 	h.vamp_finished = time + t;
+	h.fw_screenshift = 1;
 	h.vamp_time = 1;
 }
 
