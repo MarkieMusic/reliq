@@ -112,7 +112,6 @@ void()	play_footstep =
 {
 	float rand = random();
 	float stepvol = .2;
-	dprint(ftos(rand));
 
 	if (!self.laststep)
 		self.laststep = 1;
