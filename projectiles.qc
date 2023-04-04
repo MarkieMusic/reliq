@@ -461,7 +461,7 @@ entity(vector org, vector vel) launch_laser =
 	
 	spike = launch_projectile(org, vel, "laser");
 	spike.touch = spike_touch;
-	spike.effects = EF_DIMLIGHT;
+	//spike.effects = EF_DIMLIGHT;
 	spike.movetype = MOVETYPE_FLY;	// enforcer lasers aren't FLYMISSILE in id106
 
 	SUB_ChangeModel (spike, "progs/spike.mdl");
