@@ -94,7 +94,7 @@ void() tent_run9     =[      $idle1,       tent_run10  ] {ai_run(0);}
 void() tent_run10    =[      $idle1,       tent_run11  ] {ai_run(0);}
 void() tent_run11    =[      $idle1,       tent_run12  ] {ai_run(0);}
 void() tent_run12    =[      $idle1,      tent_run1    ] {ai_run(0);
-	//tent_forget();
+	tent_forget();
 	if(self.enemy)
 		tentacle_tele_count_idle();}
 
@@ -154,34 +154,42 @@ void() tentacle_tele_count_idle =
 	}
 }
 
-//void() tent_forget =
-//{
-//	if (!self.rad_time)	// time to be RAD
-//	{
-//		// we just woke up, don't forget right away, because if we were awoken
-//		// by another monster waking we'll just lay here and burp (ikspq2)
-//		self.rad_time = time + 30;
-//	}
-//	
-//	if (time < self.rad_time)
-//		return;
-//		
-//	if (!tent_visible(self.enemy))
-//	{
-//			self.enemy = world;
-//	}
-//	
-//	if (!self.enemy)
-//	{
-//		self.rad_time = 0;	// reset the clock
-//		tent_stand1();
-//	}
-//}
-//
-//float(entity e) tent_visible =
-//{
-//	return (visible(e) && !has_invis(e));
-//}
+void() tent_forget =
+{
+	if (!self.rad_time)	// time to be RAD
+	{
+		// we just woke up, don't forget right away, because if we were awoken
+		// by another monster waking we'll just lay here and burp (ikspq2)
+		self.rad_time = time + 30;
+	}
+	
+	if (time < self.rad_time)
+		return;
+		
+	if (!tar_visible(self.enemy))
+	{
+		if (tar_visible(self.oldenemy))
+		{
+			self.enemy = self.oldenemy;
+		}
+		else
+		{
+			self.enemy = world;
+		}
+		self.oldenemy = world;
+	}
+	
+	if (!self.enemy)
+	{
+		self.rad_time = 0;	// reset the clock
+		self.think = tent_stand1;
+	}
+}
+
+float(entity e) tent_visible =
+{
+	return (visible(e) && !has_invis(e));
+}
 
 void() tentacle_teleport =
 {
@@ -444,7 +452,7 @@ void() monster_tentacle_spawn =
 	self.health = 99;
 
 	self.th_stand = tent_stand1;
-	self.th_walk = tent_stand1;
+	self.th_walk = tent_walk1;
 	self.th_run = tent_run1;
 	self.th_die = tentacle_die;
 	self.th_pain = tentacle_pain;
