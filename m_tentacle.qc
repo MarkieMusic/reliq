@@ -46,7 +46,7 @@ $frame idle1
 $frame burrow_dwn1 burrow_dwn2 burrow_dwn3 burrow_dwn4
 $frame burrow_up1 burrow_up2 burrow_up3 burrow_up4
 
-void() tent_stand     =[      $burrow_dwn4,       tent_stand    ] {ai_stand(); self.takedamage = DAMAGE_AIM;}
+void() tent_stand1     =[      $burrow_dwn4,       tent_stand1    ] {ai_stand(); self.takedamage = DAMAGE_AIM;}
 
 void() tent_walk1     =[      $idle1,       tent_walk2    ] {
 	if (random() < 0.2)
@@ -68,6 +68,7 @@ void() tent_walk12    =[      $idle1,      tent_walk1	] {ai_walk(0);}
 void() tent_burrowdwn1	=[      $burrow_dwn1,      tent_burrowdwn2	] { 
 	self.takedamage = DAMAGE_NO; 
 	self.cnt = 0;
+	self.strength = 0;
 	sound (self, CHAN_VOICE, "tent/burrowdwn.wav", 1, 1);}
 void() tent_burrowdwn2	=[      $burrow_dwn2,      tent_burrowdwn3	] {}
 void() tent_burrowdwn3	=[      $burrow_dwn3,      tent_burrowdwn4	] {}
@@ -79,7 +80,9 @@ void() tent_burrowup2	=[      $burrow_up2,      tent_burrowup3	] {}
 void() tent_burrowup3	=[      $burrow_up3,      tent_burrowup4	] {}
 void() tent_burrowup4	=[      $burrow_up4,      tent_run1			] { self.takedamage = DAMAGE_AIM;}
 
-void() tent_run1     =[      $idle1,      tent_run2    ] {ai_run(0); self.takedamage = DAMAGE_AIM;}
+void() tent_run1     =[      $idle1,      tent_run2    ] {
+	ai_run(0);
+	self.takedamage = DAMAGE_AIM;}
 void() tent_run2     =[      $idle1,      tent_run3    ] {ai_run(0);}
 void() tent_run3     =[      $idle1,      tent_run4    ] {ai_run(0);}
 void() tent_run4     =[      $idle1,      tent_run5    ] {ai_run(0);}
@@ -90,11 +93,14 @@ void() tent_run8     =[      $idle1,      tent_run9    ] {ai_run(0);}
 void() tent_run9     =[      $idle1,       tent_run10  ] {ai_run(0);}
 void() tent_run10    =[      $idle1,       tent_run11  ] {ai_run(0);}
 void() tent_run11    =[      $idle1,       tent_run12  ] {ai_run(0);}
-void() tent_run12    =[      $idle1,      tent_run1    ] {ai_run(0);}
+void() tent_run12    =[      $idle1,      tent_run1    ] {ai_run(0);
+	//tent_forget();
+	if(self.enemy)
+		tentacle_tele_count_idle();}
 
 void() tent_attack1     =[      $idle1,       tent_attack2    ] {
-ai_face();
-self.takedamage = DAMAGE_AIM;}
+	ai_face();
+	self.takedamage = DAMAGE_AIM;}
 void() tent_attack2     =[      $idle1,      tent_attack3    ] {ai_face();}
 void() tent_attack3     =[      $idle1,      tent_attack4    ] {ai_face();}
 void() tent_attack4     =[      $idle1,      tent_attack5    ] {ai_face();}
@@ -134,6 +140,48 @@ void() tentacle_tele_count =
 	}
 	else return;
 }
+
+void() tentacle_tele_count_idle =
+{
+	if (self.include)
+	{
+		self.strength += 1;
+		if (self.strength > 3)
+		{
+			self.strength = 0;
+			tent_burrowdwn1();
+		}
+	}
+}
+
+//void() tent_forget =
+//{
+//	if (!self.rad_time)	// time to be RAD
+//	{
+//		// we just woke up, don't forget right away, because if we were awoken
+//		// by another monster waking we'll just lay here and burp (ikspq2)
+//		self.rad_time = time + 30;
+//	}
+//	
+//	if (time < self.rad_time)
+//		return;
+//		
+//	if (!tent_visible(self.enemy))
+//	{
+//			self.enemy = world;
+//	}
+//	
+//	if (!self.enemy)
+//	{
+//		self.rad_time = 0;	// reset the clock
+//		tent_stand1();
+//	}
+//}
+//
+//float(entity e) tent_visible =
+//{
+//	return (visible(e) && !has_invis(e));
+//}
 
 void() tentacle_teleport =
 {
@@ -298,10 +346,9 @@ void(float offset_side, float offset_up) TentMissile =
 	dir = dir + (v_up * offset_up) + (v_right * offset_side);
 	dir = normalize(dir);
 
-	missile = launch_projectile(self.origin + '0 0 32' + v_forward * 16, dir * TENT_BALL_VEL, "tentspit");
+	missile = launch_projectile(self.origin + '0 0 32' + v_forward * 16, dir * TENT_BALL_VEL, "wizspike");
 
 	SUB_ChangeModel (missile, "progs/w_spike.mdl");
-	missile.type = "i don't want it to make the ric noise please";
 	missile.nextthink = time + 0.1;
 	missile.think = TentHome;
 	missile.enemy = self.enemy;
@@ -334,7 +381,7 @@ void(float offset_side, float offset_up) TentMissileDed =
 	dir = dir + (v_up * offset_up) + (v_right * offset_side);
 	dir = normalize(dir);
 
-	missile = launch_projectile(self.origin + '0 0 32' + v_forward * 16, dir * 300, "tentspit");
+	missile = launch_projectile(self.origin + '0 0 32' + v_forward * 16, dir * 300, "wizspike");
 
 	SUB_ChangeModel (missile, "progs/w_spike.mdl");
 	missile.nextthink = time + 0.25;
@@ -396,13 +443,16 @@ void() monster_tentacle_spawn =
 	setsize (self, VEC_HULL_MIN, VEC_HULL_MAX);
 	self.health = 99;
 
-	self.th_stand = tent_stand;
-	self.th_walk = tent_stand;
+	self.th_stand = tent_stand1;
+	self.th_walk = tent_stand1;
 	self.th_run = tent_run1;
 	self.th_die = tentacle_die;
 	self.th_pain = tentacle_pain;
 	self.th_missile = tent_attack1;
 	self.th_checkattack = TentCheckAttack;
+
+	if (!self.distance)
+	self.distance = 1024;
 
 	if (self.deathtype == string_null)
 		self.deathtype = "was F%@&'ed by a Tentacle";
