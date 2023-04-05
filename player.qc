@@ -113,6 +113,9 @@ void()	play_footstep =
 	float rand = random();
 	float stepvol = .2;
 
+	if (self.movetype == MOVETYPE_NOCLIP)
+		return;
+
 	if (!self.laststep)
 		self.laststep = 1;
 
