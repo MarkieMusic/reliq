@@ -346,32 +346,36 @@ void(entity globetimetar) CheckVampGlobe =
 	{
 		DropVampGlobe(globetimetar);
 	}
-	else
-	if ((self.classname == "monster_wizard") || 
+	else if ((self.classname == "monster_wizard") || 
 		(self.classname == "monster_enforcer") || 
 		(self.classname == "monster_knight") ||
 		(self.classname == "monster_tentacle"))
 	{
 		DropVampGlobe(globetimetar); DropVampGlobe(globetimetar);
 	}
-	else
-	if ((self.classname == "monster_hell_knight") ||
+	else if ((self.classname == "monster_hell_knight") ||
 		(self.classname == "monster_shield_knight") ||
 		(self.classname == "monster_ogre"))
 	{
 		DropVampGlobe(globetimetar); DropVampGlobe(globetimetar); DropVampGlobe(globetimetar);
 	}
-	else
-	if ((self.classname == "monster_shambler") ||
+	else if ((self.classname == "monster_shambler") ||
 		(self.classname == "monster_shalrath") ||
 		(self.classname == "monster_demon1") ||
 		(self.classname == "monster_amalgam"))
 	{
 		DropVampGlobe(globetimetar); DropVampGlobe(globetimetar); DropVampGlobe(globetimetar); DropVampGlobe(globetimetar);
 	}
+//	else if (self.classname == "monster_tarbaby")
+//	{
+//		DropVampGlobe(globetimetar); DropVampGlobe(globetimetar); DropVampGlobe(globetimetar); DropVampGlobe(globetimetar);
+//		DropVampGlobe(globetimetar); DropVampGlobe(globetimetar); DropVampGlobe(globetimetar); DropVampGlobe(globetimetar);
+//	}
 	else
+	{
 	dprint("Fell off CheckVampGlobe\n");
 	return;
+	}
 }
 
 /*
@@ -384,7 +388,7 @@ void(entity player) DropVampGlobe =
 	entity item;
 
 	item = spawn();
-	item.origin = self.origin - '0 0 24';
+	item.origin = self.origin + '0 0 24';
 
 	item.velocity_z = 300 + (random() * 100);
 	item.velocity_x = -150 + (random() * 300);

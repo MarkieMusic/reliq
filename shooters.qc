@@ -252,7 +252,7 @@ void() trap_lightning_fire =
 			self.nextmovesound = time + 1.2;
 		}
 	}
-	
+
 	if (self.strength == 1)
 	{
 		// do 10 dmg every think
@@ -349,7 +349,8 @@ void() trap_lightning_fire =
 			return;
 	}
 	self.think = trap_lightning_fire; 
-	self.nextthink = time + 0.1;
+	self.nextthink = time + 0.01;
+	//WEIRD LIGHTNING HACK PLS FIX THIS L8R
 }
 
 void() trap_lightning_proxy =
