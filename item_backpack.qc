@@ -405,7 +405,7 @@ void(entity player) DropVampGlobe =
 	if (player.vamp_finished > 4)
 	item.nextthink = player.vamp_finished - 4;	// remove after powerup runs out on player
 	else
-	item.nextthink = 0;
+	item.nextthink = time;
 
 	item.think = ItemDespawnBlink;	// blink 4 times
 	return;
