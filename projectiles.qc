@@ -406,7 +406,7 @@ entity(vector org, vector vel) launch_nail =
 	spike.touch = spike_touch;
 	
 	SUB_ChangeModel (spike, "progs/spike.mdl");	
-	spike.dmg = 9;
+	spike.dmg = 10;
 	
 	return spike;
 }
