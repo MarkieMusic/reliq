@@ -48,15 +48,23 @@ void() W_FireNailgun =
 	sound (self, CHAN_WEAPON, "weapons/rocket1i.wav", 1, ATTN_NORM);
 	self.currentammo = self.ammo_nails = self.ammo_nails - 1;
 	offset = VEC_ORIGIN;
-	if ( mod( self.cnt, 2 ) ) offset_x = -2.5;
-	else offset_x = 2.5;	
-
+	
+	if (self.cnt == 2) //check which barrel is firing, set in player_nail
+	{
+		offset_z = -4;
+		offset_x = 5;
+	}
+	else
+	{
+		offset_z = 2;
+		offset_x = 5;
+	}
 	org = W_SpikeOrigin(offset);
 
 	// default sv_maxvelocity is 2000, any higher leads to weird 
 	// angular offsets caused by clamping the velocity
 	launch_nail(org, dir * 1996);
-	self.attack_finished = time + 0.08;
+	self.attack_finished = time + 0.22;
 }
 
 void() spike_unfatten = { self.movetype = MOVETYPE_FLY; }
@@ -101,20 +109,20 @@ void() W_FirePerforator =
 	}
 }
 
-void() W_FireSpikes =
-{
-	if (self.ammo_nails < 1 || (self.ammo_nails < 2 && !(self.items & IT_NAILGUN)))
-	{
-		W_SelectBestWeapon();
-		return;
-	}
-
-	W_FireNailgun();
-
-	self.punchangle_x = -2;
-	
-	self.cnt = cycle(self.cnt,8);
-}
+//void() W_FireSpikes =
+//{
+//	if (self.ammo_nails < 1 || (self.ammo_nails < 2 && !(self.items & IT_NAILGUN)))
+//	{
+//		W_SelectBestWeapon();
+//		return;
+//	}
+//
+//	W_FireNailgun();
+//
+//	self.punchangle_x = -2;
+//	
+//	self.cnt = cycle(self.cnt,8);
+//}
 
 float() CheckValidSpikeTouch =
 {

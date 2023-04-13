@@ -290,7 +290,7 @@ void() W_Attack =
 	else if (self.weapon == IT_NAILGUN)
 	{
 		player_nail();
-		W_FireSpikes();
+		//W_FireSpikes();
 	}
 	else if (self.weapon == IT_IMPALER)
 	{

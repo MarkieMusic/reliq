@@ -351,23 +351,43 @@ void()	player_axe =
 
 //============================================================================
 
-void() player_nail =
+	void() player_nail =
 {
+	self.weaponframe = self.weaponframe + 1;	
+	
+	if (self.weaponframe >= 9)
+		self.weaponframe = 1;
+
 	if (!self.button0)
 	{
 		player_run();
 		return;
 	}
-		
-	self.effects |= EF_MUZZLEFLASH;
 
-	if (self.frame != $nailatt1) self.frame = $nailatt1;
-	else self.frame += 1;
-	self.think = player_nail;
-	self.nextthink = time + 0.125;	// TODO: oh fuck it, it works, you're never touching this again
+	if (!self.cnt)
+		self.cnt = 1;
+
+	if (self.weaponframe == 1)
+		self.cnt = 1;
+	else
+		self.cnt = 2;
+
+	if 	(((self.weaponframe == 1)
+		|| (self.weaponframe == 5))
+		&& (self.ammo_nails > 0 ))
+	{
+		W_FireNailgun();
+		self.effects |= EF_MUZZLEFLASH;
+
+		if (self.frame != $nailatt1)
+			self.frame = $nailatt1;
+		else 
+			self.frame = $nailatt2;
+	}
 	
-	self.weaponframe = self.cnt + 1;
-}
+	self.think = player_nail;
+	self.nextthink = time + 0.025;	// TODO: oh fuck it, it works, you're never touching this again
+};
 
 void()	player_impale1 =	[$shotatt1, player_shot2	] {self.weaponframe=1;
 	self.effects = self.effects | EF_MUZZLEFLASH;}
