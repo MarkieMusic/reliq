@@ -332,6 +332,7 @@ they're basically backpacks, really.
 */
 void(entity globetimetar) CheckVampGlobe =
 {
+	float VampCouRemaining = 0;
 	//if they player doesn't have vampiric blood, don't bother
 	if (self.enemy.vamp_finished < time)
 	return;
@@ -344,37 +345,38 @@ void(entity globetimetar) CheckVampGlobe =
 		(self.classname ==  "monster_zombie") ||
 		(self.classname == "monster_army"))
 	{
-		DropVampGlobe(globetimetar);
+		self.cnt = 1;
 	}
 	else if ((self.classname == "monster_wizard") || 
 		(self.classname == "monster_enforcer") || 
 		(self.classname == "monster_knight") ||
 		(self.classname == "monster_tentacle"))
 	{
-		DropVampGlobe(globetimetar); DropVampGlobe(globetimetar);
+		self.cnt = 2;
 	}
 	else if ((self.classname == "monster_hell_knight") ||
 		(self.classname == "monster_shield_knight") ||
 		(self.classname == "monster_ogre"))
 	{
-		DropVampGlobe(globetimetar); DropVampGlobe(globetimetar); DropVampGlobe(globetimetar);
+		self.cnt = 3;
 	}
 	else if ((self.classname == "monster_shambler") ||
 		(self.classname == "monster_shalrath") ||
 		(self.classname == "monster_demon1") ||
 		(self.classname == "monster_amalgam"))
 	{
-		DropVampGlobe(globetimetar); DropVampGlobe(globetimetar); DropVampGlobe(globetimetar); DropVampGlobe(globetimetar);
+		self.cnt = 4;
 	}
-//	else if (self.classname == "monster_tarbaby")
-//	{
-//		DropVampGlobe(globetimetar); DropVampGlobe(globetimetar); DropVampGlobe(globetimetar); DropVampGlobe(globetimetar);
-//		DropVampGlobe(globetimetar); DropVampGlobe(globetimetar); DropVampGlobe(globetimetar); DropVampGlobe(globetimetar);
-//	}
 	else
 	{
 	dprint("Fell off CheckVampGlobe\n");
 	return;
+	}
+
+	while(self.cnt > VampCouRemaining)
+	{
+		DropVampGlobe(globetimetar);
+		VampCouRemaining++;
 	}
 }
 
