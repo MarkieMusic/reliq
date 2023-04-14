@@ -94,12 +94,12 @@ void()	amalgam_run8	=[	$run8,		amalgam_run1	] {ai_run(8);}
 
 void()	amalgam_atk1	=[	$shoot1,	amalgam_atk2	] {ai_face();}
 void()	amalgam_atk2	=[	$shoot2,	amalgam_atk3	] {ai_face();}
-void()	amalgam_atk3	=[	$shoot3,	amalgam_atk4	] {ai_face(); amalgam_aim(); }
+void()	amalgam_atk3	=[	$shoot3,	amalgam_atk4	] {ai_face();}
 void()	amalgam_atk4	=[	$shoot4,	amalgam_atk5	] {ai_face();}
-void()	amalgam_atk5	=[	$shoot5,	amalgam_atk6	] {ai_face(); amalgam_fire(); }
-void()	amalgam_atk6	=[	$shoot6,	amalgam_atk7	] {ai_face();}
-void()	amalgam_atk7	=[	$shoot7,	amalgam_atk8	] {ai_face();}//ai_check_refire (amalgam_atk3);}
-void()	amalgam_atk8	=[	$shoot8,	amalgam_atk9	] {ai_face();}
+void()	amalgam_atk5	=[	$shoot5,	amalgam_atk6	] {ai_face(); amalgam_fire();}
+void()	amalgam_atk6	=[	$shoot6,	amalgam_atk7	] {ai_face(); amalgam_fire();}
+void()	amalgam_atk7	=[	$shoot7,	amalgam_atk8	] {ai_face(); amalgam_fire();}//ai_check_refire (amalgam_atk3);}
+void()	amalgam_atk8	=[	$shoot8,	amalgam_atk9	] {ai_face(); amalgam_fire();}
 void()	amalgam_atk9	=[	$shoot9,	amalgam_run1	] {ai_face();}
 
 
@@ -168,40 +168,30 @@ void(entity attacker, float damage)	amalgam_pain =
 	}
 }
 
-/*
-vanilla grunts pretend to lag their shots by applying negative leading based
-on player velocity. SV_PushMove only sets origins per hostframe and doesn't 
-modify velocities, so a player standing on a train or a lift will have zero 
-velocity and get drilled constantly. (see: SMEJ w1m1)
-
-grunts now choose an aim vector 0.3 seconds before firing, rather than trying 
-to work 0.2 seconds backwards at firing time
-*/
-void() amalgam_aim =
-{
-	// store it relative to self in case we're riding the same mover as our target
-	self.dest = enemy_vispos() + enemy_aim_vertical() - self.origin;
-}
-
 void() amalgam_fire =
 {
-	local	vector	dir;
+	local	entity goop;
+	vector gorg, gvel;
 	
-	ai_face();
-	self.effects = self.effects | EF_MUZZLEFLASH;	
-	sound (self, CHAN_WEAPON, "soldier/sattck1.wav", 1, ATTN_NORM);	
+	self.effects = self.effects | EF_MUZZLEFLASH;
+	sound (self, CHAN_WEAPON, "weapons/grenade.wav", 1, ATTN_NORM);
 
-// fire somewhat behind the player, so a dodging player is harder to hit
-//	dir = enemy_vispos() - self.enemy.velocity*0.2;
-//	dir = normalize (dir - self.origin);
-	dir = normalize (self.dest);
+	// set grenade speed	
+	makevectors (self.angles);
+	gorg = self.origin + v_forward * 16;
+	gvel = OgreAimGrenade(enemy_vispos() - gorg, 432 + (random() * 200), -15 + random() * 15);
 
-	// lunaran: moved multidamage here
-	ClearMultiDamage ();
-	FireBullets (4, dir, '0.1 0.1 0');
-	ApplyMultiDamage ();
+    goop = toss_projectile(gorg, gvel, "goop");
+	goop.solid = SOLID_TRIGGER;
+	goop.movetype = MOVETYPE_TOSS;
+	goop.classname = "AmalGoop";
+	setmodel (goop, "progs/proj_amalgoop.mdl");
+	setsize (goop, '-8 -8 0', '8 8 16');
+
+	goop.touch = AmalGoop_Touch;
+	goop.think = SUB_Remove;
+	goop.nextthink = time + 15;
 }
-
 
 /*
 ===========
@@ -224,7 +214,6 @@ float() AmalgamCheckAttack =
 	if (!CheckClearAttack()) return FALSE;
 
 	// missile attack
-	
 	if (enemy_range == RANGE_MELEE)
 		chance = 0.9;
 	else if (enemy_range == RANGE_NEAR)
@@ -237,7 +226,7 @@ float() AmalgamCheckAttack =
 	if (random () < chance)
 	{
 		self.th_missile ();
-		ai_attack_finished (1 + random() + random());
+		ai_attack_finished (2 + random() + random());
 		return TRUE;
 	}
 
@@ -249,7 +238,7 @@ float() AmalgamCheckAttack =
 void()	amalgam_die1	=[	$death1,	amalgam_die2	] {}
 void()	amalgam_die2	=[	$death2,	amalgam_die3	] {}
 void()	amalgam_die3	=[	$death3,	amalgam_die4	]
-{self.solid = SOLID_NOT;self.ammo_shells = 5;DropBackpack();AmalGoop_Drop();AmalGoop_Drop();}
+{self.solid = SOLID_NOT;AmalGoop_Drop();AmalGoop_Drop();}
 void()	amalgam_die4	=[	$death4,	amalgam_die5	] {}
 void()	amalgam_die5	=[	$death5,	amalgam_die6	] {}
 void()	amalgam_die6	=[	$death6,	amalgam_die7	] {}
@@ -261,7 +250,7 @@ void()	amalgam_die10	=[	$death10,	SUB_Null	] {}
 void()	amalgam_cdie1	=[	$deathc1,	amalgam_cdie2	] {}
 void()	amalgam_cdie2	=[	$deathc2,	amalgam_cdie3	] {ai_back(5);}
 void()	amalgam_cdie3	=[	$deathc3,	amalgam_cdie4	]
-{self.solid = SOLID_NOT;self.ammo_shells = 5;DropBackpack();ai_back(4);AmalGoop_Drop();AmalGoop_Drop();}
+{self.solid = SOLID_NOT;ai_back(4);AmalGoop_Spam();}
 void()	amalgam_cdie4	=[	$deathc4,	amalgam_cdie5	] {ai_back(13);}
 void()	amalgam_cdie5	=[	$deathc5,	amalgam_cdie6	] {ai_back(3);}
 void()	amalgam_cdie6	=[	$deathc6,	amalgam_cdie7	] {ai_back(4);}
@@ -270,6 +259,15 @@ void()	amalgam_cdie8	=[	$deathc8,	amalgam_cdie9	] {}
 void()	amalgam_cdie9	=[	$deathc9,	amalgam_cdie10	] {}
 void()	amalgam_cdie10	=[	$deathc10,	amalgam_cdie11	] {}
 void()	amalgam_cdie11	=[	$deathc11,	SUB_Null	] {}
+
+void() AmalGoop_Spam =
+{
+    while(self.cnt < 5)
+    {
+        AmalGoop_Drop();
+        self.cnt++;
+    }
+}
 
 void() AmalGoop_Drop =
 {
@@ -287,7 +285,7 @@ void() AmalGoop_Drop =
 	item.movetype = MOVETYPE_TOSS;
 	item.classname = "AmalGoop";
 	setmodel (item, "progs/proj_amalgoop.mdl");
-	setsize (item, '-16 -16 0', '16 16 16');
+	setsize (item, '-8 -8 0', '8 8 16');
 
 	item.touch = AmalGoop_Touch;
 	item.think = SUB_Remove;
@@ -300,7 +298,7 @@ void() AmalGoop_Touch =
 	if (other.flags & FL_MONSTER) return;
 	if (self.attack_finished > time) return;
 
-	T_Damage(other, self.owner, self, 10);
+	T_Damage(other, self.owner, self, 5);
 	sound(self, CHAN_VOICE, "amalg/amalg_goop.wav", 1, ATTN_NORM);
 	remove(self); //change this to an animation l8r
 }
@@ -310,11 +308,9 @@ void() amalgam_die =
 {
 	 
 // check for gib
-	if (self.health < -35)
+	if (self.health < -80)
 	{
 		Gib("progs/h_guard.mdl", self.health);
-		self.ammo_shells = 5;
-		DropBackpack();
 		return;
 	}
 
@@ -335,8 +331,8 @@ void() monster_amalgam_spawn =
 
 	setmodel (self, "progs/soldier.mdl");
 
-	setsize (self, '-16 -16 -24', '16 16 40');
-	self.health = 35;
+	setsize (self, VEC_HULL2_MIN, '32 32 40');
+	self.health = 400;
 
 	self.th_stand = amalgam_stand1;
 	self.th_walk = amalgam_walk1;
@@ -347,15 +343,15 @@ void() monster_amalgam_spawn =
 	self.th_checkattack = AmalgamCheckAttack;
 
 	if (self.deathtype == string_null)
-		self.deathtype = "was shot by a Grunt";
+		self.deathtype = "was shlorped by the Amalgam";
 
-	walkmonster_start ();
+    flymonster_start ();
 }
 
 void() monster_amalgam_spawner = {mon_spawner_use(monster_amalgam_spawn);}
 
 /*QUAKED monster_amalgam (1 0 0) (-16 -16 -24) (16 16 40) AMBUSH ? ? ? TRIGGERED NOTFOG NOTELEFRAG INSTAWAKE
-Grunt, 30 health points.
+Amalgam, 60 health points.
 
 Flags:
 "ambush" only wake up on seeing the player, not another monster getting angry
@@ -371,7 +367,7 @@ Keys:
 "movedir" set to a velocity to make the monster jump on awakening
 */
 /*FGD
-@PointClass base(Monster) size(-16 -16 -24, 16 16 40) model({ "path": ":progs/soldier.mdl" }) = monster_amalgam : "Grunt" []
+@PointClass base(Monster) size(-16 -16 -24, 16 16 40) model({ "path": ":progs/soldier.mdl" }) = monster_amalgam : "Amalgam" []
 */
 void() monster_amalgam =
 {	
@@ -399,9 +395,9 @@ void() monster_amalgam =
 	precache_sound ("soldier/sight1.wav");
 
 	precache_sound ("player/udeath.wav");		// gib death
-	self.health = 35;
+	self.health = 400;
 
-	setsize (self, '-16 -16 -24', '16 16 40');
+	setsize (self, VEC_HULL2_MIN, '32 32 40');
 	if ( monster_spawnsetup( monster_amalgam_spawner ) ) return;
 	
 	addmonster(1);

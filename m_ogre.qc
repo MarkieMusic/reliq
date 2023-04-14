@@ -71,7 +71,7 @@ in placement, so rooms don't have to be designed around how high the ogres
 have to be
 ================
 */
-vector(vector dest, float speed) OgreAimGrenade =
+vector(vector dest, float speed, float innacuracy) OgreAimGrenade =
 {
 	float theta, a;
 	vector angs;
@@ -81,7 +81,7 @@ vector(vector dest, float speed) OgreAimGrenade =
 	
 	a = vectoyaw(dest);
 	angs = '0 0 0';
-	angs_y = a;
+	angs_y = a + innacuracy;
 	// clamp the perfect terminator-aim to limit deadon shots to the face, then average with 
 	// old dumb aim for "z-only-slightly-aware"ness(tm)
 	if (vlen(dest) < 160)
@@ -111,7 +111,7 @@ void() OgreFireGrenade =
 	// set grenade speed	
 	makevectors (self.angles);
 	gorg = self.origin + v_forward * 16;
-	gvel = OgreAimGrenade(enemy_vispos() - gorg, 632);
+	gvel = OgreAimGrenade(enemy_vispos() - gorg, 632, 0);
 	
 	g = launch_grenade(gorg, gvel);
 	g.touch = OgreGrenadeTouch;
