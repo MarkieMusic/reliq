@@ -74,5 +74,6 @@ m_oldone.qc		// registered
 
 m_shield.qc	//reliq
 m_tentacle.qc //reliq
+m_amalgam.qc //reliq
 
 test.qc

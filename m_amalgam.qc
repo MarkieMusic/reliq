@@ -11,7 +11,7 @@ $origin 0 -6 24
 $base base		
 $skin skin
 
-$frame standy1 standy2 standy3 standy4 standy5 standy6 standy7 standy8
+$frame stand1 stand2 stand3 stand4 stand5 stand6 stand7 stand8
 
 $frame death1 death2 death3 death4 death5 death6 death7 death8
 $frame death9 death10
@@ -43,14 +43,14 @@ SOLDIER CODE
 ==============================================================================
 */
 
-void()	amalgam_standy1	=[	$standy1,	amalgam_standy2	] {ai_standy();}
-void()	amalgam_standy2	=[	$standy2,	amalgam_standy3	] {ai_standy();}
-void()	amalgam_standy3	=[	$standy3,	amalgam_standy4	] {ai_standy();}
-void()	amalgam_standy4	=[	$standy4,	amalgam_standy5	] {ai_standy();}
-void()	amalgam_standy5	=[	$standy5,	amalgam_standy6	] {ai_standy();}
-void()	amalgam_standy6	=[	$standy6,	amalgam_standy7	] {ai_standy();}
-void()	amalgam_standy7	=[	$standy7,	amalgam_standy8	] {ai_standy();}
-void()	amalgam_standy8	=[	$standy8,	amalgam_standy1	] {ai_standy();}
+void()	amalgam_stand1	=[	$stand1,	amalgam_stand2	] {ai_stand();}
+void()	amalgam_stand2	=[	$stand2,	amalgam_stand3	] {ai_stand();}
+void()	amalgam_stand3	=[	$stand3,	amalgam_stand4	] {ai_stand();}
+void()	amalgam_stand4	=[	$stand4,	amalgam_stand5	] {ai_stand();}
+void()	amalgam_stand5	=[	$stand5,	amalgam_stand6	] {ai_stand();}
+void()	amalgam_stand6	=[	$stand6,	amalgam_stand7	] {ai_stand();}
+void()	amalgam_stand7	=[	$stand7,	amalgam_stand8	] {ai_stand();}
+void()	amalgam_stand8	=[	$stand8,	amalgam_stand1	] {ai_stand();}
 
 void()	amalgam_walk1	=[	$prowl_1,	amalgam_walk2	] {
 if (random() < 0.2)
@@ -171,7 +171,7 @@ void(entity attacker, float damage)	amalgam_pain =
 /*
 vanilla grunts pretend to lag their shots by applying negative leading based
 on player velocity. SV_PushMove only sets origins per hostframe and doesn't 
-modify velocities, so a player standying on a train or a lift will have zero 
+modify velocities, so a player standing on a train or a lift will have zero 
 velocity and get drilled constantly. (see: SMEJ w1m1)
 
 grunts now choose an aim vector 0.3 seconds before firing, rather than trying 
@@ -205,13 +205,13 @@ void() amalgam_fire =
 
 /*
 ===========
-SoldierCheckAttack
+AmalgamCheckAttack
 
 The player is in view, so decide to move or launch an attack
 Returns FALSE if movement should continue
 ============
 */
-float() SoldierCheckAttack =
+float() AmalgamCheckAttack =
 {
 	local float		chance;
 
@@ -338,13 +338,13 @@ void() monster_amalgam_spawn =
 	setsize (self, '-16 -16 -24', '16 16 40');
 	self.health = 35;
 
-	self.th_standy = amalgam_standy1;
+	self.th_stand = amalgam_stand1;
 	self.th_walk = amalgam_walk1;
 	self.th_run = amalgam_run1;
 	self.th_missile = amalgam_atk1;
 	self.th_pain = amalgam_pain;
 	self.th_die = amalgam_die;
-	self.th_checkattack = SoldierCheckAttack;
+	self.th_checkattack = AmalgamCheckAttack;
 
 	if (self.deathtype == string_null)
 		self.deathtype = "was shot by a Grunt";
