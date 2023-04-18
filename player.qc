@@ -386,7 +386,7 @@ void()	player_axe =
 	}
 	
 	self.think = player_nail;
-	self.nextthink = time + 0.025;	// TODO: oh fuck it, it works, you're never touching this again
+	self.nextthink = time + 0.020;	// TODO: oh fuck it, it works, you're never touching this again
 };
 
 void()	player_impale1 =	[$shotatt1, player_shot2	] {self.weaponframe=1;

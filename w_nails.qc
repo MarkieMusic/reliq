@@ -45,18 +45,19 @@ void() W_FireNailgun =
 	v_x *= -1;	// pitch comes back inverted from vectoangles :|
 	makevectors( v );
 
+	self.punchangle_x = -1;
 	sound (self, CHAN_WEAPON, "weapons/rocket1i.wav", 1, ATTN_NORM);
 	self.currentammo = self.ammo_nails = self.ammo_nails - 1;
 	offset = VEC_ORIGIN;
 	
 	if (self.cnt == 2) //check which barrel is firing, set in player_nail
 	{
-		offset_z = -4;
+		offset_z = -2;
 		offset_x = 5;
 	}
 	else
 	{
-		offset_z = 2;
+		offset_z = -4;
 		offset_x = 5;
 	}
 	org = W_SpikeOrigin(offset);
@@ -64,7 +65,7 @@ void() W_FireNailgun =
 	// default sv_maxvelocity is 2000, any higher leads to weird 
 	// angular offsets caused by clamping the velocity
 	launch_nail(org, dir * 1996);
-	self.attack_finished = time + 0.22;
+	self.attack_finished = time + 0.20;
 }
 
 void() spike_unfatten = { self.movetype = MOVETYPE_FLY; }
