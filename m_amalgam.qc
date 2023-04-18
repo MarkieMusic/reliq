@@ -96,11 +96,11 @@ void()	amalgam_atk1	=[	$shoot1,	amalgam_atk2	] {ai_face();}
 void()	amalgam_atk2	=[	$shoot2,	amalgam_atk3	] {ai_face();}
 void()	amalgam_atk3	=[	$shoot3,	amalgam_atk4	] {ai_face();}
 void()	amalgam_atk4	=[	$shoot4,	amalgam_atk5	] {ai_face();}
-void()	amalgam_atk5	=[	$shoot5,	amalgam_atk6	] {ai_face(); amalgam_fire();}
+void()	amalgam_atk5	=[	$shoot5,	amalgam_atk6	] {ai_face();}
 void()	amalgam_atk6	=[	$shoot6,	amalgam_atk7	] {ai_face(); amalgam_fire();}
 void()	amalgam_atk7	=[	$shoot7,	amalgam_atk8	] {ai_face(); amalgam_fire();}//ai_check_refire (amalgam_atk3);}
 void()	amalgam_atk8	=[	$shoot8,	amalgam_atk9	] {ai_face(); amalgam_fire();}
-void()	amalgam_atk9	=[	$shoot9,	amalgam_run1	] {ai_face();}
+void()	amalgam_atk9	=[	$shoot9,	amalgam_run1	] {ai_face(); amalgam_fire();}
 
 
 void()	amalgam_pain1	=[	$pain1,		amalgam_pain2	] {}
@@ -150,19 +150,19 @@ void(entity attacker, float damage)	amalgam_pain =
 
 	if (r < 0.2)
 	{
-		PainFinished(0.6);
+		PainFinished(3);
 		amalgam_pain1 ();
 		sound (self, CHAN_VOICE, "soldier/pain1.wav", 1, ATTN_NORM);
 	}
 	else if (r < 0.6)
 	{
-		PainFinished(1.1);
+		PainFinished(3);
 		amalgam_painb1 ();
 		sound (self, CHAN_VOICE, "soldier/pain2.wav", 1, ATTN_NORM);
 	}
 	else
 	{
-		PainFinished(1.1);
+		PainFinished(3);
 		amalgam_painc1 ();
 		sound (self, CHAN_VOICE, "soldier/pain2.wav", 1, ATTN_NORM);
 	}
