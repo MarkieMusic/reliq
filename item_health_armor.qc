@@ -197,21 +197,30 @@ void() armor_touch =
 
 	if (self.classname == "item_armor_shard")
 	{
-		sprint(other, "You got an Armor Shard \b(+5)\b\n");
+		sprint(other, "You got an Armor Shard  \b+5\b");
+		sprint(other, "\x86");
+		sprint(other, "\x87");
+		sprint(other, "\n");
 		sound(other, CHAN_ITEM, "items/armor_shard.wav", 1, ATTN_NORM);
 		stuffcmd (other, "bf\n");
 	}
 
 	if (self.classname == "item_armor_light")
 	{
-		sprint(other, "You got Light Armor \b(+25)\b\n");
+		sprint(other, "You got Light Armor  \b+25\b");
+		sprint(other, "\x86");
+		sprint(other, "\x87");
+		sprint(other, "\n");
 		sound(other, CHAN_ITEM, "items/armor_light.wav", 1, ATTN_NORM);
 		stuffcmd (other, "bf\n");
 	}
 
 	if (self.classname == "item_armor_heavy")
 	{
-		sprint(other, "You got Heavy Armor \b(+100)\b\n");
+		sprint(other, "You got Heavy Armor  \b+100\b");
+		sprint(other, "\x86");
+		sprint(other, "\x87");
+		sprint(other, "\n");
 		sound(other, CHAN_ITEM, "items/armor_heavy.wav", 1, ATTN_NORM);
 		stuffcmd (other, "bf\n");
 	}

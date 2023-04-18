@@ -689,8 +689,11 @@ float (entity e, float healamt, float overheal) T_Heal =
 		e.health = e.health + healamt;
 
 		// moved here from healthtouch so any source of healing prints messages
-		sprint(e, "You are healed by ");
+		sprint(e, "You were healed  \b+");
 		sprint(e, ftos(healamt));
+		sprint(e, "\b");
+		sprint(e, "\x88");
+		sprint(e, "\x89");
 		sprint(e, "\n");
 		stuffcmd (e, "bf\n");
 		return TRUE;
