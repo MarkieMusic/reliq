@@ -109,7 +109,9 @@ void() W_FireAxe =
 			// do knockback
 				if ((trace_ent.movetype == MOVETYPE_STEP || trace_ent.movetype == MOVETYPE_WALK) && 
 					// don't swat bosses or other non-standard-sized enemies around
-					trace_ent.maxs_x <= 32 && trace_ent.health > 0 && trace_ent.type != "boss")
+					(trace_ent.maxs_x <= 32 && trace_ent.health > 0 && trace_ent.type != "boss") &&
+					//tentacle specifically shouldn't knock back since it's burrowed into the floor
+					(trace_ent.classname != "monster_tentacle"))
 				{
 					local vector toss;
 					toss = v_forward;
