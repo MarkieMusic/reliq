@@ -248,7 +248,7 @@ void() ImpalerTouch =
 {
 	if (other == self.owner ) return;		// don't touch owner
 	if (CheckProjectilePassthru()) return;
-	if (other.takedamage == DAMAGE_AIM)
+	if ((other.takedamage == DAMAGE_AIM) || (other.takedamage == DAMAGE_YES))
 	{
 			if (other.classname == "monster_zombie")
 				T_Damage(other,self.buddy,self.buddy,59);
@@ -278,7 +278,7 @@ void() ImpalerTouch =
 		gunshot(self.origin);
 
 		//stick in the wall if we hit worldspawn as we know that won't move
-		if (other == world)
+		if ((other == world) || (other.classname == "func_button"))
 		{
 		ImpalerInwallThink();
 		}
