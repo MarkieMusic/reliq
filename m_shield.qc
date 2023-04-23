@@ -304,7 +304,7 @@ void() sk_chargesound =
 void() sk_idle_sound =
 {
 	if (random() < 0.2 && time > self.show_hostile)
-		sound (self, CHAN_VOICE, "sknight/idle.wav", 1, ATTN_NORM);
+		sound (self, CHAN_AUTO, "sknight/idle.wav", 1, ATTN_NORM);
 }
 
 void() shieldk_pain_go =
