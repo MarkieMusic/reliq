@@ -349,14 +349,17 @@ void(entity attacker, float damage)	shieldk_pain =
 {
 	if (self.pain_finished > time)
 		return;
-
-	if (time - self.pain_finished > 5)
-	{	// always go into pain frame if it has been a while
-		shieldk_pain_go();
-		return;
-	}
 	
-	if ( ( random()*30 > damage ) )
+	//this entire function blows tbh
+	//intent is to make small instances of chip damage (nailgun, pistol) stun him
+	//and for larger hits to have a lower chance
+	//but rn it just means that the shotguns are the best since they hit with pellets
+
+	if ( damage > 15)
+		if (random() > .1)
+			return;
+
+	if ( random() > 0.3 )
 		return;		// didn't flinch
 
 	shieldk_pain_go();
