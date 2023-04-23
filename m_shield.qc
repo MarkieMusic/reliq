@@ -72,12 +72,9 @@ void() skCheckCharge =
 	if ( vlen (self.origin - self.enemy.origin) < 80)
 		return;		// use regular attack
 
-	// charge		
-	ai_attack_finished (2);
-	if (random() > .4)
-	{
+	// charge
+	ai_attack_finished (3);
 	shieldk_char_a1 ();
-	}
 }
 
 void() skCheckContinueCharge =
