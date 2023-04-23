@@ -35,7 +35,7 @@ void(vector org, float rad) T_GibDownedZombies =
 void() T_ExplosiveTouch =
 {
 	//shambler and shield knight take less damage from explosives, so display this visually with a sprite change
-	if (other.classname == "monster_shambler" || "monster_shield_knight")
+	if ((other.classname == "monster_shambler") || (other.classname == "monster_shield_knight"))
 		BecomeWeakExplosion();
 	else
 		BecomeExplosion();
