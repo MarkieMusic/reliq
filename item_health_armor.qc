@@ -205,7 +205,7 @@ void() armor_touch =
 		stuffcmd (other, "bf\n");
 	}
 
-	if (self.classname == "item_armor_light")
+	if (self.classname == "item_armor_light" || "item_armor1")
 	{
 		sprint(other, "You got Light Armor  \b+25\b");
 		sprint(other, "\x86");
@@ -215,7 +215,7 @@ void() armor_touch =
 		stuffcmd (other, "bf\n");
 	}
 
-	if (self.classname == "item_armor_heavy")
+	if (self.classname == "item_armor_heavy" || "item_armor2" || "item_armorInv")
 	{
 		sprint(other, "You got Heavy Armor  \b+100\b");
 		sprint(other, "\x86");
