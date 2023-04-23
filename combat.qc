@@ -412,6 +412,10 @@ void(entity targ, entity inflictor, entity attacker, float damage) T_DamageApply
 	{
 		damage = damage * 0.5;
 
+		//this is impossible to see lol
+		//spawn a gunshot/gunpuff/gun smoke because his shield is up and he's taking reduced dps
+		gunshot(targ.origin);
+
 		if ((random() < 0.4) && (targ.shield_cd < time)) //don't spam the deflect sound
 		{
 			targ.shield_cd = time + .5;
