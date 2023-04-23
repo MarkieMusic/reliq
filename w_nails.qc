@@ -150,7 +150,12 @@ void() spike_touch =
 		if (other.takedamage)
 		{
 			spawn_touchblood (self.dmg);
-			T_Damage (other, self, self.trueowner, self.dmg);
+
+			//since we don't have a super nailgun, normal quadded nails should gib zombies
+			if (self.trueowner.super_damage_finished > time && other.classname == "monster_zombie")
+				T_Damage (other, self, self.trueowner, 72);
+			else
+				T_Damage (other, self, self.trueowner, self.dmg);
 		}
 		else
 		{
