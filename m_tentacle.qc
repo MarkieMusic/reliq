@@ -448,7 +448,7 @@ void() monster_tentacle_spawn =
 	//self.movetype = MOVETYPE_STEP;
 	
 	setmodel (self, "progs/mon_tentacle.mdl");
-	setsize (self, VEC_HULL_MIN, VEC_HULL_MAX);
+	setsize (self, '-16 -16 -24', '16 16 40');
 	self.health = 99;
 
 	self.th_stand = tent_stand1;
@@ -474,7 +474,7 @@ void() monster_tentacle_spawn =
 void() monster_tentacle_spawner = {mon_spawner_use(monster_tentacle_spawn);}
 
 
-/*QUAKED monster_tentacle (1 0 0) (-32 -32 -24) (32 32 40) AMBUSH ? ? ? TRIGGERED NOTFOG NOTELEFRAG INSTAWAKE
+/*QUAKED monster_tentacle (1 0 0) (-16 -16 -24) (16 16 40) AMBUSH ? ? ? TRIGGERED NOTFOG NOTELEFRAG INSTAWAKE
 Shub Tentacle, 200 health points.
 Stationary monster. Fires Scrag projectiles with light homing towards the player.
 
@@ -496,7 +496,7 @@ Keys:
 "movedir" set to a velocity to make the monster jump on awakening
 */
 /*FGD
-@PointClass base(Monster) size(-32 -32 -24, 32 32 64) model({ "path": ":progs/mon_tentacle.mdl" }) = monster_tentacle : "
+@PointClass base(Monster) size(-16 -16 -24) (16 16 40) model({ "path": ":progs/mon_tentacle.mdl" }) = monster_tentacle : "
 Shub Tentacle, 200 health points.
 Requires the 'include' key to function correctly. Otherwise will not burrow correctly.
 " []
@@ -524,7 +524,7 @@ void() monster_tentacle =
 	precache_sound2 ("tent/sight.wav");
 	
 	self.health = 99;
-	setsize (self, VEC_HULL_MIN, VEC_HULL_MAX);
+	setsize (self, '-16 -16 -24', '16 16 40');
 	if ( monster_spawnsetup( monster_tentacle_spawner ) ) return;
 	
 	addmonster(1);
