@@ -330,11 +330,11 @@ VampGlobe Stuff
 they're basically backpacks, really.
 ===============
 */
-void(entity globetimetar) CheckVampGlobe =
+void(entity attacker) CheckVampGlobe =
 {
 	float VampCouRemaining = 0;
 	//if they player doesn't have vampiric blood, don't bother
-	if (self.enemy.vamp_finished < time)
+	if (attacker.vamp_finished < time)
 	return;
 
 //	dprint(self.classname);
@@ -375,7 +375,7 @@ void(entity globetimetar) CheckVampGlobe =
 
 	while(self.cnt > VampCouRemaining)
 	{
-		DropVampGlobe(globetimetar);
+		DropVampGlobe(attacker);
 		VampCouRemaining++;
 	}
 }
@@ -419,6 +419,9 @@ void() VampGlobeTouch =
 
 	//for summary on health healed during powerup duration
 	other.globehealth_cou += 3;
+	//for coagulated (lol) health received prints so we don't spam console
+	//with tinylittleman hp received prints
+	other.globehealth_cou_short += 3;
 	
 	if (random() < 0.33)
 		sound(other, CHAN_ITEM, "items/vamppickup1.wav", 1, ATTN_NORM);
