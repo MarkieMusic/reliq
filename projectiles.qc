@@ -459,7 +459,7 @@ entity(vector org, vector vel) launch_laser =
 {
 	entity spike;
 	
-	spike = launch_projectile(org, vel, "laser");
+	spike = launch_projectile(org, vel, "spike");
 	spike.touch = spike_touch;
 	//spike.effects = EF_DIMLIGHT;
 	spike.movetype = MOVETYPE_FLY;	// enforcer lasers aren't FLYMISSILE in id106
