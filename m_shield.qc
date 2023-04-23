@@ -245,6 +245,14 @@ void()	shieldk_slice8	=[	$slice8,	shieldk_slice9	] {ai_charge(2); ai_melee();}
 void()	shieldk_slice9	=[	$slice9,	shieldk_slice10	] {ai_melee();}
 void()	shieldk_slice10	=[	$slice10,	shieldk_run1	] {ai_charge(3);}
 
+//==========================================================================
+void()	shieldk_bash1	=[	$slice1,	shieldk_bash2	] {ai_forward(2); self.shieldup = 0;}
+void()	shieldk_bash2	=[	$slice2,	shieldk_bash3	] {ai_forward(4);}
+void()	shieldk_bash3	=[	$slice3,	shieldk_bash4	] {ai_forward(6);}
+void()	shieldk_bash4	=[	$slice4,	shieldk_bash5	] {ai_forward(2);}
+void()	shieldk_bash5	=[	$slice5,	shieldk_bash6	] {ai_forward(0);}
+void()	shieldk_bash6	=[	$slice6,	shieldk_run1	] {ai_forward(0);}
+
 //===========================================================================
 
 void()	shieldk_smash1	=[	$smash1,	shieldk_smash2	] {ai_charge(1); self.shieldup = 0;}
@@ -332,9 +340,9 @@ void() shieldk_ai_melee =
 
 	T_DamageMelee (self.enemy, self, 25);
 	//don't try again before 2s to let the player maneuver
-	ai_attack_finished (2);
-	//return to running after striking
-	shieldk_run1();
+	ai_attack_finished (3);
+	//shield recovery aniamtion after bashing
+	shieldk_bash1();
 }
 
 void(entity attacker, float damage)	shieldk_pain =
