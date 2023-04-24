@@ -311,7 +311,7 @@ void() TentHome =
 {
 	float rate, dot;
 	
-	if (!enemy_alive())
+	if (!alive(self.enemy))
 	{
 		return;
 	}
@@ -404,7 +404,7 @@ void() TentHomeDed =
 {
 	float rate, dot;
 	
-	if (!enemy_alive())
+	if (!alive(self.enemy))
 	{
 		return;
 	}
