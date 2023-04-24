@@ -570,8 +570,9 @@ void(entity inflictor, entity attacker, entity tgt, float points, float multi) T
 		return;
 	
 	// shambler (and shield knight!) take half damage from all explosions
-	if (tgt.classname == "monster_shambler" || "monster_shield_knight") pnts *= 0.5;
-	
+	if 	(tgt.classname == "monster_shambler" || 
+		tgt.classname == "monster_shield_knight")
+			pnts *= 0.5;
 	
 	if (multi && tgt.movetype != MOVETYPE_WALK )
 		AddMultiDamage( tgt, pnts );
