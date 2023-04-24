@@ -496,7 +496,7 @@ Keys:
 "movedir" set to a velocity to make the monster jump on awakening
 */
 /*FGD
-@PointClass base(Monster) size(-16 -16 -24) (16 16 40) model({ "path": ":progs/mon_tentacle.mdl" }) = monster_tentacle : "
+@PointClass base(Monster) size(-16 -16 -24, 16 16 40) model({ "path": ":progs/mon_tentacle.mdl" }) = monster_tentacle : "
 Shub Tentacle, 200 health points.
 Requires the 'include' key to function correctly. Otherwise will not burrow correctly.
 " []
