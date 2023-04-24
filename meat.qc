@@ -162,7 +162,7 @@ void(string gibname) target_meat_fireworks_do =
 	spray_z = spray_z * crandom() + self.mangle_z * 4;
 	spray *= self.speed * 2;
 	
-	gib = toss_projectile(self.origin, spray, "gib");
+	gib = toss_projectile(self.origin + self.pos1, spray, "gib");
 	MakeGib(gib, gibname);
 }
 
@@ -172,6 +172,10 @@ void() target_meat_fireworks_go =
 	float i;
 	meat_noise();
 	
+	self.pos1_x = (random()-0.5) * self.size_x;
+	self.pos1_y = (random()-0.5) * self.size_y;
+	self.pos1_z = (random()-0.5) * self.size_z;
+
 	for (i = 0; i < 3; i++)
 	{
 		spray = '1 1 1' - self.mangle;
@@ -179,7 +183,7 @@ void() target_meat_fireworks_go =
 		spray_y *= crandom();
 		spray_z *= crandom();
 		spray += self.mangle * 0.5;
-		SpawnMeatSpray(self.origin, spray * self.speed);
+		SpawnMeatSpray(self.origin + self.pos1, spray * self.speed);
 	}
 	
 	target_meat_fireworks_do("progs/gib1.mdl");
@@ -207,6 +211,7 @@ void() target_meat_fireworks_use =
 		meats.think = target_meat_fireworks_go;
 		meats.mangle = self.mangle;
 		meats.speed = self.speed;
+		meats.size = self.size;
 		meats.nextthink = time + tnext;
 		tnext += self.wait + self.rand * random();
 	}
@@ -222,6 +227,7 @@ Keys
 "rand" max random additional to wait before meat
 "speed" speed of meat
 "mangle" override meat direction, defaults to up
+"size" random location of bursts within bounds of this size
 */
 /*FGD
 @PointClass base(Appearflags, Targetname) size(32 32 32) color(180 0 50) = target_meat_fireworks : "trigger for meat"
@@ -230,6 +236,7 @@ Keys
 	delay(string) : "Delay before first meat" : "0"
 	wait(string) : "Wait between meat" : "1"
 	rand(string) : "Random extra wait before meat" : "0"
+	size(string) : "Random location within bounds" : "0 0 0"
 	speed(integer) : "Speed of meat" : 128
 	mangle(string) : "Override meat vector" : "0 0 1"
 ]

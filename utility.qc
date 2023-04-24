@@ -358,23 +358,23 @@ entity(entity start, .string fld, string match) findunlocked =
 	return head;
 }
 
-entity(entity start) findunlockedtarget =
+entity(entity e, entity start) findunlockedtarget =
 {
 	entity head = world;
-	if (self.target != string_null)
-		head = findunlocked(start, targetname, self.target);
+	if (e.target != string_null)
+		head = findunlocked(start, targetname, e.target);
 	if (head) return head;
 	
-	if (self.target2 != string_null)
-		head = findunlocked(start, targetname, self.target2);
+	if (e.target2 != string_null)
+		head = findunlocked(start, targetname, e.target2);
 	if (head) return head;
 	
-	if (self.target3 != string_null)
-		head = findunlocked(start, targetname, self.target3);
+	if (e.target3 != string_null)
+		head = findunlocked(start, targetname, e.target3);
 	if (head) return head;
 	
-	if (self.target4 != string_null)
-		return findunlocked(start, targetname, self.target4);
+	if (e.target4 != string_null)
+		return findunlocked(start, targetname, e.target4);
 	return world;
 }
 
@@ -428,6 +428,12 @@ void(string s) precache_model3	= { return; }
 void(string s) precache_sound3	= { return; }
 */
 
+float(entity e) localtime =
+{
+	if (e.solid == SOLID_BSP || e.movetype == MOVETYPE_PUSH)
+		return e.ltime;
+	return time;
+}
 
 // shorthand for turning -1 to 0 for keyvalues for which 0 is a valid non-default selection
 float(float in) zeroconvert =
