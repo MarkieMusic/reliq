@@ -195,7 +195,7 @@ void() armor_touch =
 
 	other.items = (other.items |= IT_ARMOR2);
 
-	if (self.classname == "item_armor_shard")
+	if (self.cnt == 1)
 	{
 		sprint(other, "You got an Armor Shard  \b+5\b");
 		sprint(other, "\x86");
@@ -205,7 +205,7 @@ void() armor_touch =
 		stuffcmd (other, "bf\n");
 	}
 
-	if (self.classname == "item_armor_light" || "item_armor1")
+	if (self.cnt == 2)
 	{
 		sprint(other, "You got Light Armor  \b+25\b");
 		sprint(other, "\x86");
@@ -215,7 +215,7 @@ void() armor_touch =
 		stuffcmd (other, "bf\n");
 	}
 
-	if (self.classname == "item_armor_heavy" || "item_armor2" || "item_armorInv")
+	if (self.cnt == 3)
 	{
 		sprint(other, "You got Heavy Armor  \b+100\b");
 		sprint(other, "\x86");
@@ -246,6 +246,7 @@ void() item_armor_shard =
 	self.touch = armor_touch;
 	self.armortype = ARMORTYPE_RELIQ;
 	self.armorvalue = 5;
+	self.cnt = 1;
 	precache_model ("progs/item_armor_shard.mdl");
 	setmodel (self, "progs/item_armor_shard.mdl");
 	setsize (self, '-16 -16 0', '16 16 56');
@@ -271,6 +272,7 @@ void() item_armor_light =
 	self.touch = armor_touch;
 	self.armortype = ARMORTYPE_RELIQ;
 	self.armorvalue = 25;
+	self.cnt = 2;
 	precache_model ("progs/item_armor_light.mdl");
 	setmodel (self, "progs/item_armor_light.mdl");
 	setsize (self, '-16 -16 0', '16 16 56');
@@ -296,6 +298,7 @@ void() item_armor_heavy =
 	self.touch = armor_touch;
 	self.armortype = ARMORTYPE_RELIQ;
 	self.armorvalue = 100;
+	self.cnt = 3;
 	precache_model ("progs/item_armor_heavy.mdl");
 	setmodel (self, "progs/item_armor_heavy.mdl");
 	setsize (self, '-16 -16 0', '16 16 56');
