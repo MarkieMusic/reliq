@@ -97,11 +97,12 @@ void() tbaby_run25	=[	$run25,		tbaby_run1	] {ai_run(1);}
 
 float(entity e) tar_visible =
 {
-	return (visible(e) && !has_invis(e));
+	return (alive(e) && visible(e) && !has_invis(e));
 }
 
 void() Tar_Forget =
 {
+	self.customflags |= CFL_OMNIVISION;	// gain 360 vision in case we fall asleep in a corner
 	if (!self.rad_time)	// time to be RAD
 	{
 		// we just woke up, don't forget right away, because if we were awoken
@@ -285,7 +286,7 @@ float() tbaby_check_attack =
 
 	if (random() < chance)
 	{
-		self.th_missile ();
+		self.attack_state = AS_MISSILE;
 		ai_attack_finished (2*random());
 		return TRUE;
 	}

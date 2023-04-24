@@ -92,6 +92,11 @@ float(entity targ) infront =
 	vector vec;
 	float dot;
 	
+	// spawns gain all-around vision after they've been awakened the first time so they
+	// don't go to sleep facing a wall or corner and become inert
+	if (self.classname == "monster_tarbaby" && (self.customflags & CFL_OMNIVISION))
+		return TRUE;
+	
 	makevectors (self.angles);
 	vec = normalize (targ.origin - self.origin);
 	dot = vec * v_forward;
@@ -148,19 +153,19 @@ vector() enemy_vispos =
 
 /*
 ===========
-enemy_alive
+alive
 
-Verify if enemy can still be attacked
-Returns FALSE if enemy should be permanently forgotten
+Verify if entity can still be attacked
+Returns FALSE if e should be permanently forgotten
 ============
 */
-float() enemy_alive =
+float(entity e) alive =
 {
-	if (self.enemy.health <= 0) return FALSE;
+	if (e.health <= 0) return FALSE;
 	// also consider a downed zombie to be dead, instead of waving a chainsaw over its body forever
-	if (self.enemy.customflags & (CFL_KNOCKEDDOWN)) return FALSE;
+	if (e.customflags & (CFL_KNOCKEDDOWN)) return FALSE;
 	// coop spectating is a deadflag without being out of health
-	if (self.enemy.deadflag) return FALSE;
+	if (e.deadflag) return FALSE;
 	return TRUE;
 }
 
@@ -415,7 +420,7 @@ over - making it random makes it uncertain and thus not cheesable
 */
 void (void() th, float minf) ai_check_refire_min =
 {
-	if (!enemy_alive())
+	if (!alive(self.enemy))
 		return;
 	if (!CheckClearAttack())
 		return;
@@ -471,7 +476,7 @@ float() CheckAttack =
 	{
 		if (self.th_melee)
 		{
-			self.th_melee();
+			self.attack_state = AS_MELEE;
 			return TRUE;
 		}
 	}
@@ -504,7 +509,7 @@ float() CheckAttack =
 
 	if (random() < chance)
 	{
-		self.th_missile();
+		self.attack_state = AS_MISSILE;
 		ai_attack_finished (2*random());
 		return TRUE;
 	}
@@ -574,9 +579,9 @@ void() SightSound =
 
 void() FoundTarget =
 {
-	while(!enemy_alive())
+	while(!alive(self.enemy))
 	{
-		if (self.oldenemy)
+		if (self.oldenemy && alive(self.oldenemy))
 		{
 			self.enemy = self.oldenemy;
 			self.oldenemy = world;
@@ -1511,13 +1516,13 @@ void(float dist) ai_run =
 	}
 	
 	// see if the enemy is dead
-	if (!enemy_alive())
+	if (!alive(self.enemy))
 	{
 		e = self.enemy;
 		self.enemy = world;
 		self.frags = 0;
 
-		if (self.oldenemy.health > 0)
+		if (alive(self.oldenemy))
 		{
 			self.enemy = self.oldenemy;			
 			HuntTarget();

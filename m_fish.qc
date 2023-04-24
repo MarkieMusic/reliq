@@ -86,7 +86,7 @@ void() fish_melee =
 {
 	float ldmg;
 
-	if (!self.enemy || !enemy_alive())
+	if (!self.enemy || !alive(self.enemy))
 		return;		// removed before stroke
 	
 	if (vlen(self.enemy.origin - self.origin) > 60)
@@ -283,6 +283,7 @@ float() fish_check_attack =
 		if (self.enemy.waterlevel <= WL_FEET) return FALSE;	// enemy is out of liquid
 	}
 	
+	// have to call melee directly because ai_run() won't catch AS_MELEE
 	self.th_melee();
 	return TRUE;
 }

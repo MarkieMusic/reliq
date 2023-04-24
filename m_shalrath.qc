@@ -174,7 +174,7 @@ void() ShalHome =
 		ShalMissileExplode();
 		return;
 	}		
-	if (!enemy_alive())
+	if (!alive(self.enemy))
 	{
 		self.think = ShalMissileExplode;
 		self.nextthink = self.lifetime_finished;

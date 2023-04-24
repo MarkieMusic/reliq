@@ -84,7 +84,7 @@ float() enforcer_check_attack =
 
 	if (random() < chance)
 	{
-		self.th_missile ();
+		self.attack_state = AS_MISSILE;
 		ai_attack_finished (2*random());
 		return TRUE;
 	}
@@ -166,7 +166,7 @@ void()	enf_atk6	=[	$attack6,	enf_atk7	] {enforcer_fire();}
 void()	enf_atk7	=[	$attack7,	enf_atk8	] {ai_face();}
 void()	enf_atk8	=[	$attack8,	enf_atk9	] {ai_face();}
 void()	enf_atk9	=[	$attack9,	enf_atk10	] {ai_face(); 
-	if (!enemy_alive() || self.enemy.customflags & CFL_LIMBO )
+	if (!alive(self.enemy) || self.enemy.customflags & CFL_LIMBO )
 		return;
 	
 	if (angledif(self.ideal_yaw, self.angles_y) > 80)	// player got behind us
