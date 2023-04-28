@@ -121,19 +121,22 @@ void(entity attacker, float damage)	amalgam_pain =
 
 	r = random();
 
-	if (r >= 0.5)
+	if (random() > 0.8)
 	{
-		PainFinished(3);
-		AmalGoop_Spam(3);
-		amalgam_pain1 ();
-		sound (self, CHAN_VOICE, "soldier/pain1.wav", 1, ATTN_NORM);
-	}
-	else if (r < 0.5)
-	{
-		PainFinished(3);
-		AmalGoop_Spam(3);
-		amalgam_painb1 ();
-		sound (self, CHAN_VOICE, "soldier/pain2.wav", 1, ATTN_NORM);
+		if (r >= 0.5)
+		{
+			PainFinished(3);
+			AmalGoop_Spam(3);
+			amalgam_pain1 ();
+			sound (self, CHAN_VOICE, "soldier/pain1.wav", 1, ATTN_NORM);
+		}
+		else if (r < 0.5)
+		{
+			PainFinished(3);
+			AmalGoop_Spam(3);
+			amalgam_painb1 ();
+			sound (self, CHAN_VOICE, "soldier/pain2.wav", 1, ATTN_NORM);
+		}
 	}
 }
 
