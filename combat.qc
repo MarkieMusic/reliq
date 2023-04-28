@@ -75,6 +75,11 @@ void(entity targ, entity attacker) Killed =
 	else
 		self.th_die ();
 
+	if (self.classname == "monster_amalgam")
+	{
+	AmalGoop_Spam(6);
+	}
+
 	CheckVampGlobe(attacker);
 	
 	self = oself;
@@ -352,6 +357,10 @@ void( entity attacker ) T_ReactToDamage =
 	
 	// fish should ignore monsters that aren't in the water with them
 	if (self.flags & FL_SWIM && pointcontents(attacker.origin) > CONTENT_WATER) return;
+
+	// amalgam cannot infight nor be infought with - fw
+	if (attacker.classname == "monster_amalgam") return;
+	if (self.classname == "monster_amalgam") return;
 	
 	// get mad unless of the same class (except for soldiers)
 	// classname check replaced with new "type" check

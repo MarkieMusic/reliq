@@ -92,52 +92,25 @@ void()	amalgam_run6	=[	$run6,		amalgam_run7	] {ai_run(15);}
 void()	amalgam_run7	=[	$run7,		amalgam_run8	] {ai_run(10);}
 void()	amalgam_run8	=[	$run8,		amalgam_run1	] {ai_run(8);}
 
-void()	amalgam_atk1	=[	$shoot1,	amalgam_atk2	] {ai_face();}
-void()	amalgam_atk2	=[	$shoot2,	amalgam_atk3	] {ai_face();}
-void()	amalgam_atk3	=[	$shoot3,	amalgam_atk4	] {ai_face();}
-void()	amalgam_atk4	=[	$shoot4,	amalgam_atk5	] {ai_face();}
-void()	amalgam_atk5	=[	$shoot5,	amalgam_atk6	] {ai_face();}
-void()	amalgam_atk6	=[	$shoot6,	amalgam_atk7	] {ai_face(); amalgam_fire();}
-void()	amalgam_atk7	=[	$shoot7,	amalgam_atk8	] {ai_face(); amalgam_fire();}//ai_check_refire (amalgam_atk3);}
-void()	amalgam_atk8	=[	$shoot8,	amalgam_atk9	] {ai_face(); amalgam_fire();}
-void()	amalgam_atk9	=[	$shoot9,	amalgam_run1	] {ai_face(); amalgam_fire();}
+void()	amalgam_atk1	=[	$shoot2,	amalgam_atk2	] {ai_face();}
+void()	amalgam_atk2	=[	$shoot3,	amalgam_atk3	] {ai_face();}
+void()	amalgam_atk3	=[	$shoot4,	amalgam_atk4	] {ai_face(); amalgam_fire(); amalgam_fire(); amalgam_fire(); amalgam_fire();}
+void()	amalgam_atk4	=[	$shoot5,	amalgam_atk5	] {ai_face();}
+void()	amalgam_atk5	=[	$shoot6,	amalgam_atk6	] {ai_face();}
+void()	amalgam_atk6	=[	$shoot7,	amalgam_run1	] {ai_face();}//ai_check_refire (amalgam_atk3);}
 
 
 void()	amalgam_pain1	=[	$pain1,		amalgam_pain2	] {}
 void()	amalgam_pain2	=[	$pain2,		amalgam_pain3	] {}
 void()	amalgam_pain3	=[	$pain3,		amalgam_pain4	] {}
-void()	amalgam_pain4	=[	$pain4,		amalgam_pain5	] {}
-void()	amalgam_pain5	=[	$pain5,		amalgam_pain6	] {}
-void()	amalgam_pain6	=[	$pain6,		amalgam_run1	] {ai_pain(1);}
+void()	amalgam_pain4	=[	$pain4,		amalgam_run1	] {}
 
 void()	amalgam_painb1	=[	$painb1,	amalgam_painb2	] {}
 void()	amalgam_painb2	=[	$painb2,	amalgam_painb3	] {ai_painforward(13);}
 void()	amalgam_painb3	=[	$painb3,	amalgam_painb4	] {ai_painforward(9);}
 void()	amalgam_painb4	=[	$painb4,	amalgam_painb5	] {}
 void()	amalgam_painb5	=[	$painb5,	amalgam_painb6	] {}
-void()	amalgam_painb6	=[	$painb6,	amalgam_painb7	] {}
-void()	amalgam_painb7	=[	$painb7,	amalgam_painb8	] {}
-void()	amalgam_painb8	=[	$painb8,	amalgam_painb9	] {}
-void()	amalgam_painb9	=[	$painb9,	amalgam_painb10] {}
-void()	amalgam_painb10=[	$painb10,	amalgam_painb11] {}
-void()	amalgam_painb11=[	$painb11,	amalgam_painb12] {}
-void()	amalgam_painb12=[	$painb12,	amalgam_painb13] {ai_pain(2);}
-void()	amalgam_painb13=[	$painb13,	amalgam_painb14] {}
-void()	amalgam_painb14=[	$painb14,	amalgam_run1	] {}
-
-void()	amalgam_painc1	=[	$painc1,	amalgam_painc2	] {}
-void()	amalgam_painc2	=[	$painc2,	amalgam_painc3	] {ai_pain(1);}
-void()	amalgam_painc3	=[	$painc3,	amalgam_painc4	] {}
-void()	amalgam_painc4	=[	$painc4,	amalgam_painc5	] {}
-void()	amalgam_painc5	=[	$painc5,	amalgam_painc6	] {ai_painforward(1);}
-void()	amalgam_painc6	=[	$painc6,	amalgam_painc7	] {ai_painforward(1);}
-void()	amalgam_painc7	=[	$painc7,	amalgam_painc8	] {}
-void()	amalgam_painc8	=[	$painc8,	amalgam_painc9	] {ai_pain(1);}
-void()	amalgam_painc9	=[	$painc9,	amalgam_painc10] {ai_painforward(4);}
-void()	amalgam_painc10=[	$painc10,	amalgam_painc11] {ai_painforward(3);}
-void()	amalgam_painc11=[	$painc11,	amalgam_painc12] {ai_painforward(6);}
-void()	amalgam_painc12=[	$painc12,	amalgam_painc13] {ai_painforward(8);}
-void()	amalgam_painc13=[	$painc13,	amalgam_run1] {}
+void()	amalgam_painb6	=[	$painb6,	amalgam_run1	] {}
 
 void(entity attacker, float damage)	amalgam_pain =
 {
@@ -148,22 +121,18 @@ void(entity attacker, float damage)	amalgam_pain =
 
 	r = random();
 
-	if (r < 0.2)
+	if (r >= 0.5)
 	{
 		PainFinished(3);
+		AmalGoop_Spam(3);
 		amalgam_pain1 ();
 		sound (self, CHAN_VOICE, "soldier/pain1.wav", 1, ATTN_NORM);
 	}
-	else if (r < 0.6)
+	else if (r < 0.5)
 	{
 		PainFinished(3);
+		AmalGoop_Spam(3);
 		amalgam_painb1 ();
-		sound (self, CHAN_VOICE, "soldier/pain2.wav", 1, ATTN_NORM);
-	}
-	else
-	{
-		PainFinished(3);
-		amalgam_painc1 ();
 		sound (self, CHAN_VOICE, "soldier/pain2.wav", 1, ATTN_NORM);
 	}
 }
@@ -179,7 +148,7 @@ void() amalgam_fire =
 	// set grenade speed	
 	makevectors (self.angles);
 	gorg = self.origin + v_forward * 16;
-	gvel = OgreAimGrenade(enemy_vispos() - gorg, 432 + (random() * 200), -15 + random() * 15);
+	gvel = OgreAimGrenade(enemy_vispos() - gorg, 432 + (random() * 200), -15 + random() * 45);
 
     goop = toss_projectile(gorg, gvel, "goop");
 	goop.solid = SOLID_TRIGGER;
@@ -217,16 +186,16 @@ float() AmalgamCheckAttack =
 	if (enemy_range == RANGE_MELEE)
 		chance = 0.9;
 	else if (enemy_range == RANGE_NEAR)
-		chance = 0.4;
+		chance = 0.7;
 	else if (enemy_range == RANGE_MID)
-		chance = 0.05;
+		chance = 0.3;
 	else
 		chance = 0;
 
 	if (random () < chance)
 	{
 		self.th_missile ();
-		ai_attack_finished (2 + random() + random());
+		ai_attack_finished (2 + random());
 		return TRUE;
 	}
 
@@ -238,7 +207,7 @@ float() AmalgamCheckAttack =
 void()	amalgam_die1	=[	$death1,	amalgam_die2	] {}
 void()	amalgam_die2	=[	$death2,	amalgam_die3	] {}
 void()	amalgam_die3	=[	$death3,	amalgam_die4	]
-{self.solid = SOLID_NOT;AmalGoop_Drop();AmalGoop_Drop();}
+{self.solid = SOLID_NOT;}
 void()	amalgam_die4	=[	$death4,	amalgam_die5	] {}
 void()	amalgam_die5	=[	$death5,	amalgam_die6	] {}
 void()	amalgam_die6	=[	$death6,	amalgam_die7	] {}
@@ -250,7 +219,7 @@ void()	amalgam_die10	=[	$death10,	SUB_Null	] {}
 void()	amalgam_cdie1	=[	$deathc1,	amalgam_cdie2	] {}
 void()	amalgam_cdie2	=[	$deathc2,	amalgam_cdie3	] {ai_back(5);}
 void()	amalgam_cdie3	=[	$deathc3,	amalgam_cdie4	]
-{self.solid = SOLID_NOT;ai_back(4);AmalGoop_Spam();}
+{self.solid = SOLID_NOT;ai_back(4);}
 void()	amalgam_cdie4	=[	$deathc4,	amalgam_cdie5	] {ai_back(13);}
 void()	amalgam_cdie5	=[	$deathc5,	amalgam_cdie6	] {ai_back(3);}
 void()	amalgam_cdie6	=[	$deathc6,	amalgam_cdie7	] {ai_back(4);}
@@ -260,12 +229,14 @@ void()	amalgam_cdie9	=[	$deathc9,	amalgam_cdie10	] {}
 void()	amalgam_cdie10	=[	$deathc10,	amalgam_cdie11	] {}
 void()	amalgam_cdie11	=[	$deathc11,	SUB_Null	] {}
 
-void() AmalGoop_Spam =
+void(float drop_count) AmalGoop_Spam =
 {
-    while(self.cnt < 5)
+	float i;
+
+    while(i < drop_count)
     {
         AmalGoop_Drop();
-        self.cnt++;
+        i++;
     }
 }
 
@@ -289,7 +260,7 @@ void() AmalGoop_Drop =
 
 	item.touch = AmalGoop_Touch;
 	item.think = SUB_Remove;
-	item.nextthink = time + 15;
+	item.nextthink = time + 30;
 }
 
 void() AmalGoop_Touch =
