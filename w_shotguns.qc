@@ -189,7 +189,7 @@ void() W_FireSuperShotgun =
 
 	sound (self ,CHAN_WEAPON, "weapons/shotgn2.wav", 1, ATTN_NORM);	
 
-	self.punchangle_x = -8;
+	self.punchangle_x = -4;
 	
 	self.currentammo = self.ammo_shells = self.ammo_shells - 3;
 	dir = aim (self, AUTOAIM_DIST);
