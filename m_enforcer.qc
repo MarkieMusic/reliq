@@ -311,6 +311,8 @@ void() enf_die =
 // check for gib
 	if (self.health < -35)
 	{
+		self.ammo_nails = 5;
+		DropBackpack();
 		Gib ("progs/h_mega.mdl", self.health);
 		return;
 	}
