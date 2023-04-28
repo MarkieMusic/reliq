@@ -80,6 +80,18 @@ void(entity h, float t) powerup_vampirism =
 
 /*
 ===============
+powerup_resurrection
+===============
+*/
+void(entity h) powerup_resurrection =
+{
+	sprint (h, "Death brings life anew ...\n");
+	precache_vamp();
+	h.items_reliq |= IT_REZ;
+}
+
+/*
+===============
 powerup_touch
 ===============
 */
@@ -105,6 +117,9 @@ void() powerup_touch =
 
 	if (self.classname == "item_artifact_vampirism")
 		powerup_vampirism(other, 30);
+
+	if (self.classname == "item_artifact_rez")
+		powerup_resurrection(other);
 
 	ItemTouched();
 }
@@ -341,6 +356,45 @@ void() item_artifact_vampirism =
 	self.netname = "Vampiric Blood";
 	self.noise = "items/vampstart.wav";
 	self.items_reliq = IT_VAMP;
+	setsize (self, '-16 -16 -24', '16 16 32');
+	if (deathmatch)
+		self.wait = 60;
+	StartItem ();
+}
+
+void() precache_rez =
+{
+	precache_model_safe ("progs/item_rez.mdl");
+	precache_sound_safe ("items/vampstart.wav");
+	precache_sound_safe ("items/vampfade.wav");
+	precache_sound_safe ("items/vamppickup1.wav");
+	precache_sound_safe ("items/vamppickup2.wav");
+	precache_sound_safe ("items/vamppickup3.wav");
+}
+
+/*QUAKED item_artifact_rez (0 .5 .5) (-16 -16 -24) (16 16 32) ? ? SUSPENDED
+Phoenix Flame. Protects the player from death once. Infinite duration.
+
+Keys:
+"target/2/3/4/k" - entity to trigger when picked up
+"targetname" - will not spawn until triggered
+"wait" - will respawn after 'wait' seconds. fires targets every time.
+"count" - limit number of times to respawn
+*/
+/*FGD
+@PointClass size(-16 -16 -24, 16 16 32) color(255 0 0) base(Item) model({ "path": ":progs/item_rez.mdl" }) = item_artifact_rez : 
+	"Phoenix Flame. Protects the player from death once. Infinite duration."[]
+*/
+void() item_artifact_rez =
+{
+	if (!SUB_ShouldSpawn()) return;
+	self.touch = powerup_touch;
+
+	precache_rez();
+	setmodel (self, "progs/item_rez.mdl");
+	self.netname = "Phoenix Flame";
+	self.noise = "items/vampstart.wav";
+	self.items_reliq = IT_REZ;
 	setsize (self, '-16 -16 -24', '16 16 32');
 	if (deathmatch)
 		self.wait = 60;

@@ -26,7 +26,7 @@ void() SetChangeParms =
 		IT_KEY1 | IT_KEY2 | 
 		IT_INVISIBILITY | IT_INVULNERABILITY | IT_SUIT | IT_QUAD
 		) );
-	self.items_reliq = self.items_reliq - (self.items_reliq & (IT_VAMP));
+	self.items_reliq = self.items_reliq - (self.items_reliq & (IT_VAMP | IT_REZ));
 	
 	// gung-ho players can run forward and grab weapons before other clients have
 	// finished connecting, causing them to miss out on the global distribution
@@ -885,6 +885,39 @@ void() IntermissionThink =
 	self.wait = 1;
 }
 
+void(float h) PlayerResurrect =
+{
+	CopyToBodyQueue (self);
+		
+	self.health = h;
+	self.deadflag = DEAD_NO;
+	clientsAlive += 1;
+	self.takedamage = DAMAGE_AIM;
+	self.air_finished = time + 12;
+	self.dmg = 0;   		// initial water damage
+	
+	self.solid = SOLID_SLIDEBOX;
+	self.movetype = MOVETYPE_WALK;
+	setsize (self, VEC_HULL_MIN, VEC_HULL_MAX);
+	self.flags = FL_CLIENT;
+	self.customflags = 0;
+
+	self.effects = 0;
+	self.enemy = world;
+	self.show_hostile = 0;
+	self.attack_finished = time + 0.1;	// don't shoot on the first frame if we clicked to spawn
+	
+	teleport_flash();
+	spawn_tdeath (self.origin, self);
+	
+	self.view_ofs = '0 0 22';
+	self.modelindex = modelindex_player;
+	player_stand1();
+	W_ResetWeaponState();
+	
+	return;
+}
+
 /*
 ============
 PlayerDeathThink
@@ -908,38 +941,24 @@ void() PlayerDeathThink =
 
 	if (self.flags & FL_GODMODE && self.deadflag)
 	{
-		CopyToBodyQueue (self);
-		
-		self.health = self.max_health;
-		self.deadflag = DEAD_NO;
-		clientsAlive += 1;
-		self.takedamage = DAMAGE_AIM;
-		self.air_finished = time + 12;
-		self.dmg = 0;   		// initial water damage
-		
-		self.solid = SOLID_SLIDEBOX;
-		self.movetype = MOVETYPE_WALK;
-		setsize (self, VEC_HULL_MIN, VEC_HULL_MAX);
-		self.flags = FL_CLIENT;
-		self.customflags = 0;
-
-		self.effects = 0;
-		self.enemy = world;
-		self.show_hostile = 0;
-		self.attack_finished = time + 0.1;	// don't shoot on the first frame if we clicked to spawn
-		
-		teleport_flash();
-		spawn_tdeath (self.origin, self);
-		
-		self.view_ofs = '0 0 22';
-		self.modelindex = modelindex_player;
-		player_stand1();
-		W_ResetWeaponState();
-		
+		PlayerResurrect(self.max_health);
 		return;
 	}
 	
 	if (time < self.lifetime_finished) return;
+
+	//do not let the player die if they have the phoenix flame, reset their HP and give them pent - fw
+	if (self.items_reliq & IT_REZ)
+	{
+			PlayerResurrect(25);
+			powerup_invulnerability(self, 5);
+			self.items_reliq = (self.items_reliq - IT_REZ);
+			
+			T_RadiusDamage (self, self.trueowner, 1000, world);
+			sound (self, CHAN_AUTO, "weapons/r_exp3.wav", 1, ATTN_NORM);
+
+			return;
+	}
 	
 	// wait for all buttons released
 	if (!self.button0 && !self.button1 && !self.button2) {

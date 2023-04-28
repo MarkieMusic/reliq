@@ -147,6 +147,7 @@ const float	IT_POWERUPS				= IT_INVISIBILITY + IT_INVULNERABILITY + IT_SUIT + IT
 
 //overflowed original list, new Reliq-specific stuff goes here
 const float IT_VAMP                 = 1;
+const float IT_REZ                  = 2;
 
 // point content values
 const float	CONTENT_EMPTY		= -1;

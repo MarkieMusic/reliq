@@ -146,6 +146,17 @@ void() Cheat_Vamp =
 }
 
 // --------------------------------
+// Cheat_Rez
+// --------------------------------
+void() Cheat_Rez =
+{
+	if(deathmatch || coop)
+		return;
+	stuffcmd(self, "bf\n");
+	powerup_resurrection(self);
+}
+
+// --------------------------------
 // Cheat_Ring
 // --------------------------------
 void() Cheat_Ring =
