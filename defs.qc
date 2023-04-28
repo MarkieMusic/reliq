@@ -349,6 +349,7 @@ string	keyType;
 .float 	t_length = length;	// preserve old func_door_secret maphacks
 .float 	t_width = width;
 .float 	globehealth_cou;		//debug for counting health healed after vampirism rampamge
+.float 	globehealth_cou_short;	//for coagulating hp recieved calls
 
 
 .float		touch_time;
