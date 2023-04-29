@@ -54,7 +54,7 @@ void()	amalgam_stand8	=[	$stand8,	amalgam_stand1	] {ai_stand();}
 
 void()	amalgam_walk1	=[	$prowl_1,	amalgam_walk2	] {
 if (random() < 0.2)
-	sound (self, CHAN_VOICE, "soldier/idle.wav", 1, ATTN_IDLE);
+	sound (self, CHAN_VOICE, "amalg/amalgidle.wav", 1, ATTN_IDLE);
 ai_walk(1);}
 void()	amalgam_walk2	=[	$prowl_2,	amalgam_walk3	] {ai_walk(1);}
 void()	amalgam_walk3	=[	$prowl_3,	amalgam_walk4	] {ai_walk(1);}
@@ -82,7 +82,7 @@ void()	amalgam_walk24	=[	$prowl_24,	amalgam_walk1	] {ai_walk(1);}
 
 void()	amalgam_run1	=[	$run1,		amalgam_run2	] {
 if (random() < 0.2 && time > self.show_hostile)
-	sound (self, CHAN_VOICE, "soldier/idle.wav", 1, ATTN_IDLE);
+	sound (self, CHAN_VOICE, "amalg/amalgidle.wav", 1, ATTN_IDLE);
 ai_run(11);}
 void()	amalgam_run2	=[	$run2,		amalgam_run3	] {ai_run(15);}
 void()	amalgam_run3	=[	$run3,		amalgam_run4	] {ai_run(10);}
@@ -128,14 +128,14 @@ void(entity attacker, float damage)	amalgam_pain =
 			PainFinished(3);
 			AmalGoop_Spam(3);
 			amalgam_pain1 ();
-			sound (self, CHAN_VOICE, "soldier/pain1.wav", 1, ATTN_NORM);
+			sound (self, CHAN_VOICE, "amalg/amalgpain1.wav", 1, ATTN_NORM);
 		}
 		else if (r < 0.5)
 		{
 			PainFinished(3);
 			AmalGoop_Spam(3);
 			amalgam_painb1 ();
-			sound (self, CHAN_VOICE, "soldier/pain2.wav", 1, ATTN_NORM);
+			sound (self, CHAN_VOICE, "amalg/amalgpain2.wav", 1, ATTN_NORM);
 		}
 	}
 }
@@ -146,7 +146,7 @@ void() amalgam_fire =
 	vector gorg, gvel;
 	
 	self.effects = self.effects | EF_MUZZLEFLASH;
-	sound (self, CHAN_WEAPON, "weapons/grenade.wav", 1, ATTN_NORM);
+	sound (self, CHAN_WEAPON, "amalg/amalgshoot.wav", 1, ATTN_NORM);
 
 	// set grenade speed	
 	makevectors (self.angles);
@@ -263,7 +263,7 @@ void() AmalGoop_Drop =
 
 	item.touch = AmalGoop_Touch;
 	item.think = SUB_Remove;
-	item.nextthink = time + 30;
+	item.nextthink = time + 20;
 }
 
 void() AmalGoop_Touch =
@@ -273,7 +273,12 @@ void() AmalGoop_Touch =
 	if (self.attack_finished > time) return;
 
 	T_Damage(other, self.owner, self, 5);
-	sound(self, CHAN_VOICE, "amalg/amalg_goop.wav", 1, ATTN_NORM);
+
+	if (random() > .5)
+	sound(self, CHAN_VOICE, "amalg/amalg_goop1.wav", .6, ATTN_NORM);
+	else
+	sound(self, CHAN_VOICE, "amalg/amalg_goop2.wav", .6, ATTN_NORM);
+
 	remove(self); //change this to an animation l8r
 }
 
@@ -289,7 +294,7 @@ void() amalgam_die =
 	}
 
 // regular death
-	sound (self, CHAN_VOICE, "soldier/death1.wav", 1, ATTN_NORM);
+	sound (self, CHAN_VOICE, "amalg/amalgdeath.wav", 1, ATTN_NORM);
 	if (random() < 0.5)
 		amalgam_die1 ();
 	else
@@ -359,14 +364,15 @@ void() monster_amalgam =
 	precache_model ("progs/gib3.mdl");
 
 	precache_model ("progs/proj_amalgoop.mdl");
-	precache_sound ("amalg/amalg_goop.wav");
+	precache_sound ("amalg/amalg_goop1.wav");
+	precache_sound ("amalg/amalg_goop2.wav");
 
-	precache_sound ("soldier/death1.wav");
-	precache_sound ("soldier/idle.wav");
-	precache_sound ("soldier/pain1.wav");
-	precache_sound ("soldier/pain2.wav");
-	precache_sound ("soldier/sattck1.wav");
-	precache_sound ("soldier/sight1.wav");
+	precache_sound ("amalg/amalgdeath.wav");
+	precache_sound ("amalg/amalgidle.wav");
+	precache_sound ("amalg/amalgpain1.wav");
+	precache_sound ("amalg/amalgpain2.wav");
+	precache_sound ("amalg/amalgshoot.wav");
+	precache_sound ("amalg/amalgsight.wav");
 
 	precache_sound ("player/udeath.wav");		// gib death
 	self.health = 400;
