@@ -316,6 +316,9 @@ void() ImpulseCommands =
 	case 245:
 		Cheat_Ring();	
 		break;
+	case 246:
+		Cheat_Rez();
+		break;
 	case 255:
 		Cheat_Quad();	
 		break;
