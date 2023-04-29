@@ -569,6 +569,8 @@ void() SightSound =
 		else
 			sound (self, CHAN_VOICE, "enforcer/sight4.wav", 1, ATTN_NORM);
 	}
+	else if (self.classname == "monster_chaingunner")
+		sound (self, CHAN_VOICE, "chaingunner/chalert.wav", 1, ATTN_NORM);
 	else if (self.classname == "monster_army")
 		sound (self, CHAN_VOICE, "soldier/sight1.wav", 1, ATTN_NORM);
 	else if (self.classname == "monster_shalrath")

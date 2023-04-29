@@ -19,7 +19,7 @@ void() chain_fire =
 	
 	ai_face();
 	self.effects = self.effects | EF_MUZZLEFLASH;	
-	sound (self, CHAN_WEAPON, "soldier/sattck1.wav", 1, ATTN_NORM);	
+	sound (self, CHAN_WEAPON, "chaingunner/chshoot.wav", 1, ATTN_NORM);	
 
 // fire somewhat behind the player, so a dodging player is harder to hit
 //	dir = enemy_vispos() - self.enemy.velocity*0.2;
@@ -138,7 +138,7 @@ void()	chain_stand7	=[	$stand7,	chain_stand1	] {ai_stand();}
 
 void()	chain_walk1	=[	$walk1 ,	chain_walk2	] {
 if (random() < 0.2)
-	sound (self, CHAN_VOICE, "enforcer/idle1.wav", 1, ATTN_IDLE);
+	sound (self, CHAN_VOICE, "chaingunner/chidle.wav", 1, ATTN_IDLE);
 ai_walk(2);}
 void()	chain_walk2	=[	$walk2 ,	chain_walk3	] {ai_walk(4);}
 void()	chain_walk3	=[	$walk3 ,	chain_walk4	] {ai_walk(4);}
@@ -158,7 +158,7 @@ void()	chain_walk16	=[	$walk16,	chain_walk1	] {ai_walk(2);}
 
 void()	chain_run1	=[	$run1  ,	chain_run2	] {
 	if (random() < 0.2 && time > self.show_hostile)
-		sound (self, CHAN_VOICE, "enforcer/idle1.wav", 1, ATTN_IDLE);
+		sound (self, CHAN_VOICE, "chaingunner/chidle.wav", 1, ATTN_IDLE);
 	self.yaw_speed = 20;
 	ai_run(18);
 }
@@ -175,8 +175,8 @@ void()	chain_atk2	=[	$attack2,	chain_atk3	] {ai_face();}
 void()	chain_atk3	=[	$attack3,	chain_atk4	] {ai_face();}
 void()	chain_atk4	=[	$attack4,	chain_atk5	] {ai_face();}
 void()	chain_atk5	=[	$attack5,	chain_atk6	] {ai_face();}
-void()	chain_atk6	=[	$attack6,	chain_atk7	] {chain_aim();}
-void()	chain_atk7	=[	$attack9,	chain_run1	] {chain_fire(); ai_face(); 
+void()	chain_atk6	=[	$attack5,	chain_atk7	] {chain_aim();}
+void()	chain_atk7	=[	$attack6,	chain_run1	] {chain_fire(); ai_face(); 
 	if (!alive(self.enemy) || self.enemy.customflags & CFL_LIMBO )
 		return;
 	
@@ -193,6 +193,8 @@ void()	chain_atk7	=[	$attack9,	chain_run1	] {chain_fire(); ai_face();
 		ai_attack_finished(1 + random());	// force a little maneuvering if LOS is broken
 		return;
 	}
+
+	self.nextthink = time + 0.065;
 	self.think = chain_atk6;
 }
 
@@ -229,9 +231,9 @@ void(entity attacker, float damage)	chain_pain =
 	r = random ();
 	
 	if (r < 0.5)
-		sound (self, CHAN_VOICE, "enforcer/pain1.wav", 1, ATTN_NORM);
+		sound (self, CHAN_VOICE, "chaingunner/chpain2.wav", 1, ATTN_NORM);
 	else
-		sound (self, CHAN_VOICE, "enforcer/pain2.wav", 1, ATTN_NORM);
+		sound (self, CHAN_VOICE, "chaingunner/chpain1.wav", 1, ATTN_NORM);
 
 	if (r < 0.2)
 	{
@@ -259,7 +261,7 @@ void()	chain_die1	=[	$death1,	chain_die2	] {}
 void()	chain_die2	=[	$death2,	chain_die3	] {}
 void()	chain_die3	=[	$death3,	chain_die4	] {
 	self.solid = SOLID_NOT;
-	self.ammo_nails = 5;
+	self.ammo_shells = 10;
 	DropBackpack();
 }
 void()	chain_die4	=[	$death4,	chain_die5	] {ai_forward(14);}
@@ -278,7 +280,7 @@ void()	chain_fdie1	=[	$fdeath1,	chain_fdie2	] {}
 void()	chain_fdie2	=[	$fdeath2,	chain_fdie3	] {}
 void()	chain_fdie3	=[	$fdeath3,	chain_fdie4	] {
 	self.solid = SOLID_NOT;
-	self.ammo_nails = 5;
+	self.ammo_shells = 10;
 	DropBackpack();
 }
 void()	chain_fdie4	=[	$fdeath4,	chain_fdie5	] {}
@@ -297,14 +299,14 @@ void() chain_die =
 // check for gib
 	if (self.health < -35)
 	{
-		self.ammo_nails = 5;
+		self.ammo_shells = 10;
 		DropBackpack();
 		Gib ("progs/h_chaingunner.mdl", self.health);
 		return;
 	}
 
 // regular death
-	sound (self, CHAN_VOICE, "enforcer/death1.wav", 1, ATTN_NORM);
+	sound (self, CHAN_VOICE, "chaingunner/chdeath.wav", 1, ATTN_NORM);
 	if (random() > 0.5)
 		chain_die1 ();
 	else
@@ -371,16 +373,12 @@ void() monster_chaingunner =
 	precache_model2 ("progs/chaingunner.mdl");
 	precache_model2 ("progs/h_chaingunner.mdl");
 
-	precache_sound2 ("enforcer/death1.wav");
-	precache_sound2 ("soldier/sattck1.wav");
-	precache_sound2 ("enforcer/enfstop.wav");
-	precache_sound2 ("enforcer/idle1.wav");
-	precache_sound2 ("enforcer/pain1.wav");
-	precache_sound2 ("enforcer/pain2.wav");
-	precache_sound2 ("enforcer/sight1.wav");
-	precache_sound2 ("enforcer/sight2.wav");
-	precache_sound2 ("enforcer/sight3.wav");
-	precache_sound2 ("enforcer/sight4.wav");
+	precache_sound2 ("chaingunner/chalert.wav");
+	precache_sound2 ("chaingunner/chdeath.wav");
+	precache_sound2 ("chaingunner/chidle.wav");
+	precache_sound2 ("chaingunner/chpain1.wav");
+	precache_sound2 ("chaingunner/chpain2.wav");
+	precache_sound2 ("chaingunner/chshoot.wav");
 
 	self.health = 130;
 	setsize (self, '-16 -16 -24', '16 16 40');
