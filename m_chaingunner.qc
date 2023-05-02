@@ -21,9 +21,6 @@ void() chain_fire =
 	self.effects = self.effects | EF_MUZZLEFLASH;	
 	sound (self, CHAN_WEAPON, "chaingunner/chshoot.wav", 1, ATTN_NORM);	
 
-// fire somewhat behind the player, so a dodging player is harder to hit
-//	dir = enemy_vispos() - self.enemy.velocity*0.2;
-//	dir = normalize (dir - self.origin);
 	dir = normalize (self.dest);
 
 	// lunaran: moved multidamage here
@@ -91,8 +88,23 @@ float() chaingunner_clear_attack =
 
 	traceline2(spot1, spot2, self, TRACE_WATER);
 
-	if (trace_inopen && trace_inwater) return FALSE;	// sight line crossed contents
-	if (trace_ent != self.enemy) return FALSE;			// don't have a clear shot
+	if ((trace_inopen && trace_inwater) || (trace_ent != self.enemy))
+	{
+		if (self.cnt <= 4)
+		{
+			self.cnt++;
+			dprint("\bBlind Shots:\b ");
+			dprint(ftos(self.cnt));
+			dprint("\n");
+			return TRUE;
+		}
+		else
+		{
+			self.cnt = 0;
+			return FALSE;
+		}
+	}
+	self.cnt = 0;
 	return TRUE;
 }
 
@@ -100,7 +112,13 @@ float() chaingunner_check_attack =
 {
 	float chance;
 
-	if (time < self.attack_finished) return FALSE;
+	if (time < self.attack_finished)
+	{
+		dprint("\battack_finished: \b");
+		dprint(ftos(self.attack_finished - time));
+		dprint("\n");
+		return FALSE;
+	}
 	if (enemy_range >= RANGE_FAR) return FALSE;
 	if (!chaingunner_clear_attack()) return FALSE;
 
@@ -119,7 +137,6 @@ float() chaingunner_check_attack =
 	if (random() < chance)
 	{
 		self.attack_state = AS_MISSILE;
-		ai_attack_finished (2*random());
 		return TRUE;
 	}
 
@@ -194,11 +211,11 @@ void()	chain_atk7	=[	$attack6,	chain_run1	] {chain_fire(); ai_face();
 		return;
 	}
 
-	self.nextthink = time + 0.065;
+	self.nextthink = time + 0.060;
 	self.think = chain_atk6;
 }
 
-void()	chain_atk10	=[	$attack10,	chain_run1	] {self.yaw_speed = 20; ai_face();}
+void()	chain_atk10	=[	$attack10,	chain_run1	] {self.yaw_speed = 20; ai_face(); ai_attack_finished (2*random());}
 
 void()	chain_paina1	=[	$paina1,	chain_paina2	] {}
 void()	chain_paina2	=[	$paina2,	chain_paina3	] {}
