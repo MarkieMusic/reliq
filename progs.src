@@ -75,5 +75,6 @@ m_shield.qc	//reliq
 m_tentacle.qc //reliq
 m_amalgam.qc //reliq
 m_chaingunner.qc //reliq
+m_bigboy.qc //reliq
 
 test.qc
