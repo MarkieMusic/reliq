@@ -85,7 +85,6 @@ float() enforcer_check_attack =
 	if (random() < chance)
 	{
 		self.attack_state = AS_MISSILE;
-		ai_attack_finished (2*random());
 		return TRUE;
 	}
 
@@ -185,7 +184,7 @@ void()	enf_atk9	=[	$attack9,	enf_atk10	] {ai_face();
 	self.think = enf_atk6;
 }
 
-void()	enf_atk10	=[	$attack10,	enf_run1	] {self.yaw_speed = 20; ai_face();}
+void()	enf_atk10	=[	$attack10,	enf_run1	] {self.yaw_speed = 20; ai_face(); ai_attack_finished (2*random());}
 
 void()	enf_paina1	=[	$paina1,	enf_paina2	] {}
 void()	enf_paina2	=[	$paina2,	enf_paina3	] {}
