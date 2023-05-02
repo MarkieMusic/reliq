@@ -337,9 +337,6 @@ void(entity attacker) CheckVampGlobe =
 	if (attacker.vamp_finished < time)
 	return;
 
-//	dprint(self.classname);
-//	dprint("\n");
-
 	//check what tier the monster is, so we know how many globes to drop
 	if ((self.classname == "monster_dog") ||
 		(self.classname ==  "monster_zombie") ||
@@ -347,6 +344,7 @@ void(entity attacker) CheckVampGlobe =
 	{
 		self.cnt = 1;
 	}
+
 	else if ((self.classname == "monster_wizard") || 
 		(self.classname == "monster_enforcer") || 
 		(self.classname == "monster_knight") ||
@@ -354,18 +352,26 @@ void(entity attacker) CheckVampGlobe =
 	{
 		self.cnt = 2;
 	}
+
 	else if ((self.classname == "monster_hell_knight") ||
 		(self.classname == "monster_shield_knight") ||
-		(self.classname == "monster_ogre"))
+		(self.classname == "monster_ogre") ||
+		(self.classname == "monster_chaingunner"))
 	{
 		self.cnt = 3;
 	}
+
 	else if ((self.classname == "monster_shambler") ||
 		(self.classname == "monster_shalrath") ||
 		(self.classname == "monster_demon1") ||
 		(self.classname == "monster_amalgam"))
 	{
 		self.cnt = 4;
+	}
+
+	else if (self.classname == "monster_bigboy")
+	{
+		self.cnt = 10;
 	}
 	else
 	{
