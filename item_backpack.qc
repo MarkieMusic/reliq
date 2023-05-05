@@ -109,8 +109,8 @@ void() BackpackTouch =
 	sprint (other, "\n");
 	
 	// do this after because t_heal prints its own message
-	if (self.healamount)
-		T_Heal(other, self.healamount, 0, 1);
+	// jk, don't do this ever since we're not handling this in health_touch
+	//T_Heal(other, self.healamount, 0, 1);
 
 	// regular monster backpacks don't make the AWESOME NEW backpack sound
 	if (self.classname == "item_backpack")

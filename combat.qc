@@ -715,8 +715,8 @@ float (entity e, float healamt, float overheal, float print) T_Heal =
 				// moved here from healthtouch so any source of healing prints messages
 			sprint(e, "You were healed  +");
 			sprint(e, ftos(healamt));
-			sprint(e, "\x88");
-			sprint(e, "\x89");
+			sprint(e, "\x90");
+			sprint(e, "\x91");
 			sprint(e, "\n");
 			stuffcmd (e, "bf\n");
 		}

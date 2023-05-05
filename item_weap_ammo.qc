@@ -298,7 +298,7 @@ void() weapon_lightning =
 	precache_model_safe ("progs/g_light.mdl");
 	setmodel (self, "progs/g_light.mdl");
 	self.items = IT_LIGHTNING;
-	self.ammo_cells = 12;
+	self.ammo_cells = 20;
 	self.netname = "Thunderbolt";
 	StartWeapon();
 }
@@ -319,34 +319,87 @@ void() ammo_touch =
 	if (self.ammo_shells)
 	{
 		if (other.ammo_shells < MAX_AMMO_SHELLS)
+		{
 			other.ammo_shells += self.ammo_shells;
+
+			sprint(other, "Picked up Shells  ");
+			if (self.ammo_shells == 20)
+			sprint(other, "\b+20\b");
+			else
+			if (self.ammo_shells == 40)
+			sprint(other, "\b+40\b");
+			else 
+			sprint(other, (ftos (self.ammo_shells)));
+
+			sprint(other, "\x94");
+			sprint(other, "\x95");
+		}
 		else return;
 	}
 	else if (self.ammo_nails)
 	{
 		if (other.ammo_nails < MAX_AMMO_NAILS)
+		{
 			other.ammo_nails += self.ammo_nails;
+
+			sprint(other, "Picked up Nails  ");
+			if (self.ammo_nails == 25)
+			sprint(other, "\b+25\b");
+			else
+			if (self.ammo_nails == 50)
+			sprint(other, "\b+50\b");
+			else 
+			sprint(other, (ftos (self.ammo_nails)));
+
+			sprint(other, "\x96");
+			sprint(other, "\x97");
+		}
 		else return;
 	}
 	else if (self.ammo_rockets)
 	{
 		if (other.ammo_rockets < MAX_AMMO_ROCKETS)
+		{
 			other.ammo_rockets += self.ammo_rockets;
+		
+			sprint(other, "Picked up Rockets  ");
+			if (self.ammo_rockets == 4)
+			sprint(other, "\b+4\b");
+			else
+			if (self.ammo_rockets == 8)
+			sprint(other, "\b+8\b");
+			else 
+			sprint(other, (ftos (self.ammo_rockets)));
+		
+			sprint(other, "\x98");
+			sprint(other, "\x99");
+		}
 		else return;
 	}
 	else if (self.ammo_cells)
 	{
 		if (other.ammo_cells < MAX_AMMO_CELLS)
+		{
 			other.ammo_cells += self.ammo_cells;
+		
+			sprint(other, "Picked up Cells  ");
+			if (self.ammo_cells == 10)
+			sprint(other, "\b+10\b");
+			else
+			if (self.ammo_cells == 20)
+			sprint(other, "\b+20\b");
+			else 
+			sprint(other, (ftos (self.ammo_cells)));
+		
+			sprint(other, "\x9a");
+			sprint(other, "\x9b");
+		}
 		else return;
-	}
-	//else return;	
+	}	
+
+	sprint(other, "\n");
 
 	bound_ammo(other);
-	
-	sprint (other, "You got the ");
-	sprint (other, self.netname);
-	sprint (other, "\n");
 
 	sound (other, CHAN_ITEM, "weapons/lock4.wav", 1, ATTN_NORM);
 	stuffcmd (other, "bf\n");
@@ -530,13 +583,13 @@ void() item_cells =
 	if (!SUB_ShouldSpawn()) return;
 	if (self.spawnflags & ITEM_AMMO_BIG)
 	{
-		self.ammo_cells = 12;
+		self.ammo_cells = 20;
 		precache_model_safe ("progs/m_cells2.mdl");
 		setmodel (self, "progs/m_cells2.mdl");
 	}
 	else
 	{
-		self.ammo_cells = 6;
+		self.ammo_cells = 10;
 		precache_model_safe ("progs/m_cells1.mdl");
 		setmodel (self, "progs/m_cells1.mdl");
 	}

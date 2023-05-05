@@ -14,8 +14,23 @@ void() health_touch =
 {
 	if (!CheckValidTouch()) return;
 	
-	if (!T_Heal(other, self.healamount, (self.spawnflags & ITEM_HEALTH_MEGA), 1))
+	if (!T_Heal(other, self.healamount, (self.spawnflags & ITEM_HEALTH_MEGA), 0))
 		return;
+
+	if (self.healamount == 25)
+	{
+		sprint(other, "Picked up a Health Flask  \b+");
+		sprint(other, "\b25");
+		sprint(other, "\x90\x91");
+		sprint(other, "\n");
+	}
+	else if (self.healamount == 100)
+	{
+		sprint(other, "Picked up a Megahealth  \b+");
+		sprint(other, "\b100");
+		sprint(other, "\x90\x91");
+		sprint(other, "\n");
+	}
 
 	// coop 1 megahealth brings all other clients up to 100
 	entity pl;
@@ -198,8 +213,8 @@ void() armor_touch =
 	if (self.cnt == 1)
 	{
 		sprint(other, "You got an Armor Shard  \b+5\b");
-		sprint(other, "\x86");
-		sprint(other, "\x87");
+		sprint(other, "\x92");
+		sprint(other, "\x93");
 		sprint(other, "\n");
 		sound(other, CHAN_ITEM, "items/armor_shard.wav", 1, ATTN_NORM);
 		stuffcmd (other, "bf\n");
@@ -208,8 +223,8 @@ void() armor_touch =
 	if (self.cnt == 2)
 	{
 		sprint(other, "You got Light Armor  \b+25\b");
-		sprint(other, "\x86");
-		sprint(other, "\x87");
+		sprint(other, "\x92");
+		sprint(other, "\x93");
 		sprint(other, "\n");
 		sound(other, CHAN_ITEM, "items/armor_light.wav", 1, ATTN_NORM);
 		stuffcmd (other, "bf\n");
@@ -218,8 +233,8 @@ void() armor_touch =
 	if (self.cnt == 3)
 	{
 		sprint(other, "You got Heavy Armor  \b+100\b");
-		sprint(other, "\x86");
-		sprint(other, "\x87");
+		sprint(other, "\x92");
+		sprint(other, "\x93");
 		sprint(other, "\n");
 		sound(other, CHAN_ITEM, "items/armor_heavy.wav", 1, ATTN_NORM);
 		stuffcmd (other, "bf\n");
