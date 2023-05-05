@@ -497,7 +497,7 @@ void(entity e) target_items_setweapon =
 void(entity e) target_items_giveinv_min =
 {
 	if (self.health && self.health > e.health)
-		T_Heal(e, (self.health - e.health), TRUE);
+		T_Heal(e, (self.health - e.health), TRUE, 1);
 	
 	float arm = zeroconvert(self.armorvalue);
 	if (arm > e.armorvalue)
@@ -518,7 +518,7 @@ void(entity e) target_items_giveinv =
 	else
 	{
 		if (self.health)
-			T_Heal(e, self.health, TRUE);
+			T_Heal(e, self.health, TRUE, 1);
 			
 		if (self.armorvalue)
 			T_GiveArmor(e, zeroconvert(self.armorvalue));

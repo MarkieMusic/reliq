@@ -679,7 +679,7 @@ special rules if the player is being healed:
 returns TRUE if healing successfully took place
 ============
 */
-float (entity e, float healamt, float overheal) T_Heal =
+float (entity e, float healamt, float overheal, float print) T_Heal =
 {
 	float hmax, hceil;
 	
@@ -710,14 +710,16 @@ float (entity e, float healamt, float overheal) T_Heal =
 			
 		e.health = e.health + healamt;
 
-		// moved here from healthtouch so any source of healing prints messages
-		sprint(e, "You were healed  \b+");
-		sprint(e, ftos(healamt));
-		sprint(e, "\b");
-		sprint(e, "\x88");
-		sprint(e, "\x89");
-		sprint(e, "\n");
-		stuffcmd (e, "bf\n");
+		if (print > 0) // reliq uses custom prints for several heals, so don't print the generic
+		{
+				// moved here from healthtouch so any source of healing prints messages
+			sprint(e, "You were healed  +");
+			sprint(e, ftos(healamt));
+			sprint(e, "\x88");
+			sprint(e, "\x89");
+			sprint(e, "\n");
+			stuffcmd (e, "bf\n");
+		}
 		return TRUE;
 	}
 

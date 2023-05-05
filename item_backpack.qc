@@ -110,7 +110,7 @@ void() BackpackTouch =
 	
 	// do this after because t_heal prints its own message
 	if (self.healamount)
-		T_Heal(other, self.healamount, 0);
+		T_Heal(other, self.healamount, 0, 1);
 
 	// regular monster backpacks don't make the AWESOME NEW backpack sound
 	if (self.classname == "item_backpack")
@@ -436,7 +436,7 @@ void() VampGlobeTouch =
 	else
 		sound(other, CHAN_ITEM, "items/vamppickup3.wav", 1, ATTN_NORM);
 
-	T_Heal(other,3,1);
+	T_Heal(other,3,1,0);
 	SUB_Remove();
 }
 

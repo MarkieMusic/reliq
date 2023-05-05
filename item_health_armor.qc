@@ -14,7 +14,7 @@ void() health_touch =
 {
 	if (!CheckValidTouch()) return;
 	
-	if (!T_Heal(other, self.healamount, (self.spawnflags & ITEM_HEALTH_MEGA)))
+	if (!T_Heal(other, self.healamount, (self.spawnflags & ITEM_HEALTH_MEGA), 1))
 		return;
 
 	// coop 1 megahealth brings all other clients up to 100
@@ -24,7 +24,7 @@ void() health_touch =
 		pl = get_next_client(other);
 		while (pl != other)
 		{
-			if (T_Heal(pl, 100, FALSE))
+			if (T_Heal(pl, 100, FALSE, 1))
 			{
 				sprint(pl, "You were restored by ");
 				sprint(pl, other.netname);

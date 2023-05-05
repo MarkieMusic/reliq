@@ -248,7 +248,7 @@ void() target_heal_do =
 		tgt = activator;
 		if ((self.spawnflags & 2) && tgt.classname != "player")
 			return; // player only
-		if (T_Heal(tgt, h, (self.spawnflags & 1)) && self.count > 0)
+		if (T_Heal(tgt, h, (self.spawnflags & 1), 1) && self.count > 0)
 			self.count -= h;
 		return;
 	}
@@ -256,25 +256,25 @@ void() target_heal_do =
 	if (self.target == string_null) return;
 	tgt = world; while(1) {
 		tgt = find(tgt,targetname,self.target); if (!tgt) break;
-		if (T_Heal(tgt, h, (self.spawnflags & 1)) && self.count > 0)
+		if (T_Heal(tgt, h, (self.spawnflags & 1), 1) && self.count > 0)
 			self.count -= h;
 	}
 	if (self.target2 == string_null) return;
 	tgt = world; while(1) {
 		tgt = find(tgt,targetname,self.target2); if (!tgt) break;
-		if (T_Heal(tgt, h, (self.spawnflags & 1)) && self.count > 0)
+		if (T_Heal(tgt, h, (self.spawnflags & 1), 1) && self.count > 0)
 			self.count -= h;
 	}	
 	if (self.target3 == string_null) return;
 	tgt = world; while(1) {
 		tgt = find(tgt,targetname,self.target3); if (!tgt) break;
-		if (T_Heal(tgt, h, (self.spawnflags & 1)) && self.count > 0)
+		if (T_Heal(tgt, h, (self.spawnflags & 1), 1) && self.count > 0)
 			self.count -= h;
 	}	
 	if (self.target4 == string_null) return;
 	tgt = world; while(1) {
 		tgt = find(tgt,targetname,self.target4); if (!tgt) break;
-		if (T_Heal(tgt, h, (self.spawnflags & 1)) && self.count > 0)
+		if (T_Heal(tgt, h, (self.spawnflags & 1), 1) && self.count > 0)
 			self.count -= h;
 	}
 }

@@ -778,7 +778,7 @@ void(float h) skill_adjust_health =
 		}
 		else if (p.health < p.max_health)
 		{
-			T_Heal(p, p.max_health - p.health, FALSE);
+			T_Heal(p, p.max_health - p.health, FALSE, 1);
 		}
 		p = nextent(p);
 	}
