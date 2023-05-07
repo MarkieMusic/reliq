@@ -275,7 +275,7 @@ void() large_die =
 void() monster_bigboy_spawn =
 {
 	self.classname = "monster_bigboy";
-		
+
 	self.solid = SOLID_SLIDEBOX;
 	//self.movetype = MOVETYPE_STEP;
 	setmodel (self, "progs/mon_bigboy.mdl");
@@ -292,7 +292,7 @@ void() monster_bigboy_spawn =
 	self.th_checkattack = CheckAttack;
 
 	if (self.deathtype == string_null)
-		self.deathtype = "was bonked by a Bigboy";
+		self.deathtype = "was annihilated by an Andre 3000";
 
 	walkmonster_start();	
 }
@@ -300,7 +300,7 @@ void() monster_bigboy_spawn =
 void() monster_bigboy_spawner = {mon_spawner_use(monster_bigboy_spawn);}
 
 /*QUAKED monster_bigboy (1 0 0) (-32 -32 -24) (32 32 64) AMBUSH ? ? ? TRIGGERED NOTFOG NOTELEFRAG INSTAWAKE
-Bigboy, 1200 health points.
+Andre 3000, 1200 health points.
 
 Flags:
 "ambush" only wake up on seeing the player, not another monster getting angry
@@ -316,7 +316,7 @@ Keys:
 "movedir" set to a velocity to make the monster jump on awakening
 */
 /*FGD
-@PointClass base(Monster) size(-32 -32 -24, 32 32 64) model({ "path": ":progs/mon_bigboy.mdl" }) = monster_bigboy : "Bigboy" []
+@PointClass base(Monster) size(-32 -32 -24, 32 32 64) model({ "path": ":progs/mon_bigboy.mdl" }) = monster_bigboy : "The G.O.A.T" []
 */
 void() monster_bigboy =
 {
