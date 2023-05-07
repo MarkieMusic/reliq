@@ -23,6 +23,7 @@ void() health_touch =
 		sprint(other, "\b25");
 		sprint(other, "\x90\x91");
 		sprint(other, "\n");
+		stuffcmd (other, "bf\n");
 	}
 	else if (self.healamount == 100)
 	{
@@ -30,6 +31,7 @@ void() health_touch =
 		sprint(other, "\b100");
 		sprint(other, "\x90\x91");
 		sprint(other, "\n");
+		stuffcmd (other, "bf\n");
 	}
 
 	// coop 1 megahealth brings all other clients up to 100
