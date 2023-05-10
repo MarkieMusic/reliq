@@ -2,34 +2,14 @@
 /*
 ==============================================================================
 
-TEN-TACLE
-Ten Tactical Tenties
+TENTACLE
 
 ==============================================================================
 */
 
-//      Tentacle teleport behavior:
-//      -when aggroed, travel to closest dest to player and attack
-//      -After 4 attacks, move to a new random dest and attack
-//      -After 4 attacks, move to closest dest to player and attack
-//      -Loop the 2 above indefinitely if uninterrupted
-//      -Stop attack if player breaks LOS
-//      -After 4 seconds of not attacking, travel to closest dest to player and attack
-//      -If player deals damage to tentacle and it doesn't die, travel to a random dest
-//      -Tentacle will not travel to a dest if it will teledrag monster or itself
-//      -Tentacle will gib on death to prevent weird corpse piles on singular dests
-//      -Tentacle dests should respect target_lock 
-//      -Tentacle falls asleep like tarbaby after a period of inactivity
-//      -When inactive, tentacle should be buried in ground invisible to player with no hitbox
-
 //ded
 //      - has two head gibs, one for the tip and one for the base
 //      - spits a big cluster of attacks that eventually home @ u
-
-//melee
-//      - when you get close, immediately (1-2frames) hits you and burrows away
-//      - has knockback too
-//      - decently heavy hit
 
 float TENT_BALL_TURN_RATE	= 192;
 float TENT_BALL_THINK_RATE	= 0.1;
@@ -354,7 +334,7 @@ void(float offset_side, float offset_up) TentMissile =
 	dir = dir + (v_up * offset_up) + (v_right * offset_side);
 	dir = normalize(dir);
 
-	missile = launch_projectile(self.origin + '0 0 32' + v_forward * 16, dir * TENT_BALL_VEL, "wizspike");
+	missile = launch_projectile(self.origin + '0 0 24' + v_forward * 16, dir * TENT_BALL_VEL, "wizspike");
 
 	SUB_ChangeModel (missile, "progs/w_spike.mdl");
 	missile.nextthink = time + 0.1;
@@ -389,7 +369,7 @@ void(float offset_side, float offset_up) TentMissileDed =
 	dir = dir + (v_up * offset_up) + (v_right * offset_side);
 	dir = normalize(dir);
 
-	missile = launch_projectile(self.origin + '0 0 32' + v_forward * 16, dir * 300, "wizspike");
+	missile = launch_projectile(self.origin + '0 0 24' + v_forward * 16, dir * 300, "wizspike");
 
 	SUB_ChangeModel (missile, "progs/w_spike.mdl");
 	missile.nextthink = time + 0.25;
