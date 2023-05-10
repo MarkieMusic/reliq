@@ -72,7 +72,7 @@ ambience/
   windfly.wav	the wind tunnel air sound
 */
 /*FGD
-@PointClass base(Ambient) color(150 0 150) = ambient_sound : "Custom ambient sound"
+@PointClass base(Ambient) color(150 0 150) model({ "path": ":progs/fgd/fgd_ambient.spr" }) = ambient_sound : "Custom ambient sound"
 [
 	noise(string) : "path to .wav"
 	volume(string) : "Volume" : "1"
@@ -100,7 +100,7 @@ good old suck wind
 "volume" loudness (0-1), distinct from distance
 */
 /*FGD
-@PointClass base(Ambient) color(150 0 150) = ambient_suck_wind : "Wind sound" [
+@PointClass base(Ambient) color(150 0 150) model({ "path": ":progs/fgd/fgd_ambient.spr" }) = ambient_suck_wind : "Wind sound" [
 	volume(string) : "Volume" : "1"
 ]
 */
@@ -121,7 +121,7 @@ more of a throb, really
 "volume" loudness (0-1), distinct from distance
 */
 /*FGD
-@PointClass base(Ambient) color(150 0 150) = ambient_drone : "Engine/machinery sound" [
+@PointClass base(Ambient) color(150 0 150) model({ "path": ":progs/fgd/fgd_ambient.spr" }) = ambient_drone : "Engine/machinery sound" [
 	volume(string) : "Volume" : "0.55"
 ]
 */
@@ -142,7 +142,7 @@ zaps and sparks
 "volume" loudness (0-1), distinct from distance
 */
 /*FGD
-@PointClass base(Ambient) color(150 0 150) = ambient_flouro_buzz : "Fluorescent buzzing sound" [
+@PointClass base(Ambient) color(150 0 150) model({ "path": ":progs/fgd/fgd_ambient.spr" }) = ambient_flouro_buzz : "Fluorescent buzzing sound" [
 	volume(string) : "Volume" : "1"
 ]
 */
@@ -162,7 +162,7 @@ drip drip
 "volume" loudness (0-1), distinct from distance
 */
 /*FGD
-@PointClass base(Ambient) color(150 0 150) = ambient_drip : "Dripping sound" [
+@PointClass base(Ambient) color(150 0 150) model({ "path": ":progs/fgd/fgd_ambient.spr" }) = ambient_drip : "Dripping sound" [
 	volume(string) : "Volume" : "0.75"
 ]
 */
@@ -182,7 +182,7 @@ bleeps and bloops
 "volume" loudness (0-1), distinct from distance
 */
 /*FGD
-@PointClass base(Ambient) color(150 0 150) = ambient_comp_hum : "Computer background sounds" [
+@PointClass base(Ambient) color(150 0 150) model({ "path": ":progs/fgd/fgd_ambient.spr" }) = ambient_comp_hum : "Computer background sounds" [
 	volume(string) : "Volume" : "1"
 ]
 */
@@ -202,7 +202,7 @@ what
 "volume" loudness (0-1), distinct from distance
 */
 /*FGD
-@PointClass base(Ambient) color(150 0 150) = ambient_thunder : "Thunder sound" [
+@PointClass base(Ambient) color(150 0 150) model({ "path": ":progs/fgd/fgd_ambient.spr" }) = ambient_thunder : "Thunder sound" [
 	volume(string) : "Volume" : "0.5"
 ]
 */
@@ -222,7 +222,7 @@ gentle lamp hum
 "volume" loudness (0-1), distinct from distance
 */
 /*FGD
-@PointClass base(Ambient) color(150 0 150) = ambient_light_buzz : "Buzzing sound from light" [
+@PointClass base(Ambient) color(150 0 150) model({ "path": ":progs/fgd/fgd_ambient.spr" }) = ambient_light_buzz : "Buzzing sound from light" [
 	volume(string) : "Volume" : "0.85"
 ]
 */
@@ -242,7 +242,7 @@ swamp
 "volume" loudness (0-1), distinct from distance
 */
 /*FGD
-@PointClass base(Ambient) color(150 0 150) = ambient_swamp1 : "Frogs croaking" [
+@PointClass base(Ambient) color(150 0 150) model({ "path": ":progs/fgd/fgd_ambient.spr" }) = ambient_swamp1 : "Frogs croaking" [
 	volume(string) : "Volume" : "0.75"
 ]
 */
@@ -262,7 +262,7 @@ same as swamp1
 "volume" loudness (0-1), distinct from distance
 */
 /*FGD
-@PointClass base(Ambient) color(150 0 150) = ambient_swamp2 : "Frogs croaking B" [
+@PointClass base(Ambient) color(150 0 150) model({ "path": ":progs/fgd/fgd_ambient.spr" }) = ambient_swamp2 : "Frogs croaking B" [
 	volume(string) : "Volume" : "0.5"
 ]
 */
@@ -368,7 +368,7 @@ Spawnflags:
 "ON_PLAYER"	use activating player as source of sound
 */
 /*FGD
-@PointClass base(Ambient, Targetname) color(150 0 150) = target_sound : "Custom triggered sound. Will play one sound every time it is triggered.
+@PointClass base(Ambient, Targetname) color(150 0 150) model({ "path": ":progs/fgd/fgd_sound.spr" }) = target_sound : "Custom triggered sound. Will play one sound every time it is triggered.
 You can set up to five sounds on this entity to cycle through in order (or shuffle, with the 'random' spawnflag). They will not cut each other off, so triggering this entity more frequently than the length of the sounds will overlap them."
 [
 	noise(string) : "path to .wav"

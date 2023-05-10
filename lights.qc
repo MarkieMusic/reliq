@@ -33,7 +33,7 @@ string light_off = "a";
 
 
 /*FGD
-@baseclass base() color(255 255 80) size(-8 -8 -8, 8 8 8) = Light [
+@baseclass base() color(255 255 80) model({ "path": ":progs/fgd/fgd_light.spr" }) size(-8 -8 -8, 8 8 8) = Light [
 	light(integer) : "Brightness" : 300
 	_color(string) : "Color" : "1 1 1"
 	wait(string) : "Fade distance multiplier" : "1"
@@ -343,7 +343,7 @@ Keys:
 "message"	override the style string directly for the assigned style (clashes will overwrite each other)
 */
 /*FGD
-@PointClass base(LightTriggerable) = light_fluoro : "Humming fluorescent light source" []
+@PointClass model({ "path": ":progs/fgd/fgd_lightfluoro.spr" }) base(LightTriggerable) = light_fluoro : "Humming fluorescent light source" []
 */
 void() light_fluoro =
 {
@@ -394,7 +394,7 @@ Keys:
 "message"	override the style string directly for the assigned style (clashes will overwrite each other)
 */
 /*FGD
-@PointClass base(Light) = light_fluorospark : "Sparking flickering light source" []
+@PointClass model({ "path": ":progs/fgd/fgd_lightfluorospark.spr" }) base(Light) = light_fluorospark : "Sparking flickering light source" []
 */
 void() light_fluorospark =
 {
@@ -439,7 +439,7 @@ Keys:
 "message"	override the style string directly for the assigned style (clashes will overwrite each other)
 */
 /*FGD
-@PointClass base(Light) size(24 24 24) = light_globe : "Globe light" []
+@PointClass base(Light) model({ "path": ":progs/s_light.spr" }) size(24 24 24) = light_globe : "Globe light" []
 */
 void() light_globe =
 {
@@ -930,7 +930,7 @@ Setting style to -1 will override lightstyle 0, which is all static lights in th
 "delay" pause between trigger and activation
 */
 /*FGD
-@PointClass base(Appearflags, Targetname, Target) color(128 210 128) = target_lightstyle : 
+@PointClass base(Appearflags, Targetname, Target) color(128 210 128) model({ "path": ":progs/fgd/fgd_lightstyle.spr" }) = target_lightstyle : 
 "Target : Lightstyle
 Changes a global lightstyle when triggered."
 [

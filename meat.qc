@@ -230,7 +230,7 @@ Keys
 "size" random location of bursts within bounds of this size
 */
 /*FGD
-@PointClass base(Appearflags, Targetname) size(32 32 32) color(180 0 50) = target_meat_fireworks : "trigger for meat"
+@PointClass base(Appearflags, Targetname) model({ "path": ":progs/fgd/fgd_meat.spr" }) color(180 0 50) = target_meat_fireworks : "trigger for meat"
 [
 	count(integer) : "Repeat meat" : 1
 	delay(string) : "Delay before first meat" : "0"

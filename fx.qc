@@ -328,7 +328,7 @@ void() particlefield_use =
 	distance(integer) : "Sleep if all players are further than this distance"
 ]
 
-@Pointclass base(Targetname, Appearflags, Bounds, Particlefield) size(16 16 16) = misc_particlefield_box : 
+@Pointclass base(Targetname, Appearflags, Bounds, Particlefield) model({ "path": ":progs/fgd/fgd_particlefield.spr" }) size(16 16 16) = misc_particlefield_box : 
 "Makes dots appear continuously within its bounds. Trigger to toggle on/off." []
 
 @Solidclass base(Targetname, Appearflags, Particlefield) = misc_particlefield : 
@@ -600,7 +600,7 @@ Keys
 "distance" Fade the intensity to 0 at this distance from the entity. Default is 0 (global).
 */
 /*FGD
-@Pointclass base(Targetname, Appearflags) color(0 128 224) size(16 16 16) = target_screenshake : 
+@Pointclass base(Targetname, Appearflags) color(0 128 224) model({ "path": ":progs/fgd/fgd_screenshake.spr" }) = target_screenshake : 
 "Shakes the screen. Jostles the view of all clients, but doesn't physically move their bounding boxes or apply velocities.
 Total shake duration is length + delay + wait." 
 [
@@ -724,7 +724,7 @@ Keys
 "size" explode somewhere randomly chosen within a box of this size
 */
 /*FGD
-@Pointclass base(Targetname, Appearflags, Deathtype) color(0 128 224) size(16 16 16) = target_explosion : 
+@Pointclass base(Targetname, Appearflags, Deathtype) model({ "path": ":progs/fgd/fgd_explosion.spr" }) color(0 128 224) size(16 16 16) = target_explosion : 
 "Causes one or more explosions when triggered, same appearance as a rocket/grenade blast." 
 [
 	spawnflags(flags) = [
@@ -796,7 +796,7 @@ Keys
 "size" Flash somewhere randomly chosen within a box of this size
 */
 /*FGD
-@Pointclass base(Targetname, Appearflags) color(0 128 224) size(16 16 16) = target_telefog : 
+@Pointclass base(Targetname, Appearflags) color(0 128 224) model({ "path": ":progs/fgd/fgd_telefog.spr" }) = target_telefog : 
 "Causes a flash of teleport fog." 
 [
 	count(integer) : "Repeat count" : 1
@@ -982,7 +982,7 @@ air bubble emitter. always bubbles. trigger to toggle on or off. check BURST to 
 "distance" don't emit bubbles if no players are closer than this distance, default 1024
 */
 /*FGD
-@PointClass base(Appearflags, Targetname) color(0 150 220) = air_bubbles : "Air bubble emitter." 
+@PointClass base(Appearflags, Targetname) color(0 150 220) model({ "path": ":progs/fgd/fgd_bubbleemitter.spr" }) = air_bubbles : "Air bubble emitter." 
 [
 	spawnflags(flags) = [
 		1 : "Start off" : 0

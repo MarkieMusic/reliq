@@ -828,7 +828,7 @@ Keys:
 "speed" tell a visiting func_train to change its speed. If a path_corner's speed is -1, the func_train's move when LEAVING that corner will be to snap instantly to the next corner.
 */
 /*FGD
-@PointClass base(Appearflags, Targetname, Target, Angle) size(16 16 16) color(128 80 0) = 
+@PointClass model({ "path": ":progs/fgd/fgd_pathcorner.spr" }) base(Appearflags, Targetname, Target, Angle) size(16 16 16) color(128 80 0) = 
 	path_corner : 
 "Waypoint for platforms and monsters. Will stop here for good if no path_corner is targeted by this entity.
 Monsters who wait here will turn to face 'angle'."

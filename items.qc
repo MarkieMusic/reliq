@@ -412,7 +412,7 @@ void() target_drop_use =
 Causes all targeted items which are SUSPENDED to drop when triggered.
 */
 /*FGD
-@PointClass base(Appearflags, Target, Targetname) size(32 32 32) color(192 64 0) = target_drop : 
+@PointClass base(Appearflags, Target, Targetname) model({ "path": ":progs/fgd/fgd_drop.spr" }) size(16 16 16) color(192 64 0) = target_drop : 
 "Target Drop. Causes all targeted items which are suspended to drop when triggered." []
 */
 void() target_drop =
@@ -876,7 +876,7 @@ Item Bitmask Reference:
 	Quad	= 4194304
 */
 /*FGD
-@PointClass base(Appearflags, Target, Targetname, TrigItems, Deathtype) size(32 32 32) color(192 64 0) = target_items : 
+@PointClass base(Appearflags, Target, Targetname, TrigItems, Deathtype) model({ "path": ":progs/fgd/fgd_items.spr" }) size(16 16 16) color(192 64 0) = target_items : 
 "Target: Give. Adds weapons, ammo, items, health, armor, and/or runes to the activating player when triggered.
 
 Spawnflag Usage:

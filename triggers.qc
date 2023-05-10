@@ -444,7 +444,7 @@ Keys:
 "wait" delay between triggerings (default: 0.2) (NOTE: wait -1 with all_clients will not work like you think.)
 */
 /*FGD
-@PointClass base(TriggerMulti, Bounds) = trigger_multiple_box : "Trigger multiple. Variable sized repeatable trigger.
+@PointClass base(TriggerMulti, Bounds) model({ "path": ":progs/fgd/fgd_boxmultiple.spr" }) = trigger_multiple_box : "Trigger multiple. Variable sized repeatable trigger.
 Must be targeted at one or more entities.
 
 Quoth2-style edict-saving bounding box trigger: define size with 'size', and the trigger volume will be that size centered on the trigger's origin.
@@ -542,7 +542,7 @@ Keys:
 "targetname"  entity name
 */
 /*FGD
-@PointClass base(TriggerMulti, Bounds) = trigger_once_box : "Trigger multiple. Variable sized trigger.
+@PointClass base(TriggerMulti, Bounds)  model({ "path": ":progs/fgd/fgd_boxonce.spr" }) = trigger_once_box : "Trigger multiple. Variable sized trigger.
 Must be targeted at one or more entities. Wait is always -1: removes itself after one use.
 
 Quoth2-style edict-saving bounding box trigger: define size with 'size', and the trigger volume will be that size centered on the trigger's origin.
@@ -661,7 +661,7 @@ Keys:
 "noise"	choose your own .wav
 */
 /*FGD
-@PointClass base(Secret, Targetname) color(160 0 160) = target_secret : "Secret counter trigger.  Player gets a secret credit when triggered.  Note when using a target_secret: if triggered by touching an item, and the item can't be picked up (because of health/armor/ammo limits already being met, etc), it won't fire its targets and thus the target_secret won't give credit. Use a trigger in that case.
+@PointClass base(Secret, Targetname) model({ "path": ":progs/fgd/fgd_secret.spr" }) color(160 0 160) = target_secret : "Secret counter trigger.  Player gets a secret credit when triggered.  Note when using a target_secret: if triggered by touching an item, and the item can't be picked up (because of health/armor/ammo limits already being met, etc), it won't fire its targets and thus the target_secret won't give credit. Use a trigger in that case.
 
 Set the 'supersecret' spawnflag to hide its existence in the total until it's found. Think very carefully if you actually want to use this." []
 */
@@ -734,7 +734,7 @@ Flags:
 "trigger_first" won't be touchable until triggered once by something else
 */
 /*FGD
-@PointClass base(Trigger, Secret, Bounds) = trigger_secret_box : "Trigger : Secret
+@PointClass base(Trigger, Secret, Bounds) model({ "path": ":progs/fgd/fgd_boxsecret.spr" }) = trigger_secret_box : "Trigger : Secret
 Counts as a secret, trigger to give credit" []
 */
 void() trigger_secret_box =
@@ -827,7 +827,7 @@ Keys:
     3 = nightmare
 */
 /*FGD
-@PointClass base(Setskill, Targetname) color(160 0 160) = target_setskill : "Target: Set Skill" []
+@PointClass base(Setskill, Targetname) model({ "path": ":progs/fgd/fgd_setskill.spr" }) color(160 0 160) = target_setskill : "Target: Set Skill" []
 */
 void() target_setskill =
 {
@@ -1026,7 +1026,7 @@ Flags:
 "no_monsters" trigger will only hurt players
 */
 /*FGD
-@PointClass base(Hurt,Bounds) = trigger_hurt_box : "Trigger: Hurt. Any creature touching this will be damaged.
+@PointClass base(Hurt,Bounds) model({ "path": ":progs/fgd/fgd_boxhurt.spr" }) = trigger_hurt_box : "Trigger: Hurt. Any creature touching this will be damaged.
 Quoth2-style edict-saving bounding box trigger: define size with 'size', and the trigger volume will be that size centered on the trigger's origin.
 Resist the urge to put a tiny one of these on every light_flame." []
 */
@@ -1332,7 +1332,7 @@ Keys:
 "exclude" exclude this classname of monster, or monsters with this targetname, no matter what
 */
 /*FGD
-@PointClass base(Monsterjump, Bounds) = trigger_monsterjump_box : "Trigger: Monster jump. Monsters that touch this will 'jump' in the direction of the trigger's angle, if they meet its conditions.
+@PointClass base(Monsterjump, Bounds) model({ "path": ":progs/fgd/fgd_boxmonsterjump.spr" }) = trigger_monsterjump_box : "Trigger: Monster jump. Monsters that touch this will 'jump' in the direction of the trigger's angle, if they meet its conditions.
 
 Use the 'Only if target in front'/'below' spawnflags to prevent monsters from being thrown off of ledges away from the player after the player has climbed up there. 
 

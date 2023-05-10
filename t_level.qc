@@ -470,7 +470,7 @@ Keys:
 "message" ONE page of intermission text to display
 */
 /*FGD
-@PointClass base(Appearflags, Targetname, ChangeLevel) color(160 0 160) size(32 32 32) = target_changelevel : "Target: Change level.
+@PointClass base(Appearflags, Targetname, ChangeLevel) color(160 0 160) size(16 16 16) model({ "path": ":progs/fgd/fgd_changelevel.spr" }) = target_changelevel : "Target: Change level.
 When this is triggered, the player is sent to the map listed in the 'map' variable. The view will go to the info_intermission spot and display stats."
 []
 */
@@ -495,7 +495,7 @@ Keys:
 
 */
 /*FGD
-@PointClass size(16 16 16) color(192 64 64) base(Fog, Appearflags) = info_intermission : "Intermission camera" 
+@PointClass model({ "path": ":progs/fgd/fgd_intermission.spr" }) color(192 64 64) base(Fog, Appearflags) = info_intermission : "Intermission camera" 
 [
 	angles(string) : "Camera angle (Pitch Yaw Roll, positive pitch down)"
 	mangle(string) : "Camera angle (Pitch Yaw Roll, positive pitch down)"

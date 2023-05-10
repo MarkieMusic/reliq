@@ -129,7 +129,7 @@ When triggered, fires a spike in the direction set by "angle".
 "speed" override launch velocity for grenades only (laser and nail speed is standardized for the player's sake)
 */
 /*FGD
-@PointClass base(Shooter) = trap_spikeshooter : "Triggered shooter. Trigger to fire one shot." []
+@PointClass base(Shooter) model({ "path": ":progs/fgd/fgd_trapspikeshooter.spr" }) = trap_spikeshooter : "Triggered shooter. Trigger to fire one shot." []
 */
 void() trap_spikeshooter =
 {
@@ -161,7 +161,7 @@ Laser is only for REGISTERED. YOU PAY FOR LASER
 "speed" override launch velocity for grenades only (laser and nail speed is standardized for the player's sake)
 */
 /*FGD
-@PointClass base(Shooter) = trap_shooter : "Continuous shooter. Trigger to turn on and off."
+@PointClass base(Shooter) model({ "path": ":progs/fgd/fgd_trapshooter.spr" }) = trap_shooter : "Continuous shooter. Trigger to turn on and off."
 [
 	delay(string) : "Delay before first shot, so multiple shooters can be staggered"
 	wait(string) : "Interval between shots"
@@ -425,7 +425,7 @@ AT_ACTIVATOR	Ignore target and fire at whatever activated it if LOS is not broke
 	3 - fat anti-Chthon beam, death to touch, can hurt Chthons and Shubs
 */
 /*FGD
-@PointClass base(Appearflags, Target, Targetname, Angle) color(220 150 150) = trap_lightning : "Lightning shooter. Trigger to turn on, trigger again to turn off. Fires 10 times per second, unless 'One-shot' spawnflag is checked.
+@PointClass base(Appearflags, Target, Targetname, Angle) model({ "path": ":progs/fgd/fgd_traplightning.spr" }) color(220 150 150) = trap_lightning : "Lightning shooter. Trigger to turn on, trigger again to turn off. Fires 10 times per second, unless 'One-shot' spawnflag is checked.
 
 You can choose from three power levels, set by selecting 'strength':
 1: 10dmg/100dps. Does not penetrate targets. Uses thin LG beam. One-shot lasts 0.1 seconds. Default.

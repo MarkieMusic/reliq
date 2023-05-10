@@ -811,7 +811,7 @@ Keys:
 "targetname" entity name (required)
 */
 /*FGD
-@PointClass base(Trigger, Teleport, Bounds) = trigger_teleport_box : "Trigger: Teleporter.
+@PointClass base(Trigger, Teleport, Bounds) model({ "path": ":progs/fgd/fgd_boxteleport.spr" }) = trigger_teleport_box : "Trigger: Teleporter.
 Any object touching this will be transported to the corresponding info_teleport_destination entity.
 
 Quoth2-style edict-saving bounding box trigger: define bounds size with 'size' - trigger volume will be centered on the trigger's origin.

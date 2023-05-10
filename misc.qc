@@ -38,7 +38,7 @@ void() info_notnull =
 "_external_map_scale"		Scale factor for the prefab, defaults to 1. Either specify a single value or three scales, "x y z".
 */
 /*FGD
-@PointClass color(160 180 200) = misc_external_map : "Put another map in your map" [
+@PointClass model({ "path": ":progs/fgd/fgd_externalmap.spr" }) color(160 180 200) = misc_external_map : "Put another map in your map" [
 	_external_map(string) : "Filename of .map to import"
 	_external_map_classname(string) : "Classname to turn imported worldspawn into"
 	_external_map_angles(string) : "Rotation (pitch yaw roll, negative pitch is up)"
@@ -320,7 +320,7 @@ Keyvalues:
   "max_health" if auto, never set count to heal *target* above this much
 */
 /*FGD
-@Pointclass base(Target, Targetname, Appearflags) color(192 64 0) size(32 32 32) = target_heal : "Target : Heal.
+@Pointclass base(Target, Targetname, Appearflags) model({ "path": ":progs/fgd/fgd_heal.spr" }) color(192 64 0) size(16 16 16) = target_heal : "Target : Heal.
 Heals activator for 'healamount' when triggered. Use for healing pools, first aid dispensers, etc.
 If it has any targets, it heals them instead, even doors and buttons. This will not reset 'dead' doors or buttons with a wait of -1.
 
@@ -420,7 +420,7 @@ void() target_kill_use =
 Kills ALL of its targets (1-4) as well as killtargets when triggered. for targets you really don't like.
 */
 /*FGD
-@Pointclass base(Target, Targetname, Appearflags) color(192 64 0) size(16 16 16) = target_kill : 
+@Pointclass base(Target, Targetname, Appearflags) color(192 64 0) size(16 16 16) model({ "path": ":progs/fgd/fgd_kill.spr" }) = target_kill : 
 "Removes all targets when triggered. for targets you really don't like." []
 */
 void() target_kill =
@@ -495,7 +495,7 @@ Keys:
 "message" change save file name, defaults to 'auto'
 */
 /*FGD
-@Pointclass base(Targetname, Appearflags) color(255 0 128) size(32 32 32) = target_autosave : 
+@Pointclass base(Targetname, Appearflags) color(255 0 128) size(16 16 16) model({ "path": ":progs/fgd/fgd_autosave.spr" }) = target_autosave : 
 "Saves the game when triggered by a player. Never appears in multiplayer. 
 the bprint tends to stomp any other prints on screen in most quake clients, so use a delayed trigger_relay if you fire this from an important pickup/trigger_counter/something else that puts text on screen more important than the autosave blurb." 
 [
@@ -597,7 +597,7 @@ BURST fires "delay" seconds after being triggered
 EXPLODE blow up on contact, does 'dmg' damage (default 20)
 */
 /*FGD
-@PointClass size(16 16 16) color(160 80 0) base(Appearflags, Targetname) model({ "path": ":progs/lavaball.mdl" }) = misc_fireball : "Lavaball Launcher. 
+@PointClass size(16 16 16) color(160 80 0) base(Appearflags, Targetname) model({ "path": ":progs/fgd/fgd_fireball.spr" }) = misc_fireball : "Lavaball Launcher. 
 Fires randomly. Trigger to toggle on/off." 
 [
 	spawnflags(flags) = [
@@ -695,7 +695,7 @@ many prints in a row).
 SILENT: Don't play the beep wav when triggered.
 */
 /*FGD
-@PointClass color(128 128 128) size(16 16 16) base(Appearflags, Targetname, Target) = target_multiprint : 
+@PointClass color(128 128 128) model({ "path": ":progs/fgd/fgd_multiprint.spr" }) base(Appearflags, Targetname, Target) = target_multiprint : 
 "Target : Multiprint
 This entity will print a different string every time it's triggered.  Prints 'message', 'noise', 'noise1', 'noise2', 'noise3', then 'noise4.'  Once all strings are used up, it will fire its targets instead (so several of these can be chained if you really need that 
 many prints in a row)."
