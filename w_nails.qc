@@ -38,12 +38,9 @@ vector(vector fwd, float spread) W_SpikeDir =
 
 void() W_FireNailgun =
 {
-	vector offset, v, org, dir;
-	// remember sv_aim
-	dir = aim( self, AUTOAIM_DIST );
-	v = vectoangles( dir );
-	v_x *= -1;	// pitch comes back inverted from vectoangles :|
-	makevectors( v );
+	vector offset, org, dir;
+	makevectors(self.v_angle);
+	dir = aim(self, AUTOAIM_DIST);
 
 	self.punchangle_x = -1;
 	sound (self, CHAN_WEAPON, "weapons/rocket1i.wav", 1, ATTN_NORM);
