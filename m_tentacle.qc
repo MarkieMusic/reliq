@@ -210,7 +210,7 @@ entity() tentacle_findteleports =
 	while(head)
 	{
 	if ((head.classname != "badtentdest")
-	&& (self.include == head.targetname)
+	&& ((self.include == head.targetname) || (self.include2 == head.targetname))
 	&& (self.buddy != head)
 	&& !BoundsTouching(self.absmin, self.absmax, head.absmin, head.absmax, 2)
 	&& (random() > .5))
@@ -443,7 +443,7 @@ void() monster_tentacle_spawn =
 	self.distance = 1024;
 
 	if (self.deathtype == string_null)
-		self.deathtype = "was F%@&'ed by a Tentacle";
+		self.deathtype = "tangled with a Tentacle";
 		
 	//self.think = walkmonster_start;
 	//self.nextthink = time + 0.1 + random ()*0.1;	
@@ -471,6 +471,7 @@ Flags:
 
 Keys:
 "include" set to a info_tentacle_teleport to make him teleport to a point after being hurt
+"include2" extra info_tentacle_teleport locations for lock/unlock shenanigans. Requires the 'include' key to be filled
 "target" entity to trigger when killed
 "targetname" entity name
 "movedir" set to a velocity to make the monster jump on awakening

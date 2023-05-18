@@ -401,6 +401,7 @@ string	keyType;
 .float svflags = jump_flag;	// for target_give and item_sigil
 .vector fadecolor = fog_color;	// for func_void fadeout
 .string	include = wad;		// for monsterjump filters
+.string	include2 = wad;		// for extra filters
 .string exclude = map;
 .float light_lev = bubble_count;	// shuts up a stupid stupid warning
 .vector rmovedir = finaldest;
