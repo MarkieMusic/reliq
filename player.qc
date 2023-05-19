@@ -100,9 +100,13 @@ void()	player_run =[	$rockrun1,	player_run	]
 	}
 
 	if ((self.walkframe == 2 || self.walkframe == 5) && 
-		self.flags & FL_ONGROUND) {
-		self.cnt = fabs(self.velocity_x + self.velocity_y);
-		if (self.cnt > 50) play_footstep();
+		self.flags & FL_ONGROUND) 
+	{
+		vector spdcheck;
+		spdcheck = (self.velocity);
+		spdcheck_z = 0;
+		if ( vlen (spdcheck) > 50)
+		play_footstep();
 	}
 
 	self.walkframe = self.walkframe + 1;
